@@ -13,6 +13,7 @@
 			<property name="hibernate.cache.use_second_level_cache" value="true" />
 			<property name="hibernate.connection.release_mode" value="on_close" />
 			<property name="hibernate.max_fetch_depth" value="10" />
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			
 			<!-- Used to avoid "createClob() method" error working with c3p0 DataSource -->
 			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />

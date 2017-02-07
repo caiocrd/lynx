@@ -36,9 +36,17 @@
     <bean id="movimentacaoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Movimentacao"/>
     </bean>
+    
+    <bean id="movimentacaoSiepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.MovimentacaoSiep"/>
+    </bean>
 
     <bean id="ocorrenciaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Ocorrencia" />
+    </bean>
+    
+    <bean id="ocorrenciaSiepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.OcorrenciaSiep" />
     </bean>
 
     <bean id="posteDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
@@ -55,6 +63,10 @@
 
     <bean id="ripDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Rip" />
+    </bean>
+    
+    <bean id="siepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Siep" />
     </bean>
    
     <bean id="roleDAO"
@@ -122,8 +134,26 @@
 		</property>
 	</bean>
 
+	<bean id="movimentacaoSiepService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="movimentacaoSiepDAO" />
+		<property name="aliases">
+			<util:map id="movementSiepAlias">
+				<entry key="siep" value="s" />
+				<entry key="s.endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+				<entry key="usuario" value="u" />
+			</util:map>
+		</property>
+	</bean>
+
 	<bean id="ocorrenciaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="ocorrenciaDAO" />
+	</bean>
+	
+	<bean id="ocorrenciaSiepService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="ocorrenciaSiepDAO" />
 	</bean>
 	
 	<bean id="posteService" class="br.com.csl.utils.data.impl.DataServiceImpl">
@@ -157,6 +187,18 @@
 	
 	<bean id="roleService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="roleDAO" />
+	</bean>
+	
+	<bean id="siepService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="siepDAO" />
+		<property name="aliases">
+			<util:map id="siepAlias">
+				<entry key="endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+			</util:map>
+		</property>
 	</bean>
 	
 	<bean id="servicoService" class="br.com.csl.utils.data.impl.DataServiceImpl">
@@ -208,14 +250,29 @@
 		<property name="dataService" ref="ripService"/>
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
+	
+	<bean id="siepDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="siepService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
 
 	<bean id="ocorrenciaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="ocorrenciaService"/>
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
+	
+	<bean id="ocorrenciaSiepDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="ocorrenciaSiepService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
 
 	<bean id="movimentacaoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="movimentacaoService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
+	<bean id="movimentacaoSiepDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="movimentacaoSiepService"/>
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
 

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ol>
+		<li>
+			
+			<p:outputPanel id="enderecoPartI">
+			<div style="float: left; width: 76%;">
+					<br/>
+					<p:outputPanel id="enderecosPanel" style="float: right;">
+					<p:commandButton id="endBtn" rendered="#{(not empty enderecoHandler.logradouroNome) and (not empty enderecoHandler.bairroNome)}" icon="ui-icon-note" type="button" style="margin-left: 5px;" />
+						
+					<p:overlayPanel id="enderecoPanel" for="endBtn" hideEffect="fade" dynamic="false" width="300">
+						<f:event listener="#{enderecoHandler.loadEnderecos}" type="preRenderView" />  
+			        	<p:dataTable selection="#{enderecoHandler.endereco}" selectionMode="single" id="table" var="endereco" 
+			        		value="#{enderecoHandler.enderecoDataModel}" rows="5" paginator="true" pageLinks="3"
+			        		emptyMessage="Sem Endereços Cadastrados"
+			        		lazy="true" rendered="#{(not empty enderecoHandler.logradouroNome) and (not empty enderecoHandler.bairroNome)}"
+			        		style="width: 100%; text-align: center;">
+			          		
+							<p:ajax event="rowSelect" listener="#{enderecoHandler.selectEndereco}"
+								update="#{(enderecoAjaxUpdate ne null)? enderecoAjaxUpdate : ':dataForm :newForm:enderecoPartI :newForm:enderecoPartII'}" />
+			          		
+			          		<f:facet name="header">
+								<h:outputText value="CEPs" />
+							</f:facet>
+							
+			            	<p:column headerText="CEP">  
+			                	<h:outputText value="#{(endereco.cep == '')? 'Sem CEP' : endereco.cep}" />  
+			            	</p:column>
+
+			        	</p:dataTable>  
+			    	</p:overlayPanel>
+				</p:outputPanel>
+			</div>
+			<div style="float: right; width: 12%;">
+				<small><b><p:outputLabel for="cep" value="CEP:" style="padding-left: 6px;"/></b></small>
+				<br />
+				<p:inputMask 
+					id="cep"
+					mask="99999-999"
+					value="#{enderecoHandler.cep}"
+					style="width: 90%; float: right;">
+					
+					
+					<p:ajax listener="#{enderecoHandler.searchCep}" update="#{(enderecoAjaxUpdate ne null)? enderecoAjaxUpdate : ':dataForm :newForm:enderecoPartI :newForm:enderecoPartII'}" />
+						
+				</p:inputMask>
+			</div>
+			</p:outputPanel>
+		</li>
+		<p:outputPanel id="enderecoPartII">
+		<li>
+			<div style="float: left; width: 85%;">
+				<small><b><p:outputLabel for="logradouro" value="Logradouro:" style="padding-left: 6px;"/></b></small>
+				<br />			
+				<p:autoComplete 
+					id="logradouro"
+					value="#{enderecoHandler.logradouroNome}"
+					dropdown="false"
+					completeMethod="#{enderecoHandler.loadLogradouros}"
+					required="true" 
+					forceSelection="true"
+					requiredMessage="Insira o logradouro">
+					
+					<p:ajax event="itemSelect"
+						listener="#{enderecoHandler.selectLogradouro}"
+						update="#{(enderecoAjaxUpdate ne null)? enderecoAjaxUpdate : ':dataForm :newForm:enderecoPartI :newForm:enderecoPartII'}" />
+				</p:autoComplete>
+			</div>
+			<div style="float: right; width: 12%;">
+				<small><b><p:outputLabel for="zona" value="Zona:" style="padding-left: 6px;"/></b></small>
+				<br />		
+				<p:selectOneMenu value="#{enderecoHandler.zonaNome}" id="zona"
+					style="width: 100%; float: right;">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{enderecoHandler.zonas}" var="zona"
+						itemLabel="#{zona.label}" itemValue="#{zona}" />
+					<p:ajax event="change" listener="#{enderecoHandler.selectZona}"
+						update="#{(enderecoAjaxUpdate ne null)? enderecoAjaxUpdate : ':dataForm :newForm:enderecoPartI :newForm:enderecoPartII'}" />
+				</p:selectOneMenu>			
+			</div>
+		</li>
+		
+		<li>
+			<div style="float: left; width: 49%;">
+				<small><b><p:outputLabel for="bairro" value="Bairro:" style="padding-left: 6px;"/></b></small>
+				<br />		
+					
+				<p:selectOneMenu id="bairro"
+					value="#{enderecoHandler.bairroNome}" required="true"
+					requiredMessage="Selecione o bairro."
+					style="width: 100%;" >
+					
+					<p:ajax event="change" 
+						listener="#{enderecoHandler.selectBairro}"
+						update="#{(enderecoAjaxUpdate ne null)? enderecoAjaxUpdate : ':dataForm :newForm:enderecoPartI :newForm:enderecoPartII'}" />
+					
+					<f:selectItems 
+						value="#{enderecoHandler.specificBairros}"
+						var="bairro" 
+						itemValue="#{bairro.nome}"
+						itemLabel="#{bairro.nome}" />
+					
+					<f:selectItem itemLabel="" itemValue="" />
+					
+					<f:selectItems 
+						value="#{enderecoHandler.bairros}" 
+						var="bairro"
+						itemValue="#{bairro.nome}" 
+						itemLabel="#{bairro.nome}" />
+				</p:selectOneMenu>			
+			</div>
+			<div style="float: right; width: 49%;">
+				<small><b><p:outputLabel for="conjunto" value="Conjunto:" style="padding-left: 6px;"/></b></small>
+				<br />					
+				<p:selectOneMenu id="conjunto"
+					value="#{enderecoHandler.conjuntoNome}"
+					filter="true" filterMatchMode="contains"
+					style="width: 100%; float: right;">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItems value="#{enderecoHandler.conjuntos}"
+						var="conjunto" itemValue="#{conjunto.nome}"
+						itemLabel="#{conjunto.nome}" />
+					<p:ajax event="change"
+						listener="#{enderecoHandler.selectConjunto}"
+						update="#{(enderecoAjaxUpdate ne null)? enderecoAjaxUpdate : ':dataForm :newForm:enderecoPartI :newForm:enderecoPartII'}" />
+				</p:selectOneMenu>			
+			</div>
+		</li>
+		<li>
+			<div style="padding-right: 10px;">
+				<small><b><p:outputLabel for="referencia" value="Referência:" style="padding-left: 6px;"/></b></small>
+				<br />	
+				<p:inputText
+					id="referencia" 
+					value="#{posteController.poste.referencia}" 
+					required="true" 
+					requiredMessage="Insira a referência." 
+					style="width: 100%;"/>
+			</div>
+		</li>
+		<li>
+			<p:outputPanel id="mapa">
+				<br/>
+				<small>
+					<b>
+						<p:commandLink
+							onclick="mapDialog.show()" 
+							value="Visualizar Mapa" 
+							rendered="#{(not empty enderecoHandler.logradouroNome) and (not empty enderecoHandler.bairroNome)}" 
+							process="@this" 
+							style="float: right;"/>
+					</b>							
+				</small>
+				<p:dialog modal="true" widgetVar="mapDialog" header="Mapa" resizable="false" draggable="false" closable="true" zoom="17">
+					<m:map partiallyTriggered="true" address="#{enderecoHandler.logradouroNome} #{enderecoHandler.bairroNome} Natal RN Brazil"
+						autoReshape="true" rendered="#{(not empty enderecoHandler.logradouroNome) and (not empty enderecoHandler.bairroNome)}" width="400px" height="350px">
+						<m:marker />
+					</m:map>
+				</p:dialog>
+			</p:outputPanel>
+		</li>
+		</p:outputPanel>
+	</ol>
+</ui:composition>
+
+				

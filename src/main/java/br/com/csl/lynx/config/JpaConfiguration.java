@@ -23,7 +23,7 @@ public class JpaConfiguration {
 		
 		dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/lynx");
 		dataSource.setUser("root");
-		dataSource.setPassword("");
+		dataSource.setPassword("12345");
 		return dataSource;
 	}
 	

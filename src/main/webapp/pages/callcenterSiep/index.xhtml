@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenter.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="content">
+		<h:form>
+			<sec:authorize access="hasRole('CALLCENTER')">
+				<p:dataTable value="#{callCenterHomeSiepController.latestReverseSieps}" var="siep" rows="6" 
+					emptyMessage="Sem Sieps Para Estorno." style="text-align: center;">
+	
+					<f:facet name="header">
+						<h:outputText value="SIEPs Para Possível Estorno" />
+					</f:facet>
+	
+					<p:column headerText="Nº da SIEP" style="width: 106px;">
+						<h:outputText value="#{siep.id}" />
+					</p:column>
+					
+					<p:column headerText="Nº do Poste" style="width: 106px;">
+						<h:outputText value="#{siep.poste.numero}" />
+					</p:column>
+					
+					<p:column headerText="Logradouro">
+						<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+					</p:column>
+					
+					<p:column headerText="Bairro">
+						<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+					</p:column>
+					
+					<p:column headerText="Reclamação">
+						<h:outputText value="#{siep.tipoReclamacao.label}" />
+					</p:column>
+	
+					<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+				</p:dataTable>		
+				<br />
+			</sec:authorize>
+			<p:dataTable value="#{callCenterHomeSiepController.latestOpenSieps}" var="siep" rows="6" 
+				emptyMessage="Sem Sieps Cadastradas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas SIEPs Cadastradas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{siep.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{siep.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+			<br />
+			
+			
+			<p:dataTable value="#{callCenterHomeSiepController.latestEndedSieps}" var="siep" rows="6" 
+				emptyMessage="Sem Sieps Finalizadas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas SIEPs Finalizadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{siep.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{siep.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

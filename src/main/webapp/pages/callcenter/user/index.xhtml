@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+	template="/WEB-INF/templates/callcenter.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:param name="controller" value="#{atendenteController}" />
+	<ui:define name="content">
+		
+		<ui:decorate template="/WEB-INF/views/elements/userTable.xhtml" />
+
+		<h:form id="newUserForm">
+			<p:panel style="margin-top: 10px;">
+				<ui:decorate template="/WEB-INF/views/elements/userFieldset.xhtml" />
+				
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+						
+					<p:commandButton
+						value="Salvar"
+						action="#{controller.saveUser}" 
+						process="@form"
+						update=":userForm :newUserForm"
+						style="width: 200px;" icon="ui-icon-check"/>
+						
+					<p:commandButton
+						value="Cancelar"
+						action="#{controller.clear}" 
+						process="@this"
+						update=":userForm :newUserForm"
+						style="width: 200px;" icon="ui-icon-close"/>
+					
+				</p:panelGrid>
+				
+			</p:panel>
+			
+		</h:form>
+
+	</ui:define>
+	
+</ui:composition>

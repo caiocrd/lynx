@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<context:annotation-config />
+	<context:component-scan base-package="/br/com/csl/lynx" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<bean id="bairroDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Bairro"/>
+    </bean>
+	 
+	 <bean id="conjuntoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Conjunto" />
+    </bean>
+    
+    <bean id="enderecoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Endereco"/>
+    </bean>
+    
+    <bean id="logradouroDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Logradouro"/>
+    </bean>
+
+    <bean id="movimentacaoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Movimentacao"/>
+    </bean>
+
+    <bean id="ocorrenciaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Ocorrencia" />
+    </bean>
+
+    <bean id="posteDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Poste" />
+    </bean>
+
+    <bean id="logradouroBairroDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.LogradouroBairro" />
+    </bean>
+
+    <bean id="qtdServicoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServico" />
+    </bean>
+
+    <bean id="ripDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Rip" />
+    </bean>
+   
+    <bean id="roleDAO"
+    	class="br.com.csl.utils.data.impl.DataAccessImpl"
+    	scope="singleton">
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Role" />
+    </bean>
+
+    <bean id="servicoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Servico" />
+    </bean>
+ 
+    <bean id="usuarioDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Usuario" />
+    </bean>
+    
+    <bean id="usersRolesDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.UsersRole" />
+    </bean>
+
+	<bean id="bairroService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="bairroDAO" />
+	</bean>
+	
+	<bean id="conjuntoService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="conjuntoDAO" />
+		<property name="aliases">
+			<util:map id="conjuntoAlias">
+				<entry key="bairro" value="bairro" />
+			</util:map>
+		</property>
+	</bean>	
+	
+	<bean id="enderecoService" class="br.com.csl.lynx.facade.EnderecoFacadeImpl">
+		<property name="DAO" ref="enderecoDAO" />
+		<property name="aliases">
+			<util:map id="enderecoAlias">
+				<entry key="fk.bairro" value="bairro" />
+				<entry key="fk.logradouro" value="logradouro" />
+				<entry key="conjunto" value="conjunto" />
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="logradouroBairroService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="logradouroBairroDAO" />
+	</bean>
+	
+	<bean id="logradouroService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="logradouroDAO" />
+	</bean>
+	
+	<bean id="movimentacaoService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="movimentacaoDAO" />
+		<property name="aliases">
+			<util:map id="movementAlias">
+				<entry key="rip" value="r" />
+				<entry key="r.endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+				<entry key="r.poste" value="p" />
+				<entry key="usuario" value="u" />
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="ocorrenciaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="ocorrenciaDAO" />
+	</bean>
+	
+	<bean id="posteService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="posteDAO" />
+		<property name="aliases">
+			<util:map id="posteAlias">
+				<entry key="endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="qtdServicoService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="qtdServicoDAO" />
+	</bean>
+	
+	<bean id="ripService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="ripDAO" />
+		<property name="aliases">
+			<util:map id="ripAlias">
+				<entry key="endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+				<entry key="poste" value="p"/>
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="roleService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="roleDAO" />
+	</bean>
+	
+	<bean id="servicoService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="servicoDAO" />
+	</bean>
+	
+	<bean id="usersRolesService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="usersRolesDAO" />
+		<property name="aliases">
+			<util:map id="usersRolesAlias">
+				<entry key="role" value="r" />
+				<entry key="usuario" value="u" />
+			</util:map>
+		</property>				
+	</bean>
+	
+	<bean id="bairroDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="bairroService" />
+		<property name="idClass" value="java.lang.Integer" />
+	</bean>
+	
+	<bean id="conjuntoDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="conjuntoService" />
+		<property name="idClass" value="java.lang.Integer" />
+	</bean>
+	
+	<bean id="enderecoDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="enderecoService" />
+		<property name="idClass" value="java.lang.Integer" />
+	</bean>
+	
+	<bean id="logradouroDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="logradouroService" />
+		<property name="idClass" value="java.lang.Integer" />
+	</bean>
+
+	<bean id="posteDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="posteService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+
+	<bean id="ripDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="ripService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+
+	<bean id="ocorrenciaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="ocorrenciaService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+
+	<bean id="movimentacaoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="movimentacaoService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+
+	<bean id="qtdServicoDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="qtdServicoService" />
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+
+	<bean id="servicoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="servicoService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+
+	<bean id="usuarioDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="usuarioService"/>
+		<property name="idClass" value="java.lang.Integer" />
+	</bean>
+	
+	<bean id="usersRolesDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="usersRolesService"/>
+		<property name="idClass" value="br.com.csl.lynx.model.UsersRolePK" />
+	</bean>
+	
+	<sec:global-method-security pre-post-annotations="enabled" />
+    
+    <sec:http auto-config="true" use-expressions="true" access-denied-page="/pages/index.jsf" disable-url-rewriting="true">
+    
+     	 <sec:intercept-url pattern="/pages/*" access="isAuthenticated()"/>
+     	 <sec:intercept-url pattern="/pages/callcenter/*" access="hasAnyRole('CALLCENTER','ATENDENTE')"/>
+     	 <sec:intercept-url pattern="/pages/callcenter/open/*" access="hasAnyRole('CALLCENTER','ATENDENTE')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/cancel/*" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/endereco/**" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/poste/*" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/relatorios/*" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/reverse/*" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/search/*" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/user/*" access="hasRole('CALLCENTER')"/>
+     	 <sec:intercept-url pattern="/pages/direcao/**" access="hasRole('DIRECAO')"/>
+     	 <sec:intercept-url pattern="/pages/prestadora/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/prestadora/execute/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/prestadora/receive/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/prestadora/adequate/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/prestadora/user/*" access="hasRole('PRESTADORA')"/>
+     	 <sec:intercept-url pattern="/pages/callcenter/relatorios/*" access="hasRole('CALLCENTER')"/>
+     	 <sec:intercept-url pattern="/pages/regiao/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
+     	 <sec:intercept-url pattern="/pages/regiao/evaluate/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
+     	 <sec:intercept-url pattern="/pages/regiao/feedback/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
+     	 <sec:intercept-url pattern="/pages/regiao/relatorios/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
+     	 <sec:intercept-url pattern="/pages/regiao/user/*" access="hasRole('REGIAO')"/>
+     	 <sec:intercept-url pattern="/fotos/**" access="isAuthenticated()"/>
+    
+        <sec:form-login login-page="/index.jsf" default-target-url="/pages/index.jsf" always-use-default-target="false" />
+        <sec:logout logout-success-url="/index.jsf" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
+        
+        <sec:remember-me key="#8GL5mCcwr#L" />
+        
+        <sec:session-management>
+    		<sec:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/index.jsf" />
+  		</sec:session-management>
+    </sec:http>
+    
+    
+    <sec:authentication-manager>
+        <sec:authentication-provider ref="authProvider"/>
+    </sec:authentication-manager>
+
+</beans>

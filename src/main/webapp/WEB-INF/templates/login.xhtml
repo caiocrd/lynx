@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><ui:insert name="pageTitle">Lynx</ui:insert></title>
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css"
+		type="text/css" rel="stylesheet" />
+	<ui:insert name="header" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+</h:head>
+
+<h:body>
+	<p:growl id="messages" showDetail="true" autoUpdate="true" />
+	<pe:ajaxErrorHandler 
+		type="javax.faces.application.ViewExpiredException" 
+		button="Atualizar"
+    	buttonOnclick="document.location.href=document.location.href;"  
+        body="Página expirada por inatividade, por favor aperte ATUALIZAR para continuar." 
+        title="Página Expirada..." />
+
+	<pe:ajaxErrorHandler 
+		type="java.lang.NullPointerException" 
+		button="Atualizar"  
+    	buttonOnclick="document.location.href=document.location.href;"  
+        body="Ocorreu um erro durante o processamento. Atualize para continuar" 
+        title="Erro..."/>
+        
+	<div id="tudo">
+	<div id="tudo-login">
+		<div id="cabecalho-login">
+			<img
+				src="#{facesContext.externalContext.requestContextPath}/resources/img/logomarca.png" />
+		</div>
+		<div id="conteudo-login" class="ui-corner-all">
+			<ui:insert name="content" />
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	</div>
+	<div id="rodape">
+		CSL TEAM 2013
+	</div>
+</h:body>
+
+</html>

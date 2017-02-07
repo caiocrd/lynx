@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+
+	<p:panelGrid id="userFieldset" style="width:100%;">
+
+		<p:row>
+			
+			<p:column colspan="3">
+				<small><strong><p:outputLabel for="nome" value="Nome:" style="padding-left: 6px;"/></strong></small>
+				<br />
+				
+				<p:inputText 
+					id="nome"
+					value="#{controller.user.nome}"
+					required="true" 
+					style="width: 100%;"/>
+			</p:column>
+		
+		</p:row>
+
+		<p:row>
+		
+			<p:column>
+				<small><strong><p:outputLabel for="username" value="Nome de usuário:" style="padding-left: 6px;"/></strong></small>
+				<br />
+										
+				<p:inputText
+					id="username"
+					value="#{controller.user.username}"
+					style="width: 100%;"
+					required="true" />
+			</p:column>
+		
+			<p:column>
+				<small><strong><p:outputLabel for="password" value="Senha:" style="padding-left: 6px;"/></strong></small>
+				<br />
+										
+				<p:password
+					id="password"
+					value="#{controller.pass}"
+					style="width: 100%;"
+					feedback="true"
+					promptLabel="Insira a senha"
+					weakLabel="Senha fraca" 
+					goodLabel="Senha boa"
+					strongLabel="Senha forte"								
+					required="#{controller.user.id eq null}" />
+			</p:column>
+		
+			<p:column>
+				<small><strong><p:outputLabel for="pwdConf" value="Repita a senha:" style="padding-left: 6px;"/></strong></small>
+				<br />
+										
+				<p:password
+					id="pwdConf"
+					value="#{controller.confPass}"
+					style="width: 100%;"
+					feedback="true"
+					promptLabel="Confirme a senha"
+					weakLabel="Senha fraca" 
+					goodLabel="Senha boa"
+					strongLabel="Senha forte"								
+					required="#{controller.user.id eq null}" />
+			</p:column>
+		
+		</p:row>
+
+		<p:row>
+		
+			<p:column colspan="2">
+				<small><strong><p:outputLabel for="email" value="E-mail:" style="padding-left: 6px;"/></strong></small>
+				<br />
+										
+				<p:inputText 
+					id="email"
+					value="#{controller.user.email}"
+					validatorMessage="Informe um email válido"
+					style="width: 100%"
+					required="true">
+					
+					<f:validateRegex
+						pattern="(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
+						
+				</p:inputText>
+			</p:column>
+		
+			<p:column>
+				<small><strong><p:outputLabel for="telefone" value="Telefone:" style="padding-left: 6px;"/></strong></small>
+				<br />
+										
+				<p:inputMask 
+					id="telefone"  
+					value="#{controller.user.telefone}"
+					mask="(99) 9999-9999"
+					style="width: 100%" />
+			</p:column>
+		
+		</p:row>
+		
+	</p:panelGrid>
+	
+</ui:composition>

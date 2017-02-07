@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/executor.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{executorHomeController.expired}" var="rip" rows="6" 
+				emptyMessage="Sem RIPs vencidas." style="text-align: center;" rowStyleClass="expired-rip">
+
+				<f:facet name="header">
+					<h:outputText value="RIPs Vencidas" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorHomeController.expired)} de um total de #{executorHomeController.totalExpired} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorHomeController.toExpire}" var="rip" rows="6" 
+				emptyMessage="Sem RIPs vencendo hoje." style="text-align: center;" rowStyleClass="to-expire-rip">
+
+				<f:facet name="header">
+					<h:outputText value="RIPs Vencendo Hoje" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorHomeController.toExpire)} de um total de #{executorHomeController.totalToExpire} entradas.</small></f:facet>
+			</p:dataTable>
+			
+			<br />
+			<p:dataTable value="#{executorHomeController.toReceive}" var="rip" rows="6" 
+				emptyMessage="Sem RIPs Para Receber." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="RIPs Aguardando Recebimento" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorHomeController.toReceive)} de um total de #{executorHomeController.totalToReceive} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorHomeController.toAdequate}" var="rip" rows="6" 
+				emptyMessage="Sem RIPs para Adequação." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="RIPs Para Adequação" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorHomeController.toAdequate)} de um total de #{executorHomeController.totalToAdequate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorHomeController.inExecution}" var="rip" rows="6" 
+				emptyMessage="Sem RIPs em Execução" style="text-align: center;"
+				paginator="false" sortMode="multiple">
+
+				<f:facet name="header">
+					<h:outputText value="RIPs Em Execução" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorHomeController.inExecution)} de um total de #{executorHomeController.totalInExecution} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

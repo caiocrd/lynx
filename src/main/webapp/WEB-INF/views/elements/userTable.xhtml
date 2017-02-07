@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<!-- ####################################### -->
+	<!-- #   Tabela de usuários cadastrados.   # -->
+	<!-- ####################################### -->	
+
+	<h:form 
+		id="#{(userDataFormId ne null)? userDataFormId : 'userForm'}">
+
+		<p:dataTable 
+			id="tabelaUsers"
+			value="#{controller.usersRolesDataModel}"
+			lazy="true"
+			rows="5"
+			paginator="true" 
+			var="ur"
+			emptyMessage="Nenhum usuário cadastrado."
+			style="width: 100%; text-align: center;  margin-top: 10px;">
+			
+			<f:facet name="header">
+				<h:outputText value="#{(userTableHeader ne null)? userTableHeader : 'Usuários'}" />
+			</f:facet>
+
+			<p:column headerText="Nome">
+				<h:outputText value="#{ur.usuario.nome}" />
+			</p:column>
+
+			<p:column headerText="Apelido">
+				<h:outputText value="#{ur.usuario.username}" />
+			</p:column>
+
+			<p:column headerText="Permissões">
+				<p:dataList  value="#{ur.usuario.roles}" var="role" emptyMessage="Sem permissões" >
+					<h:outputText value="#{enumLists.permissionLabel(role.name)}"/>
+				</p:dataList>
+			</p:column>
+
+			<p:column headerText="Ações" style="width: 25%">
+				<ui:insert name="editBtn">
+					<p:commandButton 
+						value="Editar"
+						icon="ui-icon-pencil"
+						process="@this"
+						update=":newUserForm"
+						disabled="#{(fn:length(ur.usuario.roles) gt 1) or
+						(userSession.user.id eq ur.usuario.id) or (ur.usuario.username eq 'admin')}">
+					
+						<f:setPropertyActionListener target="#{controller.user}" value="#{ur.usuario}" />
+						
+					</p:commandButton>
+				</ui:insert>
+				
+				<p:commandButton 
+					value="Remover"
+					icon="ui-icon-minusthick"
+					action="#{controller.remove(ur.usuario)}"
+					process="@this"
+					update="tabelaUsers"
+					disabled="#{userSession.user.id == ur.usuario.id || ur.usuario.username eq 'admin'}">
+					
+					<p:confirm header="Confirmação" message="Deseja remover o usuário?" icon="ui-icon-alert" />
+					
+				</p:commandButton>
+			</p:column>
+
+		</p:dataTable>
+
+	</h:form>
+	
+</ui:composition>

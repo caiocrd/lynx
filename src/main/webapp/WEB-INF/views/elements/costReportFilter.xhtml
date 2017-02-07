@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<o:importFunctions type="br.com.csl.lynx.utils.CalendarUtil" var="cUtil" />
+	
+	<h:form 
+		id="#{(filterFormId ne null)? filterFormId : 'filterForm'}"
+		rendered="#{(showFilterForm ne null)? showFilterForm : 'true'}">
+
+		<p:panel id="tableFilter" style="margin-bottom: 10px;">
+		
+			<p:panelGrid style="width: 100%">
+						
+				<p:row>
+					<p:column style="width: 33%;">
+						<br />
+						<p:selectCheckboxMenu value="#{controller.zonas}" id="zona" style="width: 100%; height: 23px; text-align: center;" panelStyle="width: 250px" label="Selecione as Zonas">
+							<f:selectItems value="#{enumLists.zonas}" var="zona"
+								itemLabel="#{zona.label}" itemValue="#{zona}" />								
+						</p:selectCheckboxMenu>
+					</p:column>
+		
+					<p:column style="width: 33%;">
+						<br />
+						<p:selectCheckboxMenu id="bairro" value="#{controller.bairros}" style="width: 100%; height: 23px; text-align: center;" panelStyle="width: 250px" filter="true" filterMatchMode="contains" label="Selecione os Bairros">
+							
+							<f:selectItems value="#{enderecoHandler.bairros}" var="bairro"
+								itemValue="#{bairro.nome}" itemLabel="#{bairro.nome}" />
+						</p:selectCheckboxMenu>
+					</p:column>
+		
+					<p:column>
+						<br />
+						<p:selectCheckboxMenu id="conjunto"	value="#{controller.conjuntos}" style="width: 100%;height: 23px; text-align: center;" panelStyle="width: 250px" filter="true" filterMatchMode="contains" label="Selecione os Conjuntos">
+
+							<f:selectItems value="#{enderecoHandler.conjuntos}"
+								var="conjunto" itemValue="#{conjunto.nome}"
+								itemLabel="#{conjunto.nome}" />
+						</p:selectCheckboxMenu>								
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="text-align: center; width: 33%;">
+						<div style="padding-bottom: 3px">
+							<small><strong><p:outputLabel value="Buscar no intervalo de:" /></strong></small>
+							<br/>	
+							<p:inputMask id="dataInicio" mask="99/99/9999" style="width: 102px; text-align: center;"
+								value="#{controller.dataInicio}">
+								
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+							</p:inputMask>
+							<strong><h:outputText value=" ~ "/></strong>		
+							<p:inputMask id="dataFim" mask="99/99/9999" style="width: 102px; text-align: center;"
+								value="#{controller.dataFim}">
+								
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+									
+							</p:inputMask>
+						</div>															
+					</p:column>	
+					<p:column>
+						<small><strong><p:outputLabel value="Reclamação:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:selectOneMenu id="problema"
+							value="#{controller.problema}" style="width: 100%;">
+								
+							<f:selectItem itemLabel="" itemValue="" />
+							
+							<f:selectItems value="#{enumLists.problems}" var="problems"
+									itemLabel="#{problems.label}" itemValue="#{problems}" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<small><strong><p:outputLabel value="Prioridade:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:selectOneMenu id="prioridade"
+							value="#{controller.prioridade}" style="width: 100%;">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="0" itemValue="0" />
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+						</p:selectOneMenu>
+					</p:column>				
+				</p:row>												
+			</p:panelGrid>
+			
+			<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;">
+				<p:row>
+					<p:column>
+						<p:commandButton id="searchRips" value="Pesquisar"
+							action="#{controller.prepareReport}" update="#{filterUpdates}" style="width: 120px;" icon="ui-icon-search" 
+							process=":filterForm"/>
+					</p:column>
+					<p:column>										
+						<p:commandButton value="Limpar" onclick="form.reset()"
+							action="#{controller.clear}" process="@this"
+							update="@form #{filterUpdates}" style="width: 120px;" icon="ui-icon-close" />
+					</p:column>
+					<p:column>	
+						<div style="width: 150px; padding-bottom: 10px;">
+							<b><small><p:outputLabel value="Reemitir relatório do dia:" style="padding-left: 6px;" /></small></b>
+							<br />
+							<p:selectOneMenu id="oldReport"
+								value="#{controller.oldReport}" style="width: 110px; text-align: left;">
+								
+								<f:selectItem itemLabel="" itemValue="" />
+							
+								<f:selectItems value="#{controller.oldReports}" var="oldReport"
+									itemLabel="#{cUtil:dateToString(oldReport)}" itemValue="#{oldReport}" />
+								
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+								
+							</p:selectOneMenu>
+					
+							<p:commandButton id="fetchReport" style="float: right; height: 25px;"
+								action="#{controller.fetchOldReports}" update="#{filterUpdates}" icon="ui-icon-search" 
+								process=":filterForm"/>
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>	
+		</p:panel>
+	</h:form>
+	
+</ui:composition>
+
+				

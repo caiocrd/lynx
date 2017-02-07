@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<!-- ##################################### -->
+	<!-- #   Tabela de postes cadastrados.   # -->
+	<!-- ##################################### -->	
+
+	<h:form 
+		id="#{(posteDataFormId ne null)? posteDataFormId : 'posteDataForm'}" 
+		rendered="#{(showPosteTable ne null)? showPosteTable : 'true'}">
+
+		<f:event listener="#{posteController.doFilter}" type="preRenderView" />
+
+		<p:dataTable 
+			id="posteTable" 
+			value="#{posteController.posteDataModel}"
+			var="poste"
+			rows="5" 
+			lazy="true"
+			paginator="true"
+			emptyMessage="Nenhum poste encontrado."
+			sortMode="multiple"
+			selectionMode="single"
+			selection="#{posteController.selection}" 
+			style="width: 100%; text-align: center;">
+			
+			<ui:insert name="posteAjax"/>
+
+			<f:facet name="header">
+				<h:outputText value="Postes Cadastrados" />
+			</f:facet>
+
+			<p:column headerText="Nº BTO" sortBy="#{poste.numero}" filterBy="numero">
+				<h:outputText value="#{poste.numero}" />
+			</p:column>
+
+			<p:column headerText="Região" filterMatchMode="contains"
+				sortBy="#{poste.bairro.zona}">
+				<h:outputText
+					value="#{poste.endereco.bairro.zona.label}" />
+			</p:column>
+
+			<p:column headerText="Bairro" filterMatchMode="contains"
+				sortBy="#{poste.bairro.nome}" style="white-space:pre-line;">
+				<h:outputText value="#{poste.endereco.bairro.nome}" />
+			</p:column>
+
+			<p:column headerText="Logradouro" filterMatchMode="contains"
+				sortBy="#{poste.logradouro.nome}" style="white-space:pre-line;">
+				<h:outputText value="#{poste.endereco.logradouro.nome}" />
+			</p:column>
+
+			<f:facet name="footer">
+				<small>
+					<ui:insert name="footerText">
+						Selecione uma linha para entrar em modo de edição.
+					</ui:insert>
+				</small>
+			</f:facet>
+
+		</p:dataTable>
+
+	</h:form>
+	
+</ui:composition>

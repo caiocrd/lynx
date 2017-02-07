@@ -1,0 +1,112 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:decorate template="/WEB-INF/templates/manager.xhtml">
+
+	<ui:define name="content">
+	
+		<h:form id="dataForm">
+		
+			<p:dataTable 
+				id="tableServicos"
+				value="#{servicoController.servicoDataModel}"
+				var="servico"
+				rows="7"
+				paginator="true"
+				lazy="true"
+				emptyMessage="Nenhum serviço cadastrado."
+				sortMode="multiple"
+				style="width: 100%; text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Serviços Cadastrados" />
+				</f:facet>
+
+				<p:column headerText="Serviço" filterBy="#{servico.nome}" 
+					filterMatchMode="contains" sortBy="#{servico.nome}">
+					<h:outputText value="#{servico.nome}" />
+				</p:column>
+				
+				<p:column headerText="Descrição" style="white-space:pre-line; text-align: justify;">
+					<h:outputText value="#{servico.descricao}" />
+				</p:column>				
+
+				<p:column headerText="Valor" sortBy="#{servico.valor}">
+					<h:outputText value="#{servico.valor}">	
+						<f:convertNumber currencySymbol="R$" type="currency"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Ação" width="180">
+				
+					<p:commandButton value="Editar" icon="ui-icon-pencil" update=":newForm">
+						<f:setPropertyActionListener target="#{servicoController.servico}" value="#{servico}" />
+					</p:commandButton>
+							
+					<p:commandButton value="Excluir" icon="ui-icon-minusthick" actionListener="#{servicoController.remove(servico)}" update="@form">
+						<p:confirm header="Confirmação" message="Deseja excluir o serviço?" icon="ui-icon-alert" />
+					</p:commandButton>				
+	
+				</p:column>
+
+			</p:dataTable>
+			
+		</h:form>	
+
+	
+		<h:form id="newForm">
+			<p:panel style="margin-top: 10px;">
+				
+				<p:panelGrid style="width: 100%">
+					<p:row>
+						<p:column style="width: 85%">
+							<div style="padding-right: 8px; padding-bottom: 3px;">
+								<small><b><p:outputLabel for="nome" value="Nome:" style="padding-left: 6px;" /></b></small>
+								<br />
+								<p:inputText id="nome" style="width: 100%" required="true" requiredMessage="Insira o nome do serviço." value="#{servicoController.servico.nome}" />
+							</div>
+						</p:column>
+						
+						<p:column style="width: 15%">
+							<div style="padding-right: 10px; padding-bottom: 3px;">
+								<small><b><p:outputLabel for="valor" value="Valor:" style="padding-left: 6px;" /></b></small>
+								<br />
+								<pe:inputNumber id="valor" style="width: 100%" value="#{servicoController.servico.valor}" symbol="R$"
+									required="true" requiredMessage="Insira o valor do serviço." decimalSeparator="," decimalPlaces="2" thousandSeparator="." />
+							</div>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="2">
+							<div style="padding-right: 10px; padding-bottom: 3px;">
+								<small><b><p:outputLabel for="descricao" value="Descrição:" style="padding-left: 6px;" /></b></small>
+								<br />
+								<p:inputTextarea id="descricao" autoResize="false" maxlength="255"
+									value="#{servicoController.servico.descricao}" style="width: 100%;" required="true"
+									requiredMessage="Insira a descrição do serviço." />
+							</div>						
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+					<p:commandButton value="Salvar" update="@form :dataForm" action="#{servicoController.save}" 
+						style="width: 200px;" icon="ui-icon-check" />
+						
+					<p:commandButton value="Cancelar" update="@form :dataForm" process="@this" action="#{servicoController.clear}" onclick="form.reset()" 
+					style="width: 200px;" icon="ui-icon-close" />
+											
+				</p:panelGrid>
+				
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:decorate>
+</html>

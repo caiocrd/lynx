@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<p:fileUpload 
+		fileUploadListener="#{controller.upload}" 
+		invalidFileMessage="Arquivo inválido"
+		invalidSizeMessage="Arquivo muito grande. Utilize um programa para dimunuir a qualidade da foto e configure sua câmera."
+		mode="advanced"
+		multiple="true"
+		auto="true" 
+		label="Enviar Fotos" 
+		fileLimit="5"
+		sizeLimit="200000000"
+		allowTypes="/(\.|\/)(jpe?g)$/"
+		previewWidth="50"
+		style="margin-top: 10px;"
+		update="fotoPanel">
+	</p:fileUpload>
+	
+	<div style="text-align: center;">
+		<small>
+			<b><h:outputText value="Cada foto enviada deve ter no máximo 200Kb e ser do tipo .JPG" /></b>
+		</small>
+	</div>
+		
+		
+	<p:outputPanel id="fotoPanel" style="min-height: 100%;" >
+		<p:panel rendered="#{fotoHandler.movFolder ne null}" style="text-align: center; margin-top: 10px; margin-left: auto; margin-right: auto;">
+			<p:commandButton type="button" onclick="PF('switcher').previous();" global="false"  
+	       		icon="ui-icon-circle-triangle-w" style="float: left;" rendered="#{fn:length(fotoHandler.fotos) gt 1}"/>  
+			<p:commandButton type="button" onclick="PF('switcher').next();" global="false" 
+	           	icon="ui-icon-circle-triangle-e" style="float: right;" rendered="#{fn:length(fotoHandler.fotos) gt 1}"/>
+	              	
+			<p:imageSwitch widgetVar="switcher" effect="fade" style="margin-left: auto; margin-right: auto;">  
+	   			<ui:repeat value="#{fotoHandler.fotos}" var="image">  
+		      		<p:graphicImage value="#{imageServlet.image}" style="max-height: 313px; max-width: 500px" >
+		      			<f:param name="path" value="#{image}" />
+		      		</p:graphicImage> 
+	   			</ui:repeat>  
+			</p:imageSwitch>
+		
+		</p:panel>
+	</p:outputPanel>
+	
+</ui:composition>
+
+				

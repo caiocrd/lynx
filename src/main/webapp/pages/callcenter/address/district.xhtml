@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/callcenter.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="dataForm">
+			<p:dataTable id="tableBairro" var="bairro" rows="7" lazy="true"
+				value="#{bairroController.bairroDataModel}" paginator="true"
+				emptyMessage="Nenhum bairro cadastrado."
+				sortMode="multiple" style="width: 100%; text-align: center;"
+				selection="#{bairroController.selection}" selectionMode="single">
+
+				<p:ajax event="rowSelect" listener="#{bairroController.select}" update=":dataForm :newForm" />
+
+				<f:facet name="header">
+					<h:outputText value="Bairros Cadastrados" />
+				</f:facet>
+
+				<p:column headerText="Bairro" filterBy="#{bairro.nome}"
+					filterMatchMode="contains">
+					<h:outputText value="#{bairro.nome}" />
+				</p:column>
+
+				<p:column headerText="Zona" filterMatchMode="contains"
+					sortBy="#{bairro.zona}">
+					<h:outputText
+						value="#{bairro.zona.label}" />
+				</p:column>
+
+				<p:column headerText="Ação" width="20">
+					
+					<p:commandButton value="Excluir" icon="ui-icon-minusthick" actionListener="#{bairroController.remove(bairro)}" update="@form">
+						<p:confirm header="Confirmação" message="Deseja excluir o bairro?" icon="ui-icon-alert" />
+					</p:commandButton>				
+	
+				</p:column>
+
+				<f:facet name="footer">
+					<small><h:outputText value="Selecione uma linha para entrar em modo de edição."/></small>
+				</f:facet>
+			</p:dataTable>
+			
+		</h:form>
+	
+		<h:form id="newForm">
+			<p:panel header="Cadastrar Bairro" style="margin-top: 10px;">
+				
+				<p:panelGrid style="width: 100%">
+					<p:row>
+						<p:column style="width: 85%">
+							<div style="padding-right: 8px; padding-bottom: 3px;">
+								<small><b><p:outputLabel for="nome" value="Nome:" style="padding-left: 6px;" /></b></small>
+								<br />
+								<p:inputText id="nome" required="true" requiredMessage="Insira o nome do bairro." value="#{bairroController.bairro.nome}" style="width: 100%" />
+							</div>
+						</p:column>
+						
+						<p:column style="width: 15%">
+							<small><b><p:outputLabel for="zona" value="Zona:" style="padding-left: 6px;" /></b></small>
+							<br />
+							<p:selectOneMenu id="zona" value="#{bairroController.bairro.zona}" required="true">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{enderecoHandler.zonas}" var="zona"
+									itemLabel="#{zona.label}" itemValue="#{zona}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+					
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+					
+					<p:commandButton value="Salvar" update="@form :dataForm" action="#{bairroController.save}" 
+					style="width: 200px;" icon="ui-icon-check" />
+					<p:commandButton value="Cancelar" update="@form :dataForm" process="@this" action="#{bairroController.clear}" onclick="form.reset()" 
+					style="width: 200px;" icon="ui-icon-close" />
+				
+				</p:panelGrid>
+				
+			</p:panel>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

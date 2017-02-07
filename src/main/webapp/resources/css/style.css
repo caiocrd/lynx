@@ -1,0 +1,197 @@
+@CHARSET "UTF-8";
+
+body{
+	margin:0px;
+	padding:0px;
+	background-image: url("../img/bg_body.png");
+	border-top: solid 8px #2779aa; 
+	font-size: 11px!important;
+}
+
+table.tabela_top tbody tr{
+	vertical-align: top!important;
+}
+
+#tudo{
+	position:relative;
+	width: auto;
+	max-width:880px;
+	margin:0px auto;
+	clear: both;
+}
+
+#cabecalho{
+	padding: 20px 0px;
+}
+
+#cabecalho .logo{
+	height: 140px;
+}
+
+#tudo-login{
+	padding: 40px 0px;
+	width: 612px;
+	margin: 0px auto;
+}
+
+#cabecalho-login{
+	text-align:center;
+	float: left;
+	margin-right: 50px;
+}
+
+#conteudo-login{
+	margin-top: 25px;
+	vertical-align: middle;
+	float: left;
+	padding:15px;
+	width:240px;
+	background-color: #fff;
+	min-height:100px;
+}
+
+#rodape{
+	width: 100%;
+	text-align: center;
+	background-color: #2779aa; 
+	color:#fff;
+	padding: 10px 0px;
+}
+
+#conteudo{
+	position: relative;
+	background-color: #fff;
+	margin-top: 10px;
+	padding: 10px;
+	margin-bottom: 40px;
+	min-height:200px;
+}
+
+#voltar{
+	width:100%;
+	bottom: 0px; 
+	position: absolute;
+	text-align: center;
+}
+
+#usuario{
+	text-align: right;
+	font-size: 14px;
+}
+
+.label{
+	
+	color: #2779aa; 
+}
+
+.coluna-pequena{
+	width: 30px;
+}
+
+.login-button{
+	padding: 6px 10px;	
+}
+
+.login-button:hover{
+	cursor: pointer;
+}
+
+.cor2{
+	background: yellow;
+}
+
+.cor1{
+	background: green;
+}
+
+.cor0{
+	background: red;
+}
+
+.ui-datalist-data{
+	padding: 0px!important;
+}
+.numeroRip{
+	width:30px!important;
+}
+.numeroPoste{
+	width:50px!important;
+}
+
+.ui-inputfield:FOCUS, .ui-autocomplete-input:FOCUS {
+	background-color : #FFFEEE;
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+    border: none;
+    background:  none;
+}
+
+.report-table.ui-datatable th {
+	background: none;
+} 
+
+.report-table table thead tr th .test {
+    height: 120px;
+}
+
+.report-table td .test {
+    width: 20px;
+}
+
+
+.test {
+	-webkit-transform:rotate(270deg);
+    -moz-transform:rotate(270deg);
+    -o-transform: rotate(270deg);
+}
+
+.report-panel.ui-panelgrid .ui-panelgrid-header { 
+   	-webkit-transform:rotate(270deg);
+    -moz-transform:rotate(270deg);
+    -o-transform: rotate(270deg);  
+}
+
+.report-panel tr, .report-panel td {
+   	border: #000 1px solid;
+}
+
+.ui-autocomplete input {
+    width: 100%;
+}
+
+.expired-rip {
+	color: white;
+    background: red  !important;
+}
+
+.to-expire-rip {
+	color: blue;
+    background: yellow  !important;
+}
+
+.info-field {
+	width:100%;
+	min-height: 16px;
+	border-left: 1px solid #000; 
+	border-bottom: 1px solid #000; 
+	padding-left: 6px;
+	display: block;
+	clear: both;
+}
+
+ol {
+    margin: 10px;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+li {
+    margin: 0 0 .75em;
+
+    padding: 0;
+
+    clear: both;
+}

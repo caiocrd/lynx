@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:param name="isServiceProvider" value="#{(serviceProvider ne null)? serviceProvider : 'false'}" />
+	<p:dataTable 
+		id="serviceTable"
+		value="#{(isServiceProvider)? 
+			controller.qtdServicos : controller.qtdServicoDataModel}" 
+		var="qtdServico"
+		lazy="#{!isServiceProvider}"
+		rows="5"
+		emptyMessage="Não há serviços adicionados"
+		style="width: 100%; text-align: center;  margin-top: 10px;"
+		rendered="#{(showServiceTable ne null)? showServiceTable : 'true'}">
+
+		<f:facet name="header">
+			<h:outputText value="Serviços Prestados" />
+		</f:facet>
+		
+		<p:column headerText="Nome">
+			<h:outputText value="#{qtdServico.servico.nome}" />
+		</p:column>
+		
+		<p:column headerText="Descrição">
+			<h:outputText value="#{qtdServico.servico.descricao}" />
+		</p:column>
+		
+		<p:column headerText="Qtd" style="width: 8%">
+			<p:spinner min="0" max="200" size="3" value="#{qtdServico.qtd}" rendered="#{isServiceProvider}">
+				<p:ajax event="change" update="@this"/>
+			</p:spinner>
+			<h:outputText value="#{qtdServico.qtd}" rendered="#{!isServiceProvider}"/>
+		</p:column>
+		
+		<p:column headerText="Remover" style="width: 15%" rendered="#{isServiceProvider}">
+			<p:commandButton value="Remover" process="@this" update="@form" icon="ui-icon-minusthick">
+				<p:collector value="#{qtdServico}" removeFrom="#{controller.qtdServicos}" />
+			</p:commandButton>
+		</p:column>
+
+		<f:facet name="footer">
+			<p:outputPanel rendered="#{isServiceProvider}">  
+             	<p:commandButton value="Adicionar Serviço" process="@this" onclick="serviceDialog.show()" icon="ui-icon-plusthick"/>  
+         	</p:outputPanel>
+		</f:facet>
+		
+	</p:dataTable>
+	
+	<p:dialog 
+		modal="true"
+		widgetVar="serviceDialog" 
+		header="Serviços" 
+		draggable="false" 
+		closable="true"
+		rendered="#{isServiceProvider}">
+		
+		<p:dataTable 
+			var="servico" 
+			value="#{controller.servicoDataModel}"
+			style="width: 100%; text-align: center;"
+			emptyMessage="Não há serviços cadastrados" 
+			rows="7" 
+			lazy="true"
+			paginator="true">
+			
+			<p:column headerText="Nome" filterBy="#{servico.nome}"
+				filterMatchMode="contains">
+				<h:outputText value="#{servico.nome}" />
+			</p:column>
+
+			<p:column headerText="Adicionar">
+
+				<p:commandButton value="Adicionar" update="@form" action="#{controller.newQtdServico(servico)}" />
+				
+			</p:column>
+			
+		</p:dataTable>
+	</p:dialog>
+</ui:composition>

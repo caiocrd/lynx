@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/manager.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/">
+	
+	<ui:define name="content">
+	
+		<ui:decorate template="/WEB-INF/views/elements/posteTable.xhtml">
+			<ui:param name="showPosteTable" value="#{!openRipController.newOccurrence}"/>
+			<ui:param name="posteDataFormId" value="dataForm"/>
+		
+			<ui:define name="posteAjax">
+				<p:ajax event="rowSelect" listener="#{posteController.select}"
+					update=":dataForm :newForm" />
+			</ui:define>
+		</ui:decorate>
+
+		<h:form id="newForm">
+			<p:panel header="Cadastrar Poste" style="margin-top: 10px;">
+				<ui:decorate template="/WEB-INF/views/elements/posteFieldset.xhtml" />
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="3">
+				
+					<p:commandButton value="Salvar" actionListener="#{posteController.save}" process=":newForm" update=":newForm :dataForm" 
+					style="width: 200px;" icon="ui-icon-check" rendered="#{posteController.poste.id == null}"/>
+					<p:commandButton value="Editar" actionListener="#{posteController.save}" process=":newForm" update=":newForm :dataForm" 
+					style="width: 200px;" icon="ui-icon-check" rendered="#{posteController.poste.id > 0}"/>
+					<p:commandButton value="Cancelar" actionListener="#{posteController.clear}" process="@this" update=":newForm :dataForm"
+					style="width: 200px;" icon="ui-icon-close" />
+					<p:commandButton value="Excluir" actionListener="#{posteController.excluir}" process="@this" update=":newForm :dataForm"
+					style="width: 200px;" icon="ui-icon-trash" rendered="#{posteController.poste.id > 0}" onclick="return confirm('Tem certeza que deseja excluir o poste?')"/>
+					
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

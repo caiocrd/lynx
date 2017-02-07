@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/manager.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/">
+	
+	<ui:define name="content">
+<p:outputPanel id="formWrapper">
+		<h:form id="dataForm">
+	
+			<p:dataTable 
+				id="oldPosteTable" 
+				value="#{concatController.fromPosteDataModel}"
+				var="poste"
+				rows="7" 
+				lazy="true"
+				paginator="true"
+				emptyMessage="Nenhum poste encontrado."
+				sortMode="multiple"
+				selectionMode="single"
+				selection="#{concatController.from}"
+				style="width: 100%; text-align: center;">
+	
+				<p:ajax event="rowSelect" listener="#{concatController.fromSelect}"
+					update=":formWrapper" />
+					
+				<f:facet name="header">
+					<h:outputText value="Concatenar o poste..." />
+				</f:facet>
+	
+				<p:column headerText="Nº BTO" filterBy="#{poste.numero}" sortBy="#{poste.numero}">
+					<h:outputText value="#{poste.numero}" />
+				</p:column>
+	
+				<p:column headerText="Região" filterMatchMode="contains"
+					filterBy="#{poste.bairro.zona}">
+					<h:outputText
+						value="#{poste.endereco.bairro.zona.label}" />
+				</p:column>
+	
+				<p:column headerText="Bairro" filterMatchMode="contains"
+					filterBy="#{poste.bairro.nome}" style="white-space:pre-line;">
+					<h:outputText value="#{poste.endereco.bairro.nome}" />
+				</p:column>
+	
+				<p:column headerText="Logradouro" filterMatchMode="contains"
+					filterBy="#{poste.logradouro.nome}" style="white-space:pre-line;">
+					<h:outputText value="#{poste.endereco.logradouro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer">
+					<small><h:outputText value="O poste selecionado será excluído após este processo." /></small>
+				</f:facet>
+	
+			</p:dataTable>
+			
+			<p:dataTable 
+				id="newPosteTable" 
+				value="#{concatController.toPosteDataModel}"
+				var="poste"
+				rows="7" 
+				lazy="true"
+				paginator="true"
+				emptyMessage="Nenhum poste encontrado."
+				sortMode="multiple"
+				selectionMode="single"
+				selection="#{concatController.to}" 
+				style="width: 100%; text-align: center; margin-top: 10px;">
+				
+				<p:ajax event="rowSelect" 
+					update=":formWrapper" />
+	
+				<f:facet name="header">
+					<h:outputText value="... com o poste." />
+				</f:facet>
+	
+				<p:column headerText="Nº BTO" filterBy="#{poste.numero}" sortBy="#{poste.numero}">
+					<h:outputText value="#{poste.numero}" />
+				</p:column>
+	
+				<p:column headerText="Região" filterMatchMode="contains"
+					filterBy="#{poste.bairro.zona}">
+					<h:outputText
+						value="#{poste.endereco.bairro.zona.label}" />
+				</p:column>
+	
+				<p:column headerText="Bairro" filterMatchMode="contains"
+					filterBy="#{poste.bairro.nome}" style="white-space:pre-line;">
+					<h:outputText value="#{poste.endereco.bairro.nome}" />
+				</p:column>
+	
+				<p:column headerText="Logradouro" filterMatchMode="contains"
+					filterBy="#{poste.logradouro.nome}" style="white-space:pre-line;">
+					<h:outputText value="#{poste.endereco.logradouro.nome}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<small><h:outputText value="Qualquer RIP aberta passará para este poste." /></small>
+				</f:facet>
+			</p:dataTable>			
+	
+		</h:form>
+	
+		<h:form id="concatForm">
+			<p:panel style="margin-top: 10px;">
+				
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+				
+					<p:commandButton value="Concatenar" actionListener="#{concatController.concat}" process="@this" update=":formWrapper" 
+					style="width: 200px;" icon="ui-icon-check" />
+					<p:commandButton value="Cancelar" actionListener="#{concatController.clear}" process="@this" update=":formWrapper"
+					style="width: 200px;" icon="ui-icon-close" />
+					
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

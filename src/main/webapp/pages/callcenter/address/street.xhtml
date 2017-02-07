@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/callcenter.xhtml">
+	<ui:define name="content">
+	
+	
+		<h:form id="dataForm">
+			<p:dataTable id="tableLogradouro" var="logradouro" rows="7" lazy="true"
+				value="#{logradouroController.logradouroDataModel}" paginator="true"
+				emptyMessage="Nenhum logradouro cadastrado."
+				sortMode="multiple" style="width: 100%; text-align: center;"
+				selection="#{logradouroController.selection}" selectionMode="single">
+
+				<p:ajax event="rowSelect" listener="#{logradouroController.select}" update=":dataForm :newForm"  />
+
+				<f:facet name="header">
+					<h:outputText value="Logradouros Cadastrados" />
+				</f:facet>
+
+				<p:column headerText="Logradouro" filterBy="#{logradouro.nome}"
+					filterMatchMode="contains">
+					<h:outputText value="#{logradouro.nome}" />
+				</p:column>
+
+				<p:column headerText="Bairros" >
+					<p:dataList  value="#{logradouro.bairrosList}" var="bairro" >
+						<h:outputText value="#{bairro.nome}" />
+					</p:dataList>
+				</p:column>
+
+				<p:column headerText="Ação" width="20">
+					
+					<p:commandButton value="Excluir" icon="ui-icon-minusthick" actionListener="#{logradouroController.remove(logradouro)}" update="@form">
+						<p:confirm header="Confirmação" message="Deseja excluir o logradouro?" icon="ui-icon-alert" />
+					</p:commandButton>				
+	
+				</p:column>
+
+				<f:facet name="footer">
+					<small>Selecione uma linha para entrar em modo de edição.</small>
+				</f:facet>
+			</p:dataTable>
+			
+		</h:form>
+
+		<p:panel header="Cadastrar Logradouro" style="margin-top: 10px;">
+			<h:form id="newForm" >
+				<p:panelGrid style="width: 100%">
+					
+					<p:row>
+						<p:column style="width: 60%">
+							<div style="padding-right: 8px; padding-bottom: 3px;">
+								<small><b><p:outputLabel for="nome" value="Nome:" style="padding-left: 6px;" /></b></small>
+								<br />
+								<p:inputText id="nome" required="true" requiredMessage="Insira o nome do logradouro" value="#{logradouroController.logradouro.nome}" style="width: 100%"/>
+							</div>
+						</p:column>
+						<p:column style="width: 30%">
+							<small><b><p:outputLabel for="bairro" value="Bairro:" style="padding-left: 6px;" /></b></small>
+							<br />						
+							<p:selectOneMenu id="bairro"
+								value="#{logradouroController.bairroNome}" style="width: 225px;"
+								filter="true" filterMatchMode="contains">
+								
+								<p:ajax event="change" listener="#{logradouroController.selectBairro}" update="addBairro" />
+								
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{enderecoHandler.bairros}" var="bairro"
+									itemValue="#{bairro.nome}" itemLabel="#{bairro.nome}" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column style="width: 10%">
+							<br />
+							<p:commandButton id="addBairro" value="Adicionar" disabled="#{logradouroController.bairro.id eq null}" update="bairro bairroList">
+								<p:collector value="#{logradouroController.bairro}" unique="true" addTo="#{logradouroController.logradouro.bairros}" />
+								<f:setPropertyActionListener target="#{logradouroController.bairroNome}" value=""/>
+							</p:commandButton>
+						</p:column>							
+						
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="3">
+							<p:dataTable 
+								id="bairroList" 
+								var="bairro"
+								rows="10"
+								paginator="true"
+								value="#{logradouroController.logradouro.bairrosList}" 
+								emptyMessage="Nenhum bairro cadastrado"
+								style="width: 100%; text-align: center;">
+								
+								<f:facet name="header">
+									<h:outputText value="Bairros" />
+								</f:facet>
+								
+								<p:column headerText="Nome do bairro">
+									<h:outputText value="#{bairro.nome}" />
+								</p:column>
+								
+								<p:column headerText="Região do bairro">
+									<h:outputText value="#{bairro.zona.label}" />
+								</p:column>
+								
+								<p:column headerText="Retirar">
+									<p:commandButton value="Remover" update="bairroList" action="#{logradouroController.removeBairro(bairro)}" />
+								</p:column>
+								
+							</p:dataTable>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+					
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+					
+					<p:commandButton value="Salvar" update="@form :dataForm" action="#{logradouroController.save}" 
+					style="width: 200px;" icon="ui-icon-check" />
+					<p:commandButton value="Cancelar" update="@form :dataForm" process="@this" action="#{logradouroController.clear}" onclick="form.reset()" 
+					style="width: 200px;" icon="ui-icon-close" />
+				
+				</p:panelGrid>
+			</h:form>
+			
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

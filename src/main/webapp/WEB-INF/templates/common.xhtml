@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><ui:insert name="pageTitle">Lynx</ui:insert></title>
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css"
+		type="text/css" rel="stylesheet" />
+
+	<h:outputScript name="jquery/jquery.js" library="primefaces" />
+    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"/>
+
+</h:head>
+
+<h:body>
+	<h:outputScript library="omnifaces" name="fixviewstate.js" target="head" />
+	
+	<script type="text/javascript">
+      var t;
+
+      function startTimer() {
+         t = setTimeout("statusDialog.show()", 1100);
+      }
+
+      function stopTimer() {
+         clearTimeout(t);
+      }
+   </script>
+
+    <p:ajaxStatus onstart="startTimer();"
+         onsuccess="statusDialog.hide(); stopTimer();"
+         onerror="errorDialog.show(); stopTimer(); statusDialog.hide()" />  
+	              
+	<p:dialog modal="true" widgetVar="statusDialog" header="Processando"   
+	        draggable="false" closable="false" resizable="false">  
+	    <p:graphicImage value="/resources/img/ajaxloadingbar.gif" />  
+	</p:dialog>  
+	
+	<p:dialog modal="true" widgetVar="errorDialog" header="Erro..." draggable="false" closable="false" resizable="false">
+        <h:outputText value="Ocorreu um erro durante o processamento. Atualize para continuar." />
+    </p:dialog>
+	
+	<h:form>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">  
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+		</p:confirmDialog>
+	</h:form>
+	
+	<p:growl id="messages" showDetail="true" autoUpdate="true" />
+	
+	<pe:ajaxErrorHandler 
+		type="javax.faces.application.ViewExpiredException" 
+		button="Atualizar"
+    	buttonOnclick="document.location.href=document.location.href;"  
+        body="Página expirada por inatividade, por favor aperte ATUALIZAR para continuar." 
+        title="Página Expirada..." />
+
+	<pe:ajaxErrorHandler 
+		type="java.lang.NullPointerException" 
+		button="Atualizar"  
+    	buttonOnclick="document.location.href=document.location.href;"  
+        body="Ocorreu um erro durante o processamento. Atualize para continuar" 
+        title="Erro..."/>
+	
+	<pe:ajaxErrorHandler 
+		type="com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException" 
+		button="Atualizar"  
+    	buttonOnclick="document.location.href=document.location.href;"  
+        body="Você tentou realizar uma operação não permitida no Banco de Dados" 
+        title="Operação não permitida"/>
+	  
+		<h:form>
+			<p:dialog
+				id="chgPassDlg"
+				header="Alterar Senha"
+				widgetVar="dlgSenha"
+				modal="true"
+				resizable="false" >
+
+
+				<h:panelGrid columns="2">
+
+					<p:outputLabel for="password" value="Senha Atual" />
+
+					<p:password 
+						id="password" 
+						value="#{userSession.password}"
+						requiredMessage="Insira a senha atual"
+						promptLabel="Insira a senha atual"
+						required="true" />
+
+					<p:outputLabel for="newpass" value="Nova Senha" />
+
+					<p:password 
+						id="newpass"
+						value="#{userSession.newPassword}"
+						requiredMessage="Insira a nova senha"
+						promptLabel="Insira a nova senha"
+						feedback="true" 
+						weakLabel="Senha Fraca" 
+						goodLabel="Senha boa"
+						strongLabel="Senha Forte"
+						required="true" />
+
+					<p:outputLabel for="confpass" value="Confirmação Nova Senha" />
+
+					<p:password 
+						id="confpass" 
+						value="#{userSession.repeatPassword}"
+						requiredMessage="Insira a repetição de senha"
+						promptLabel="Repita a nova senha"
+						feedback="true" 
+						weakLabel="Senha fraca"
+						goodLabel="Senha boa"
+						strongLabel="Senha forte"
+						required="true" />
+
+					<p:commandButton
+						value="Alterar"
+						action="#{userSession.chngPasswd}"
+						process="chgPassDlg"
+						onclick="dlgSenha.close()" />
+
+				</h:panelGrid>
+
+			</p:dialog>
+			
+		</h:form>        
+        	
+	<div id="tudo">
+		<div id="cabecalho"></div>
+
+		<div id="usuario">
+			<h:outputText value="Logado como: " />
+			<b><h:outputText value="#{userSession.user.nome}" /></b>
+			<ui:insert name="usuario" />
+		</div>
+
+		<div id="menu">
+			<ui:insert name="menu" />
+		</div>
+		<div id="conteudo" class="ui-corner-all">
+			<ui:insert name="content" />
+		</div>
+
+	</div>
+	<div id="rodape">CSL TEAM 2013</div>
+</h:body>
+</html>

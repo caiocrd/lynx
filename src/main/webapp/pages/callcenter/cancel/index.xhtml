@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenter.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+	<!-- ################################ -->
+	<!-- #  View Rendering Parameters.  # -->
+	<!-- ################################ -->
+	
+	<ui:param name="controller" value="#{cancelRipController}" />
+	<ui:param name="ripTableHeader" value="RIPs Abertas" />
+	<ui:param name="showServiceTable" value="false" />
+	
+	<ui:param name="filterUpdates" value=":printForm :dataForm" />
+	<ui:param name="showFilterForm" value="#{controller.rip.id eq null}" />
+	
+	<ui:param name="ripDataFormId" value="dataForm" />
+	<ui:param name="ripSelectUpdates" value=":printForm" />
+	<ui:param name="showRipTable" value="#{controller.rip.id eq null}" />
+	
+	<ui:param name="printUpdates" value=":filterForm :dataForm" />
+	<ui:param name="showPrintActions" value="#{controller.rip.id eq null}"/>
+	
+	<ui:param name="requireObs" value="true" />
+	
+	<ui:param name="actionClearUpdates" value=":formWrapper" />
+	
+	<!-- ################### -->
+	<!-- #  View Content.  # -->
+	<!-- ################### -->
+		
+	<ui:define name="content">
+		<p:outputPanel id="formWrapper">
+			<ui:decorate template="/WEB-INF/views/elements/simpleRipFilter.xhtml"/>
+			
+			<ui:decorate template="/WEB-INF/views/elements/ripTable.xhtml">
+				<ui:define name="actionColumn">
+					<p:column headerText="Ação">
+						<p:commandButton value="Cancelar" icon="ui-icon-wrench" action="#{controller.load}" update=":formWrapper">
+							<f:setPropertyActionListener target="#{controller.rip}" value="#{rip}" />
+						</p:commandButton>
+					</p:column>
+				</ui:define>
+			</ui:decorate>
+	
+			<ui:decorate template="/WEB-INF/views/elements/printActions.xhtml" />
+					
+			<h:form id="executionForm" enctype="multipart/form-data"  style="text-align: left;" rendered="#{controller.rip.id ne null}">
+			
+				<ui:decorate template="/WEB-INF/views/ripInfo.xhtml" />
+				
+				<ui:decorate template="/WEB-INF/views/elements/obsPanel.xhtml"/>
+		
+				<ui:decorate template="/WEB-INF/views/elements/ripAction.xhtml" >
+					<ui:define name="action">
+						<p:commandButton style="width: 100px;" value="Cancelar" icon="ui-icon-check" actionListener="#{controller.cancel}" update=":formWrapper">
+							<p:confirm header="Confirmação" message="Deseja cancelar a RIP?" icon="ui-icon-alert" />
+						</p:commandButton>
+					</ui:define>
+				</ui:decorate>
+	
+			</h:form>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

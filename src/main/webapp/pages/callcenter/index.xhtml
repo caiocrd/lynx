@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenter.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="content">
+		<h:form>
+			<sec:authorize access="hasRole('CALLCENTER')">
+				<p:dataTable value="#{callCenterHomeController.latestReverseRips}" var="rip" rows="6" 
+					emptyMessage="Sem Rips Para Estorno." style="text-align: center;">
+	
+					<f:facet name="header">
+						<h:outputText value="RIPs Para Possível Estorno" />
+					</f:facet>
+	
+					<p:column headerText="Nº da RIP" style="width: 106px;">
+						<h:outputText value="#{rip.id}" />
+					</p:column>
+					
+					<p:column headerText="Nº do Poste" style="width: 106px;">
+						<h:outputText value="#{rip.poste.numero}" />
+					</p:column>
+					
+					<p:column headerText="Logradouro">
+						<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+					</p:column>
+					
+					<p:column headerText="Bairro">
+						<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+					</p:column>
+					
+					<p:column headerText="Reclamação">
+						<h:outputText value="#{rip.tipoReclamacao.label}" />
+					</p:column>
+	
+					<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+				</p:dataTable>		
+				<br />
+			</sec:authorize>
+			<p:dataTable value="#{callCenterHomeController.latestOpenRips}" var="rip" rows="6" 
+				emptyMessage="Sem Rips Cadastradas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas RIPs Cadastradas" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{callCenterHomeController.latestPostes}" var="poste" rows="6" 
+				emptyMessage="Sem Postes Cadastrados Recentemente." style="text-align: center;"
+				paginator="false" sortMode="multiple">
+
+				<f:facet name="header">
+					<h:outputText value="Últimos Postes Cadastrados" />
+				</f:facet>
+
+				<p:column headerText="Nº do poste" style="width: 106px;">
+					<h:outputText value="#{poste.numero}" />
+				</p:column>
+				<p:column headerText="Logradouro" style="white-space:pre-line;">
+					<h:outputText value="#{poste.endereco.fk.logradouro.nome}" />
+				</p:column>
+				<p:column headerText="Bairro" style="white-space:pre-line;">
+					<h:outputText value="#{poste.endereco.fk.bairro.nome}" />
+				</p:column>
+				<p:column headerText="Zona">
+					<h:outputText value="#{poste.endereco.fk.bairro.zona.label}" />
+				</p:column>
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{callCenterHomeController.latestEndedRips}" var="rip" rows="6" 
+				emptyMessage="Sem Rips Finalizadas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas RIPs Finalizadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da RIP" style="width: 106px;">
+					<h:outputText value="#{rip.id}" />
+				</p:column>
+				
+				<p:column headerText="Nº do Poste" style="width: 106px;">
+					<h:outputText value="#{rip.poste.numero}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Reclamação">
+					<h:outputText value="#{rip.tipoReclamacao.label}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

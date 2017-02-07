@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/executor.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<ui:param name="controller" value="#{costReportController}" />
+	<ui:param name="message" value="Foram encontradas #{fn:length(controller.rips)} RIPs" />
+	
+	<ui:param name="filterUpdates" value=":formWrapper" />
+	
+	<!-- ################### -->
+	<!-- #  View Content.  # -->
+	<!-- ################### -->
+		
+	<ui:define name="content">
+		<p:outputPanel id="formWrapper">
+			<ui:decorate template="/WEB-INF/views/elements/costReportFilter.xhtml"/>
+			
+			<ui:decorate template="/WEB-INF/views/elements/costReportPanel.xhtml"/>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

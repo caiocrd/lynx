@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/callcenter.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="dataForm">
+			<p:dataTable id="tableConjunto" var="conjunto" rows="7" lazy="true"
+				value="#{conjuntoController.conjuntoDataModel}" paginator="true"
+				emptyMessage="Nenhum bairro cadastrado."
+				sortMode="multiple" style="width: 100%; text-align: center;"
+				selection="#{conjuntoController.selection}" selectionMode="single">
+
+				<p:ajax event="rowSelect" update=":dataForm :newForm" listener="#{conjuntoController.select}" />
+
+				<f:facet name="header">
+					<h:outputText value="Conjuntos Cadastrados" />
+				</f:facet>
+
+				<p:column headerText="Conjunto" filterBy="#{conjunto.nome}"
+					filterMatchMode="contains">
+					<h:outputText value="#{conjunto.nome}" />
+				</p:column>
+
+				<p:column headerText="Bairro" filterMatchMode="contains"
+					sortBy="#{bairro.nome}">
+					<h:outputText
+						value="#{conjunto.bairro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Zona" filterMatchMode="contains"
+					sortBy="#{bairro.zona}">
+					<h:outputText
+						value="#{conjunto.bairro.zona.label}" />
+				</p:column>
+
+				<p:column headerText="Ação" width="20">
+					
+					<p:commandButton value="Excluir" icon="ui-icon-minusthick" actionListener="#{conjuntoController.remove(conjunto)}" update="@form">
+						<p:confirm header="Confirmação" message="Deseja excluir o conjunto?" icon="ui-icon-alert" />
+					</p:commandButton>				
+	
+				</p:column>
+
+				<f:facet name="footer">
+					<small>Selecione uma linha para entrar em modo de edição.</small>
+				</f:facet>
+			</p:dataTable>
+			
+		</h:form>
+	
+		<h:form id="newForm">
+			<p:panel header="Cadastrar Conjunto" style="margin-top: 10px;">
+				<p:panelGrid style="width: 100%">
+					<p:row>
+						<p:column style="width: 70%">
+							<div style="padding-right: 8px; padding-bottom: 3px;">
+								<small><b><p:outputLabel for="nome" value="Nome:" style="padding-left: 6px;" /></b></small>
+								<br />
+								<p:inputText id="nome" style="width: 100%;" required="true" requiredMessage="Insira o nome do conjunto." value="#{conjuntoController.conjunto.nome}" />
+							</div>
+						</p:column>
+						
+						<p:column style="width: 30%">
+							<small><b><p:outputLabel for="bairro" value="Bairro:" style="padding-left: 6px;" /></b></small>
+							<br />
+							<p:selectOneMenu id="bairro"
+								value="#{conjuntoController.bairroNome}" style="width: 100%;"
+								filter="true" filterMatchMode="contains">
+									
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{enderecoHandler.bairros}" var="bairro"
+									itemValue="#{bairro.nome}" itemLabel="#{bairro.nome}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+					
+					<p:commandButton value="Salvar" update="@form :dataForm" action="#{conjuntoController.save}" 
+					style="width: 200px;" icon="ui-icon-check" />
+					<p:commandButton value="Cancelar" update="@form :dataForm" process="@this" action="#{conjuntoController.clear}" onclick="form.reset()" 
+					style="width: 200px;" icon="ui-icon-close" />
+				
+				</p:panelGrid>
+				
+			</p:panel>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

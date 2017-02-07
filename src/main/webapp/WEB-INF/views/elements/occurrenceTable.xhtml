@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<p:dataTable
+		id="occurrenceTable" 
+		value="#{controller.ocorrenciaDataModel}"
+		var="ocorrencia"
+		rows="10"
+		paginator="true"
+		lazy="true"
+		emptyMessage="Nenhuma ocorrência para esta RIP" 
+		style="width: 100%; text-align: center;  margin-top: 10px;">
+
+		<f:facet name="header">
+			<h:outputText value="Ocorrências Cadastradas" />
+		</f:facet>
+
+		<p:column headerText="Registrante" style="width: 180px">
+			<h:outputText value="#{ocorrencia.nome}" title="Tel: #{ocorrencia.telefone}"/>
+		</p:column>
+		
+		<p:column headerText="Observações" style="white-space:pre-line; text-align:justify;">
+			<h:outputText value="#{ocorrencia.observacao}" />
+		</p:column>
+		
+		<p:column headerText="Data" style="width: 280px">
+		
+			<h:outputText value="#{ocorrencia.data.time}">
+				<f:convertDateTime pattern="EEEE, d 'de' MMMM 'de' yyyy 'às' HH:mm" />
+			</h:outputText>
+			
+		</p:column>
+		
+	</p:dataTable>
+</ui:composition>

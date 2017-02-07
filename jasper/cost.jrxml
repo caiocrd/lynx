@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cost Report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="25" rightMargin="15" topMargin="43" bottomMargin="43" uuid="a1c65053-2107-4f0c-b129-16c97fd1fac9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="14"/>
+	<property name="ireport.y" value="249"/>
+	<property name="ireport.layers" value="##Sun Dec 01 04:39:40 BRT 2013\nlayer.2.name=Logo\nlayer.5.id=5\nlayer.4.visible=true\nlayer.2.visible=true\nlayer.3.name=TipoDocumento\nlayer.0.visible=true\nlayer.4.name=Header\nlayer.0.id=0\nlayer.5.name=Layer 1\nlayer.1.id=1\nlayer.5.visible=true\nlayer.3.visible=true\nlayer.2.id=2\nlayer.1.visible=true\nlayer.0.name=Background\nlayer.3.id=3\nlayer.1.name=Titulo\nlayer.4.id=4"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
+	<style name="Heading 3" fontSize="14" isBold="true"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ripCostReport" uuid="db502222-2298-4eb9-a568-8c208ffa2816">
+		<parameter name="movOpenedTotal" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="movReceivedTotal" class="java.lang.Integer"/>
+		<parameter name="movExecutedTotal" class="java.lang.Integer"/>
+		<parameter name="movEvaluatedTotal" class="java.lang.Integer"/>
+		<parameter name="movAdequatedTotal" class="java.lang.Integer"/>
+		<parameter name="movFeedbackTotal" class="java.lang.Integer"/>
+		<parameter name="movReversedTotal" class="java.lang.Integer"/>
+		<parameter name="movClosedTotal" class="java.lang.Integer"/>
+		<parameter name="movPayedTotal" class="java.lang.Integer"/>
+		<parameter name="movCanceledTotal" class="java.lang.Integer"/>
+		<parameter name="expiredTotal" class="java.lang.Integer"/>
+		<parameter name="totalTotal" class="java.lang.Integer"/>
+		<parameter name="stOpenTotal" class="java.lang.Integer"/>
+		<parameter name="stExecutingTotal" class="java.lang.Integer"/>
+		<parameter name="stEvaluatingTotal" class="java.lang.Integer"/>
+		<parameter name="stAdequatingTotal" class="java.lang.Integer"/>
+		<parameter name="stFeedbackTotal" class="java.lang.Integer"/>
+		<parameter name="stReversingTotal" class="java.lang.Integer"/>
+		<parameter name="stReversedTotal" class="java.lang.Integer"/>
+		<parameter name="stEndingTotal" class="java.lang.Integer"/>
+		<parameter name="stClosedTotal" class="java.lang.Integer"/>
+		<parameter name="stPayedTotal" class="java.lang.Integer"/>
+		<parameter name="stCanceledTotal" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="rip" class="br.com.csl.lynx.model.Rip">
+			<fieldDescription><![CDATA[rip]]></fieldDescription>
+		</field>
+		<field name="servicos" class="java.util.List">
+			<fieldDescription><![CDATA[servicos]]></fieldDescription>
+		</field>
+		<field name="total" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[total]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="servicoReport" uuid="12081dad-2bcf-414f-9a83-4303290cc5fc">
+		<parameter name="TOTAL_COST" class="java.math.BigDecimal"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="qtd" class="java.lang.Integer">
+			<fieldDescription><![CDATA[qtd]]></fieldDescription>
+		</field>
+		<field name="servico" class="br.com.csl.lynx.model.Servico">
+			<fieldDescription><![CDATA[servico]]></fieldDescription>
+		</field>
+		<field name="total" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[total]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="target" uuid="1df2aef9-bece-4af8-a72e-77743ef22e43">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="target" class="java.lang.String">
+			<fieldDescription><![CDATA[target]]></fieldDescription>
+		</field>
+		<field name="value" class="java.lang.String">
+			<fieldDescription><![CDATA[value]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TOTAL_COST" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ripCostReports" class="java.util.List">
+		<fieldDescription><![CDATA[ripCostReports]]></fieldDescription>
+	</field>
+	<field name="servicoReports" class="java.util.List">
+		<fieldDescription><![CDATA[servicoReports]]></fieldDescription>
+	</field>
+	<field name="target" class="java.util.List">
+		<fieldDescription><![CDATA[target]]></fieldDescription>
+	</field>
+	<field name="totalCost" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[totalCost]]></fieldDescription>
+	</field>
+	<field name="totalString" class="java.lang.String">
+		<fieldDescription><![CDATA[totalString]]></fieldDescription>
+	</field>
+	<pageHeader>
+		<band height="89" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="79" uuid="e73eb9aa-9576-4981-a1cc-a3146c5a88d5">
+					<property name="ireport.layer" value="4"/>
+				</reportElement>
+				<frame>
+					<reportElement x="0" y="0" width="348" height="79" uuid="612d005a-a449-4369-aa8a-5cfe6c612530">
+						<property name="ireport.layer" value="4"/>
+					</reportElement>
+					<image>
+						<reportElement x="5" y="4" width="70" height="70" uuid="f7fcb45e-59a5-41b6-92d3-5a54e2178c5e">
+							<property name="ireport.layer" value="2"/>
+						</reportElement>
+						<imageExpression><![CDATA["logo_natal.png"]]></imageExpression>
+					</image>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="348" height="79" uuid="4db2a8bc-489d-4a64-b0eb-38264961c3d6">
+							<property name="ireport.layer" value="1"/>
+						</reportElement>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+					<frame>
+						<reportElement x="75" y="17" width="273" height="44" uuid="5bebbefb-42dd-4d2c-a21e-b699f70d1bdc">
+							<property name="ireport.layer" value="1"/>
+						</reportElement>
+						<staticText>
+							<reportElement style="Heading 3" x="0" y="0" width="273" height="15" uuid="7bc6b89e-93c3-4094-ac85-503ba45bff46">
+								<property name="ireport.layer" value="4"/>
+							</reportElement>
+							<textElement textAlignment="Center">
+								<font fontName="DejaVu Sans" size="12"/>
+							</textElement>
+							<text><![CDATA[PREFEITURA MUNICIPAL DO NATAL]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="25" width="273" height="19" uuid="f7575acc-9c79-4428-870c-6e3977d5edb6">
+								<property name="ireport.layer" value="4"/>
+							</reportElement>
+							<textElement textAlignment="Center">
+								<font fontName="DejaVu Sans" size="8" isBold="false"/>
+							</textElement>
+							<text><![CDATA[Rua Pricesa Isabel, 313, Ribeira, Natal, 59012-400
+Tel.: 3232-8012]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="15" width="273" height="10" uuid="fd29ddc0-0dc7-4b74-9291-af62b1beb1bb">
+								<property name="ireport.layer" value="4"/>
+							</reportElement>
+							<textElement textAlignment="Center">
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[SEMSUR - SECRETARIA MUNICIPAL DE SERVIÇOS URBANOS]]></text>
+						</staticText>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="348" y="0" width="207" height="79" uuid="642858d9-22e8-4c83-97b6-108c40d8b019">
+						<property name="ireport.layer" value="3"/>
+					</reportElement>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="207" height="79" uuid="02b40b06-c659-4a33-b0eb-ff9374aa9251">
+							<property name="ireport.layer" value="3"/>
+						</reportElement>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+					<staticText>
+						<reportElement mode="Transparent" x="0" y="0" width="207" height="79" uuid="f79c7790-a0e0-422b-9238-daa0aaaaadc6">
+							<property name="ireport.layer" value="3"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans" size="12" isBold="true"/>
+							<paragraph rightIndent="5"/>
+						</textElement>
+						<text><![CDATA[RELATÓRIO DE CUSTOS DAS REQUISIÇÕES DE ILUMINAÇÃO PÚBLICA]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="87" y="64" width="80" height="15" uuid="0c693e6a-832d-41a6-bae9-2ecdced3c724"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Report">
+						<reportElement x="167" y="64" width="40" height="15" uuid="89b76edc-bd25-4307-b423-4ffbaf470be8"/>
+						<textElement verticalAlignment="Middle">
+							<font size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd/MM/yyyy">
+						<reportElement x="0" y="64" width="87" height="15" uuid="6580c286-ec8e-4b91-adc7-467440b66d20"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="300">
+			<componentElement>
+				<reportElement key="table 1" x="97" y="0" width="360" height="50" isRemoveLineWhenBlank="true" uuid="81ecfdb9-3e4e-49a8-b4a0-42bfd960da02"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="target" uuid="803b0e42-8b29-4a52-8c48-f677fede77ac">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{target})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:columnGroup width="359" uuid="64b80645-198b-457e-bb61-ed6a9851d2c0">
+						<jr:tableHeader style="table_TH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="359" height="15" uuid="824b133f-86b4-46d7-a6cf-86aba1f01e71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Filtros Aplicados]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:column width="158" uuid="24145e60-edf4-476b-bb10-f8c232b69e22">
+							<jr:detailCell style="table_TD" height="15" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="158" height="15" uuid="085ae22c-7cfb-46cb-a24d-8690c3f9dac0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{target}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="201" uuid="b0f1443a-0198-43bc-8c87-ec1a4581a79b">
+							<jr:detailCell style="table_TD" height="15" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="201" height="15" uuid="88e34773-88ce-4d5c-b8db-d6eff0174228"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="60" width="555" height="100" isRemoveLineWhenBlank="true" uuid="1e344c03-ffff-4409-ba80-65f4b9d679f9"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TOTAL_COST">
+					<subreportParameterExpression><![CDATA[$F{totalCost}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{ripCostReports})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cost_detail.jasper"]]></subreportExpression>
+			</subreport>
+			<frame>
+				<reportElement positionType="Float" x="0" y="161" width="555" height="20" uuid="3d9bd3f9-9b08-4f85-88b6-93f3d82e68c4"/>
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="f5ed82b7-ffc3-4369-b9ee-12a61e5bf557"/>
+				</line>
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement x="455" y="1" width="100" height="19" uuid="05884beb-a9f2-4f66-8a4a-f7c0b4aac7b5"/>
+					<textElement textAlignment="Right">
+						<paragraph rightIndent="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{totalCost}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<componentElement>
+				<reportElement key="table 7" positionType="Float" x="0" y="190" width="555" height="110" isRemoveLineWhenBlank="true" uuid="3d5d09e3-f63c-44f9-bf3a-941b982d3446"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="servicoReport" uuid="4f8cdd3b-b4ae-47f0-af73-82bb628ac0e7">
+						<datasetParameter name="TOTAL_COST">
+							<datasetParameterExpression><![CDATA[$F{totalCost}]]></datasetParameterExpression>
+						</datasetParameter>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{servicoReports})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:columnGroup width="554" uuid="ac7335ae-7f61-4f78-bc73-caf1c7a01ba3">
+						<jr:tableHeader style="table_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="554" height="20" uuid="aac9ccbe-d983-44bf-91b4-eed6c0a5ab1b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Custo por tipo de Serviço]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnGroup width="453" uuid="6435aa44-62f0-42c6-acdd-2265dce41d5b">
+							<jr:tableFooter style="table_TH" height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="453" height="20" uuid="d5be78e0-7c39-4478-99eb-464615314969"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+										<paragraph rightIndent="10"/>
+									</textElement>
+									<text><![CDATA[Total: ]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="295" uuid="bae52f02-5685-435c-ae44-645c01e2f4d6">
+								<jr:columnHeader style="table_CH" height="20" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="295" height="20" uuid="e24d12a6-2ee6-4048-b2c7-583a9c90cf4b"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Serviço]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
+									<textField isBlankWhenNull="true">
+										<reportElement x="0" y="0" width="295" height="20" uuid="c522621b-23b1-46e9-a4f9-d6deae6f72c8"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{servico}.getNome()]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="57" uuid="4a4939ac-7d62-4051-96bf-ce56b3e9c44f">
+								<jr:columnHeader style="table_CH" height="20" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="57" height="20" uuid="d3835eb0-2d47-4dc7-8ab8-fddc442e7212"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Quantidade]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
+									<textField isBlankWhenNull="true">
+										<reportElement x="0" y="0" width="57" height="20" uuid="86427ccb-50b4-4a29-b337-168964fa8a97"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{qtd}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="101" uuid="18c39826-071a-40f1-b9d9-c271c9484ed8">
+								<jr:columnHeader style="table_CH" height="20" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="100" height="20" uuid="0ae1b1ea-ee5d-4b39-a2b4-bcd56abca4db"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9" isBold="true"/>
+										</textElement>
+										<text><![CDATA[Valor Unit.]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table_TD" height="20" rowSpan="1">
+									<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+										<reportElement x="0" y="0" width="100" height="20" uuid="db0da4bc-514e-47fb-9b8c-2c2d543fa236"/>
+										<textElement textAlignment="Right" verticalAlignment="Middle">
+											<font size="9"/>
+											<paragraph rightIndent="10"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{servico}.getValor()]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+						<jr:column width="101" uuid="5ec87965-c485-4496-af1c-9635c7336656">
+							<jr:tableFooter style="table_TH" height="20" rowSpan="1">
+								<textField pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="101" height="20" uuid="aeee1984-8651-430f-b3df-31edebe7f929"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+										<paragraph rightIndent="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{TOTAL_COST}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="table_CH" height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="100" height="20" uuid="d9ab7a76-9a7e-4107-9432-4d2c5a23e736"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Total]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="20" rowSpan="1">
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="100" height="20" uuid="945e15c9-31cc-40b3-b410-30b5c74ab46b"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+										<paragraph rightIndent="10"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

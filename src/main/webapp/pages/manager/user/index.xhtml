@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+	template="/WEB-INF/templates/manager.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:param name="controller" value="#{userController}" />
+	
+	<ui:define name="content">
+		
+		<h:form id="userForm">
+
+				<p:dataTable 
+					id="tabelaUsers"
+					value="#{controller.usuarioDataModel}"
+					lazy="true"
+					rows="5"
+					paginator="true" 
+					var="user"
+					emptyMessage="Nenhum usuário cadastrado"
+					style="width: 100%; text-align: center;  margin-top: 10px;">
+					
+					<f:facet name="header">
+						<h:outputText value="Usuários" />
+					</f:facet>
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{user.nome}" />
+					</p:column>
+
+					<p:column headerText="Apelido">
+						<h:outputText value="#{user.username}" />
+					</p:column>
+					
+					<p:column headerText="Permissões">
+						<p:dataList  value="#{user.roles}" var="role" emptyMessage="Sem permissões" >
+							<h:outputText value="#{enumLists.permissionLabel(role.name)}"/>
+						</p:dataList>
+					</p:column>
+
+					<p:column 
+						headerText="Ações" 
+						style="width: 25%">
+						<p:commandButton 
+							value="Editar"
+							icon="ui-icon-pencil"
+							process="@this"
+							update=":newUserForm"
+							action="#{controller.select}"
+							disabled="#{(userSession.user.id eq user.id) or (user.username eq 'admin') }">
+						
+							<f:setPropertyActionListener target="#{controller.user}" value="#{user}" />
+							
+						</p:commandButton>						
+						<p:commandButton 
+							value="Remover"
+							icon="ui-icon-minusthick"
+							action="#{controller.remove(user)}"
+							process="@this"
+							update="tabelaUsers" 
+							disabled="#{(userSession.user.id eq user.id) or (user.username eq 'admin') }">
+						
+							<p:confirm header="Confirmação" message="Deseja remover o usuário?" icon="ui-icon-alert" />
+							
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+		</h:form>
+
+		<h:form id="newUserForm">
+			<p:panel style="margin-top: 10px;">
+				<ui:decorate template="/WEB-INF/views/elements/userFieldset.xhtml" />
+				
+				<p:panelGrid>
+					<p:row>
+						<p:column colspan="3">
+							<div style="padding: 0; margin: 0; width: 120px;">
+								<small><strong><h:outputText value="CallCenter:" style="width: 150px; padding-left: 6px;"/></strong></small>
+								<small><strong>
+									<p:commandLink value=" remover" update="@form" process="@this" style="padding-top: 2px; float: right;">
+										<f:setPropertyActionListener target="#{controller.callcenter}" value="" />
+									</p:commandLink>
+								</strong></small>
+							</div>
+					        <p:selectOneRadio id="callcenter" value="#{controller.callcenter}">
+					            <f:selectItem itemLabel="Gerente" itemValue="CALLCENTER" />
+					            <f:selectItem itemLabel="Atendente" itemValue="ATENDENTE" />
+					        </p:selectOneRadio>
+					        
+					    </p:column>
+					 </p:row>
+					 <p:row>
+						<p:column colspan="3">
+							<div style="padding: 0; margin: 0; width: 120px;">
+								<small><strong><h:outputText value="Prestadora:" style="padding-left: 6px;"/></strong></small>
+								<small><strong>
+									<p:commandLink value=" remover" update="prestadora" process="@this" style="padding-top: 2px; float: right;">
+										<f:setPropertyActionListener target="#{controller.prestadora}" value="" />
+									</p:commandLink>
+								</strong></small>
+							</div>
+					        <p:selectOneRadio id="prestadora" value="#{controller.prestadora}">
+					            <f:selectItem itemLabel="Gerente" itemValue="PRESTADORA" />
+					            <f:selectItem itemLabel="Executor" itemValue="EXECUTOR" />
+					        </p:selectOneRadio>
+					    </p:column>
+					 </p:row>					        
+					 <p:row>
+						<p:column colspan="3">
+							<div style="padding: 0; margin: 0; width: 120px;">
+					 			<small><strong><h:outputText value="Região:" style="padding-left: 6px;"/></strong></small>
+					 			<small><strong>
+									<p:commandLink value=" remover" update="regiao" process="@this" style="padding-top: 2px; float: right;">
+										<f:setPropertyActionListener target="#{controller.regiao}" value="" />
+									</p:commandLink>					 		
+					 			</strong></small>
+					 		</div>					
+					        <p:selectOneRadio id="regiao" value="#{controller.regiao}">
+					            <f:selectItem itemLabel="Gerente" itemValue="REGIAO" />
+					            <f:selectItem itemLabel="Zona Norte" itemValue="ZONA_NORTE" />
+					            <f:selectItem itemLabel="Zona Sul" itemValue="ZONA_SUL" />
+					            <f:selectItem itemLabel="Zona Leste" itemValue="ZONA_LESTE" />
+					            <f:selectItem itemLabel="Zona Oeste" itemValue="ZONA_OESTE" />
+					        </p:selectOneRadio>
+					    </p:column>
+					 </p:row>					        
+					<p:row>
+						<p:column colspan="3">
+							<div style="padding: 0; margin: 0; width: 120px;">
+								<small><strong><h:outputText value="Direção:" style="padding-left: 6px;"/></strong></small>
+								<small><strong>
+									<p:commandLink value=" remover" update="direcao" process="@this" style="padding-top: 2px; float: right;">
+										<f:setPropertyActionListener target="#{controller.direcao}" value="" />
+									</p:commandLink>							
+								</strong></small>
+							</div>						
+					        <p:selectOneRadio id="direcao" value="#{controller.direcao}">
+					            <f:selectItem itemLabel="Diretor" itemValue="DIRECAO" />
+					        </p:selectOneRadio>
+					        
+					       
+				        </p:column>  
+					</p:row>
+				</p:panelGrid>
+				
+				<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+							<p:commandButton
+								value="Salvar"
+								action="#{controller.saveUser}" 
+								process="@form"
+								update=":userForm :newUserForm"
+								style="width: 200px;" icon="ui-icon-check" />
+							
+							<p:commandButton
+								value="Cancelar"
+								action="#{controller.clear}" 
+								process="@this"
+								update=":userForm :newUserForm"
+								style="width: 200px;" icon="ui-icon-close" />
+					
+				</p:panelGrid>
+				
+			</p:panel>
+			
+		</h:form>
+
+	</ui:define>
+	
+</ui:composition>

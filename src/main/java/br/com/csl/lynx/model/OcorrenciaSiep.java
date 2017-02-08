@@ -22,7 +22,7 @@ import br.com.csl.lynx.domain.DomainObject;
 
 @Entity
 @BatchSize(size=500)
-@Table(name = "ocorrencia")
+@Table(name = "ocorrenciaSiep")
 public class OcorrenciaSiep implements DomainObject {
 
 	private static final long serialVersionUID = 8659460758689848727L;

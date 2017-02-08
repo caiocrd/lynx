@@ -26,7 +26,7 @@ import br.com.csl.lynx.support.Movement;
  */
 
 @Entity
-@Table(name = "movimentacao")
+@Table(name = "movimentacaoSiep")
 public class MovimentacaoSiep implements DomainObject {
 
 	private static final long serialVersionUID = -6921490124400335989L;

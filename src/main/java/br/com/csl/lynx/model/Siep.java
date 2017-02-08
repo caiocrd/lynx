@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
 
 import br.com.csl.lynx.domain.DomainObject;
 import br.com.csl.lynx.support.RipStatus;
@@ -71,7 +73,8 @@ public class Siep implements DomainObject {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SiepIdGenerator")
+	@GenericGenerator(name = "SiepIdGenerator", strategy = "br.com.csl.lynx.generator.SiepIdGenerator")
 	public Long getId() {
 		return id;
 	}

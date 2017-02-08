@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<p:panel id="ripAction" 
+		style="margin-top: 10px; text-align: center;">
+		
+		<p:remoteCommand id="stop" name="stop" update="@form" onstart="downloadDialog.hide();"/>
+			
+		<p:dialog modal="true" widgetVar="downloadDialog" header="Preparando o documento." resizable="false" draggable="false" closable="false">  
+ 					<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />  
+		</p:dialog>
+		
+		<p:panelGrid style="width: 100%">
+			<p:row>
+				<p:column>
+					<ui:insert name="action"/>
+				</p:column>
+					
+				<ui:insert name="extraRipAction"/>
+					
+				<p:column>
+					<p:commandButton 
+						style="width: 100px;" 
+						value="Imprimir" 
+						icon="ui-icon-print" 
+						ajax="false" 
+						onclick="downloadDialog.show(); PrimeFaces.monitorDownload(null, stop)">
+							
+						<p:fileDownload value="#{controller.printOne(controller.siap)}" />
+					</p:commandButton>
+				</p:column>
+					
+				<p:column>
+					<ui:insert name="cancelAction">
+						<p:commandButton 
+							style="width: 100px;" 
+							value="Cancelar" process="@this" 
+							icon="ui-icon-close" 
+							action="#{controller.clear}" 
+							update="#{
+								(actionClearUpdates ne null)? actionClearUpdates : 
+								((actionUpdates ne null)? actionUpdates : '@form')}"/>
+					</ui:insert>					
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+</ui:composition>

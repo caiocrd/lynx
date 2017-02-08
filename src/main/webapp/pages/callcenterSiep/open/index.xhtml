@@ -135,10 +135,6 @@
 					<h:outputText value="#{siep.id}" />
 				</p:column>
 
-				<p:column headerText="N° Poste">
-					<h:outputText value="#{siep.poste.numero}" />
-				</p:column>
-
 				<p:column headerText="Status">
 					<h:outputText value="#{siep.status.label}" />
 				</p:column>
@@ -172,7 +168,7 @@
 		
 		<h:form id="occurrenceForm" rendered="#{openSiepController.siep.id ne null}">
 		
-				<ui:decorate template="/WEB-INF/views/ripInfo.xhtml" />	
+				<ui:decorate template="/WEB-INF/views/siepInfo.xhtml" />	
 				
 				<p:panel rendered="#{openSiepController.newOccurrence}" header="Cadastrar Nova Ocorrencia"	style="margin-top: 10px;">
 					<ol>

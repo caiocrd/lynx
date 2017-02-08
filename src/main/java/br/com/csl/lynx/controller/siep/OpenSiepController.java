@@ -69,7 +69,7 @@ public class OpenSiepController extends AbstractSiepAction {
 	public void save() {
 		try {
 			siep.setStatus(RipStatus.OPEN);
-			
+			siep.setEndereco(enderecoHandler.getEndereco());
 			if (siep.getPrioridade() == null) {
 				siep.setPrioridade(3);
 			}

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import br.com.csl.lynx.model.MovimentacaoSiep;
 import br.com.csl.lynx.model.OcorrenciaSiep;
-import br.com.csl.lynx.model.QtdServico;
+import br.com.csl.lynx.model.QtdServicoSiep;
 import br.com.csl.lynx.model.Siep;
 import br.com.csl.utils.data.DataModel;
 import br.com.csl.utils.data.DataService;
@@ -27,8 +27,8 @@ public interface SiepInfo extends Serializable {
 	DataModel<OcorrenciaSiep> getOcorrenciaDataModel();
 	void setOcorrenciaDataModel(DataModel<OcorrenciaSiep> ocorrenciaDataModel);
 	
-	DataModel<QtdServico> getQtdServicoDataModel();
-	void setQtdServicoDataModel(DataModel<QtdServico> qtdServicoDataModel);
+	DataModel<QtdServicoSiep> getQtdServicoDataModel();
+	void setQtdServicoDataModel(DataModel<QtdServicoSiep> qtdServicoDataModel);
 	
 	void setSiepService(DataService<Siep> siepService);
 	
@@ -36,7 +36,7 @@ public interface SiepInfo extends Serializable {
 	
 	void setOcorrenciaService(DataService<OcorrenciaSiep> ocorrenciaService);
 	
-	void setQtdServicoService(DataService<QtdServico> qtdServicoService);
+	void setQtdServicoService(DataService<QtdServicoSiep> qtdServicoService);
 	
 	void load();
 	

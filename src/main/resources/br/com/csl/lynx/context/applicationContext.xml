@@ -60,6 +60,10 @@
     <bean id="qtdServicoDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServico" />
     </bean>
+    
+    <bean id="qtdServicoSiepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServicoSiep" />
+    </bean>
 
     <bean id="ripDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Rip" />
@@ -138,8 +142,8 @@
 		<property name="DAO" ref="movimentacaoSiepDAO" />
 		<property name="aliases">
 			<util:map id="movementSiepAlias">
-				<entry key="siep" value="s" />
-				<entry key="s.endereco" value="e" />
+				<entry key="siep" value="r" />
+				<entry key="r.endereco" value="e" />
 				<entry key="e.fk.bairro" value="bairro" />
 				<entry key="e.fk.logradouro" value="logradouro" />
 				<entry key="e.conjunto" value="conjunto" />
@@ -170,6 +174,10 @@
 	
 	<bean id="qtdServicoService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="qtdServicoDAO" />
+	</bean>
+	
+	<bean id="qtdServicoSiepService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="qtdServicoSiepDAO" />
 	</bean>
 	
 	<bean id="ripService" class="br.com.csl.utils.data.impl.DataServiceImpl">
@@ -282,6 +290,13 @@
 		<property name="dataService" ref="qtdServicoService" />
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
+	
+	<bean id="qtdServicoSiepDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="qtdServicoSiepService" />
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
 
 	<bean id="servicoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="servicoService"/>
@@ -312,6 +327,7 @@
 		 <sec:intercept-url pattern="/pages/callcenter/reverse/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/search/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/user/*" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSiap/*" access="hasAnyRole('CALLCENTER_SIAP','ATENDENTE_SIAP')"/>
      	 <sec:intercept-url pattern="/pages/direcao/**" access="hasRole('DIRECAO')"/>
      	 <sec:intercept-url pattern="/pages/prestadora/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
      	 <sec:intercept-url pattern="/pages/prestadora/execute/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>

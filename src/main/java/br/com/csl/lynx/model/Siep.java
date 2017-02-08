@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -48,7 +49,7 @@ public class Siep implements DomainObject {
 	private Integer prioridade;
 	private Endereco endereco;
 	private List<MovimentacaoSiep> movimentacoes;
-	//private List<QtdServico> qtdServicos;
+	private List<QtdServicoSiep> qtdServicos;
 	private List<OcorrenciaSiep> ocorrencias;
 
 	@PrePersist
@@ -155,18 +156,18 @@ public class Siep implements DomainObject {
 		this.movimentacoes = movimentacoes;
 	}
 
-//	@Fetch(FetchMode.SELECT)
-//	@BatchSize(size = 500)
-//	@OrderBy("id ASC")
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinTable(name = "rip_qtdservico")
-//	public List<QtdServico> getQtdServicos() {
-//		return qtdServicos;
-//	}
-//
-//	public void setQtdServicos(List<QtdServico> qtdServicos) {
-//		this.qtdServicos = qtdServicos;
-//	}
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size = 500)
+	@OrderBy("id ASC")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "siep_qtdservico")
+	public List<QtdServicoSiep> getQtdServicos() {
+		return qtdServicos;
+	}
+
+	public void setQtdServicos(List<QtdServicoSiep> qtdServicos) {
+		this.qtdServicos = qtdServicos;
+	}
 
 	@Fetch(FetchMode.SELECT)
 	@BatchSize(size = 500)

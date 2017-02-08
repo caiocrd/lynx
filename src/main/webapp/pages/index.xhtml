@@ -18,6 +18,13 @@
 							<h:graphicImage value="/resources/img/01.png" />
 						</h:outputLink>
 					</sec:authorize>
+					
+					<sec:authorize access="hasAnyRole('CALLCENTER_SIEP','ATENDENTE_SIEP')">
+						<h:outputLink value="/lynx/pages/callcenterSiep/">
+							<h:graphicImage value="/resources/img/01.png" />
+						</h:outputLink>
+					</sec:authorize>
+					
 					<sec:authorize access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','DIRECAO','REGIAO')">
 						<h:outputLink value="/lynx/pages/region/" >
 							<h:graphicImage value="/resources/img/02.png" />

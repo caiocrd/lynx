@@ -5,7 +5,7 @@ import javax.faces.bean.ManagedProperty;
 import br.com.csl.lynx.api.SiepInfo;
 import br.com.csl.lynx.model.MovimentacaoSiep;
 import br.com.csl.lynx.model.OcorrenciaSiep;
-import br.com.csl.lynx.model.QtdServico;
+import br.com.csl.lynx.model.QtdServicoSiep;
 import br.com.csl.lynx.model.Siep;
 import br.com.csl.utils.controller.CommonController;
 import br.com.csl.utils.data.DataModel;
@@ -26,8 +26,8 @@ public abstract class AbstractSiepInfo extends CommonController implements SiepI
 	@ManagedProperty("#{movimentacaoSiepDataModel}")
 	protected DataModel<MovimentacaoSiep> movimentacaoDataModel;
 	
-	@ManagedProperty("#{qtdServicoDataModel}")
-	protected DataModel<QtdServico> qtdServicoDataModel;
+	@ManagedProperty("#{qtdServicoSiepDataModel}")
+	protected DataModel<QtdServicoSiep> qtdServicoDataModel;
 
 	@ManagedProperty("#{siepService}")
 	protected DataService<Siep> siepService;
@@ -38,8 +38,8 @@ public abstract class AbstractSiepInfo extends CommonController implements SiepI
 	@ManagedProperty("#{movimentacaoSiepService}")
 	protected DataService<MovimentacaoSiep> movimentacaoService;
 	
-	@ManagedProperty("#{qtdServicoService}")
-	protected DataService<QtdServico> qtdServicoService;
+	@ManagedProperty("#{qtdServicoSiepService}")
+	protected DataService<QtdServicoSiep> qtdServicoService;
 
 	public void clear() {
 		siep = new Siep();
@@ -93,11 +93,11 @@ public abstract class AbstractSiepInfo extends CommonController implements SiepI
 		this.movimentacaoDataModel = movimentacaoDataModel;
 	}
 
-	public DataModel<QtdServico> getQtdServicoDataModel() {
+	public DataModel<QtdServicoSiep> getQtdServicoDataModel() {
 		return qtdServicoDataModel;
 	}
 
-	public void setQtdServicoDataModel(DataModel<QtdServico> qtdServicoDataModel) {
+	public void setQtdServicoDataModel(DataModel<QtdServicoSiep> qtdServicoDataModel) {
 		this.qtdServicoDataModel = qtdServicoDataModel;
 	}
 
@@ -113,7 +113,7 @@ public abstract class AbstractSiepInfo extends CommonController implements SiepI
 		this.movimentacaoService = movimentacaoService;
 	}
 	
-	public void setQtdServicoService(DataService<QtdServico> qtdServicoService) {
+	public void setQtdServicoService(DataService<QtdServicoSiep> qtdServicoService) {
 		this.qtdServicoService = qtdServicoService;
 	}
 }

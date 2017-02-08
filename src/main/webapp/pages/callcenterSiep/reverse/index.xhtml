@@ -7,14 +7,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:m="http://code.google.com/p/gmaps4jsf/"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-	
+
 	<!-- ################################ -->
 	<!-- #  View Rendering Parameters.  # -->
 	<!-- ################################ -->
 	
-	<ui:param name="controller" value="#{cancelSiepController}" />
-	<ui:param name="siepTableHeader" value="SIEPs Abertas" />
-	<ui:param name="showServiceTable" value="false" />
+	<ui:param name="controller" value="#{reverseSiepController}" />
+	<ui:param name="siepTableHeader" value="SIEPs Para Estornar" />
+	<ui:param name="serviceProvider" value="false" />
 	
 	<ui:param name="filterUpdates" value=":printForm :dataForm" />
 	<ui:param name="showFilterForm" value="#{controller.siep.id eq null}" />
@@ -25,8 +25,6 @@
 	
 	<ui:param name="printUpdates" value=":filterForm :dataForm" />
 	<ui:param name="showPrintActions" value="#{controller.siep.id eq null}"/>
-	
-	<ui:param name="requireObs" value="true" />
 	
 	<ui:param name="actionClearUpdates" value=":formWrapper" />
 	
@@ -41,7 +39,7 @@
 			<ui:decorate template="/WEB-INF/views/elements/siepTable.xhtml">
 				<ui:define name="actionColumn">
 					<p:column headerText="Ação">
-						<p:commandButton value="Cancelar" icon="ui-icon-wrench" action="#{controller.load}" update=":formWrapper">
+						<p:commandButton value="Estornar" icon="ui-icon-wrench" action="#{controller.load}" update=":formWrapper">
 							<f:setPropertyActionListener target="#{controller.siep}" value="#{siep}" />
 						</p:commandButton>
 					</p:column>
@@ -58,12 +56,19 @@
 		
 				<ui:decorate template="/WEB-INF/views/elements/siepAction.xhtml" >
 					<ui:define name="action">
-						<p:commandButton style="width: 100px;" value="Cancelar" icon="ui-icon-check" actionListener="#{controller.cancel}" update=":formWrapper">
-							<p:confirm header="Confirmação" message="Deseja cancelar a SIEP?" icon="ui-icon-alert" />
-						</p:commandButton>
+						<p:commandButton style="width: 100px;" value="Estornar" icon="ui-icon-arrowreturnthick-1-n" actionListener="#{controller.reverse}" update=":formWrapper">
+							<p:confirm header="Confirmação" message="Deseja estornar a SIEP?" icon="ui-icon-alert" />
+						</p:commandButton>					
 					</ui:define>
+					
+					<ui:define name="extraSiepAction">
+						<p:column>
+							<p:commandButton style="width: 100px;" value="Finalizar" icon="ui-icon-check" actionListener="#{controller.close}" update=":formWrapper">
+								<p:confirm header="Confirmação" message="Deseja fechar a SIEP?" icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+					</ui:define>					
 				</ui:decorate>
-	
 			</h:form>
 		</p:outputPanel>
 	</ui:define>

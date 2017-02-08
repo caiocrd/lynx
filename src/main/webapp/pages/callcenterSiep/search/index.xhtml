@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenterSiep.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/">
+	
+	<!-- ################################ -->
+	<!-- #  View Rendering Parameters.  # -->
+	<!-- ################################ -->
+	
+	<ui:param name="controller" value="#{searchSiepController}" />
+	<ui:param name="serviceProvider" value="false" />
+	
+	<ui:param name="filterUpdates" value=":formWrapper" />
+	<ui:param name="showFilterForm" value="#{controller.siep.id eq null}" />
+	
+	<ui:param name="printUpdates" value=":filterForm :dataForm" />
+	<ui:param name="showPrintActions" value="#{(controller.siep.id eq null) and (controller.filter.filterStatus)}"/>
+	
+	<ui:param name="printAllBtn" value="false" />
+	<ui:param name="printSelBtn" value="false" />
+	
+	
+	<!-- ################### -->
+	<!-- #  View Content.  # -->
+	<!-- ################### -->
+		
+	<ui:define name="content">
+		<p:outputPanel id="formWrapper">
+			<ui:decorate template="/WEB-INF/views/elements/fullMovSiepFilter.xhtml"/>
+			
+		<h:form id="dataForm" rendered="#{(controller.siep.id eq null) and (controller.filter.filterStatus)}">
+			<p:dataTable 
+				id="movementSearchTable" 
+				var="mov" 
+				rows="15" 
+				lazy="true"
+				paginator="true"
+				value="#{controller.movimentacaoDataModel}"
+				emptyMessage="Nenhuma SIEP encontrada."
+				selection="#{controller.selection}" 
+				selectionMode="single"
+				sortBy="#{siep.id}"
+				sortOrder="DESCENDING"
+				sortMode="multiple"
+				style="width: 100%; text-align: center; margin-top: 10px;">
+
+				<p:ajax event="rowSelect" listener="#{controller.select}" update=":formWrapper" />
+						
+				<f:facet name="header">
+					<h:outputText value="Resultado da pesquisa" />
+				</f:facet>
+
+				<p:column headerText="N° SIEP" sortBy="#{mov.r.id}" style="width: 85px!important;">
+					<h:outputText value="#{mov.siep.id}" />
+				</p:column>
+
+				<p:column headerText="Bairro" sortBy="#{mov.bairro.nome}" style="white-space:pre-line;">
+					<h:outputText value="#{mov.siep.endereco.fk.bairro.nome}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" sortBy="#{mov.logradouro.nome}" style="white-space:pre-line;">
+					<h:outputText value="#{mov.siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<small><h:outputText value="Selecione uma linha para visualizar a SIEP." /></small>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	
+		<ui:decorate template="/WEB-INF/views/elements/printSiepActions.xhtml" />
+					
+			<h:form id="executionForm" enctype="multipart/form-data"  style="text-align: left;" rendered="#{controller.siep.id ne null}">
+			
+				<ui:decorate template="/WEB-INF/views/siepInfo.xhtml" />
+				
+				<ui:decorate template="/WEB-INF/views/elements/siepAction.xhtml" >
+					<ui:define name="cancelAction">
+						<p:commandButton 
+							style="width: 100px;" 
+							value="Voltar" process="@this" 
+							icon="ui-icon-close" 
+							action="#{controller.back}" 
+							update=":formWrapper"/>
+					</ui:define>		
+				</ui:decorate>
+	
+			</h:form>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

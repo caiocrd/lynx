@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/regionSiep.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{regionSiepHomeController.reversed}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs Estornadas." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Estornadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSiepHomeController.reversed)} de um total de #{regionSiepHomeController.totalReversed} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{regionSiepHomeController.toEvaluate}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs Para Avaliar." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Aguardando Avaliação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSiepHomeController.toEvaluate)} de um total de #{regionSiepHomeController.totalToEvaluate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{regionSiepHomeController.withFeedback}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs Com Feedback Negativo." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Com Feedback Negativo" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSiepHomeController.withFeedback)} de um total de #{regionSiepHomeController.totalWithFeedback} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

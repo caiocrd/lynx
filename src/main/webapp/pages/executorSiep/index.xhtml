@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/executorSiep.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{executorSiepHomeController.expired}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs vencidas." style="text-align: center;" rowStyleClass="expired-siep">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Vencidas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSiepHomeController.expired)} de um total de #{executorSiepHomeController.totalExpired} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSiepHomeController.toExpire}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs vencendo hoje." style="text-align: center;" rowStyleClass="to-expire-siep">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Vencendo Hoje" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSiepHomeController.toExpire)} de um total de #{executorSiepHomeController.totalToExpire} entradas.</small></f:facet>
+			</p:dataTable>
+			
+			<br />
+			<p:dataTable value="#{executorSiepHomeController.toReceive}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs Para Receber." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Aguardando Recebimento" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSiepHomeController.toReceive)} de um total de #{executorSiepHomeController.totalToReceive} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSiepHomeController.toAdequate}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs para Adequação." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Para Adequação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSiepHomeController.toAdequate)} de um total de #{executorSiepHomeController.totalToAdequate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSiepHomeController.inExecution}" var="siep" rows="6" 
+				emptyMessage="Sem SIEPs em Execução" style="text-align: center;"
+				paginator="false" sortMode="multiple">
+
+				<f:facet name="header">
+					<h:outputText value="SIEPs Em Execução" />
+				</f:facet>
+
+				<p:column headerText="Nº da SIEP" style="width: 106px;">
+					<h:outputText value="#{siep.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{siep.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{siep.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSiepHomeController.inExecution)} de um total de #{executorSiepHomeController.totalInExecution} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

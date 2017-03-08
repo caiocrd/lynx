@@ -30,11 +30,25 @@
 							<h:graphicImage value="/resources/img/02.png" />
 						</h:outputLink>
 					</sec:authorize>
+					
+					<sec:authorize access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','DIRECAO','REGIAO')">
+						<h:outputLink value="/lynx/pages/regionSiep/" >
+							<h:graphicImage value="/resources/img/02.png" />
+						</h:outputLink>
+					</sec:authorize>
+					
 					<sec:authorize access="hasAnyRole('PRESTADORA','EXECUTOR')">
 						<h:outputLink value="/lynx/pages/executor/" >
 							<h:graphicImage value="/resources/img/03.png" />
 						</h:outputLink>
 					</sec:authorize>
+					
+					<sec:authorize access="hasAnyRole('PRESTADORA_SIEP','EXECUTOR_SIEP')">
+						<h:outputLink value="/lynx/pages/executorSiep/" >
+							<h:graphicImage value="/resources/img/03.png" />
+						</h:outputLink>
+					</sec:authorize>
+					
 					<sec:authorize access="hasRole('DIRECAO')">
 						<h:outputLink value="/lynx/pages/manager/" >
 							<h:graphicImage value="/resources/img/04.png" />

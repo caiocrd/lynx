@@ -5,18 +5,17 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
 
-public class CostReport implements Serializable {
+public class CostSiepReport implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private List<ReportTarget> target;
-	private List<RipCostReport> ripCostReports;
 	private List<SiepCostReport> siepCostReports;
 	private List<ServicoReport> servicoReports;
 	
 	private BigDecimal totalCost;
 	
-	public CostReport() {
+	public CostSiepReport() {
 		totalCost = BigDecimal.ZERO;
 	}
 
@@ -28,12 +27,12 @@ public class CostReport implements Serializable {
 		this.target = target;
 	}
 
-	public List<RipCostReport> getRipCostReports() {
-		return ripCostReports;
+	public List<SiepCostReport> getSiepCostReports() {
+		return siepCostReports;
 	}
 
-	public void setRipCostReports(List<RipCostReport> ripCostReports) {
-		this.ripCostReports = ripCostReports;
+	public void setSiepCostReports(List<SiepCostReport> siepCostReports) {
+		this.siepCostReports = siepCostReports;
 	}
 
 	public List<ServicoReport> getServicoReports() {
@@ -56,14 +55,6 @@ public class CostReport implements Serializable {
 		this.totalCost = this.totalCost.add(value);
 	}
 	
-	public List<SiepCostReport> getSiepCostReports() {
-		return siepCostReports;
-	}
-
-	public void setSiepCostReports(List<SiepCostReport> siepCostReports) {
-		this.siepCostReports = siepCostReports;
-	}
-
 	public String getTotalString() {
 		return NumberFormat.getCurrencyInstance().format(totalCost);
 	}

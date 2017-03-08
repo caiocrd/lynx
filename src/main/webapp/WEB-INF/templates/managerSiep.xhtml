@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+<ui:composition template="/WEB-INF/templates/common.xhtml">
+	<ui:define name="usuario">
+		<h:outputText value=" | " />
+		<h:outputLabel value="Vínculo: " />
+		<b><h:outputText value="Direção" /></b>
+	</ui:define>
+	
+	<ui:define name="menu">
+		<h:form>
+		
+			<p:menubar>
+				<p:menuitem icon="ui-icon-home" value="Home" url="/pages/managerSiep/" />
+				
+				<p:menuitem value="SIEP's" url="/pages/managerSiep/search/" icon="ui-icon-clipboard" />
+
+				<p:menuitem value="Serviço" url="/pages/managerSiep/service/" icon="ui-icon-wrench" />
+				
+				<p:submenu label="Relatórios" icon="ui-icon-document">
+					<p:menuitem value="Estatístico" url="/pages/managerSiep/report/statistics.jsf" icon="ui-icon-calculator"/>
+					<p:menuitem value="Custos" url="/pages/managerSiep/report/cost.jsf" icon="ui-icon-suitcase"/>
+				</p:submenu>
+				
+				<p:menuitem value="Usuários" url="/pages/managerSiep/user/"	icon="ui-icon-person" />				
+				
+				<p:menuitem icon="ui-icon-transferthick-e-w" value="Mudar Vínculo" url="/pages/index.jsf"
+					rendered="#{fn:length(userSession.permissions) gt 1}" />
+
+				<p:menuitem icon="ui-icon-pencil" value="Alterar Senha"	onclick="dlgSenha.show()" />
+
+				<f:facet name="options">
+					<p:commandButton action="#{authController.logout}" value="Logout"
+						icon="ui-icon-extlink" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

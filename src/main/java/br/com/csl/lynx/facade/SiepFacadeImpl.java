@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.csl.lynx.model.Movimentacao;
 import br.com.csl.lynx.model.MovimentacaoSiep;
 import br.com.csl.lynx.model.Siep;
 import br.com.csl.lynx.model.Usuario;
@@ -37,7 +36,7 @@ public class SiepFacadeImpl implements SiepFacade {
  		criteria.createAlias("e.fk.bairro", "bairro", JoinType.LEFT_OUTER_JOIN);
  		criteria.createAlias("e.fk.logradouro", "logradouro", JoinType.LEFT_OUTER_JOIN);
  		criteria.createAlias("e.conjunto", "conjunto", JoinType.LEFT_OUTER_JOIN);
- 		criteria.createAlias("poste", "p", JoinType.LEFT_OUTER_JOIN);
+ 		
  		
  		criteria.add(siepCriterion);
 				

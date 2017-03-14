@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenterSvpa.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="content">
+		<ui:param name="controller" value="#{openSvpaController}" />
+		<ui:param name="showPosteTable" value="#{openSvpaController.svpa.id eq null}"/>
+		<ui:param name="showServiceTable" value="false" />
+		
+		<ui:param name="enderecoAjaxUpdate" value=":svpaDataForm @form" />
+		<ui:param name="posteBtoRequired" value="false" />
+		
+		<p:outputPanel id="formWrapper">
+		
+		
+		<!-- ##################################### -->
+		<!-- #  Formulário de cadastro de SVPA's  # -->
+		<!-- ##################################### -->
+		
+		<h:form id="newForm" rendered="#{openSvpaController.svpa.id eq null}">
+			
+				<p:panel id="cadastrarSvpa"
+					style="margin-top: 10px;">
+					
+					<f:facet name="header">
+						<h:outputText value="Cadastrar Nova SVPA" />
+						<p:outputPanel style="float: right">
+							<p:commandLink value="Carregar dados da última SVPA." rendered="#{userSession.lastSvpa ne null}"
+								actionListener="#{openSvpaController.loadLastSvpa}" process="@this"
+								update=":formWrapper" ajax="true" />
+						</p:outputPanel>	
+					</f:facet>
+					
+					<ui:decorate template="/WEB-INF/views/elements/enderecoFieldset.xhtml" >
+						TESTE
+						
+					</ui:decorate>
+					
+					<ol>
+						<li>
+							<div style="float: left; width: 49%; margin-right: 10px;">
+								<small><b><p:outputLabel for="solicitante" value="Solicitante:" style="padding-left: 6px;"/></b></small>
+								<br />
+								<p:inputText id="solicitante"
+									value="#{openSvpaController.svpa.solicitante}" required="true"
+									requiredMessage="Insira o solicitante"
+									style="width: 97%"/>								
+							</div>
+							<div style="float: left; width: 15%;">
+								<small><b><p:outputLabel for="telefone" value="Telefone:" style="padding-left: 6px;"/></b></small>
+								<br />							
+								<p:inputMask mask="(99) 9999-9999?9" id="telefone" styleClass="telefoneStyle" onblur="applyMaskTelefone();"
+									value="#{openSvpaController.svpa.telefone}" required="true"
+									requiredMessage="Insira o telefone do solicitante" style="width: 100%" />
+							</div>
+							
+						</li>
+						<sec:authorize access="hasRole('CALLCENTER')">
+							<li>
+								<small><b><p:outputLabel for="prioridade" value="Prioridade:" style="padding-left: 6px;"/></b></small>
+								<br />								
+								<p:selectOneMenu id="prioridade"
+									value="#{openSvpaController.svpa.prioridade}" required="true"
+									requiredMessage="Insira a prioridade">
+									<f:selectItem itemLabel="Normal" itemValue="3" />
+									<f:selectItem itemLabel="Média" itemValue="2" />
+									<f:selectItem itemLabel="Alta" itemValue="1" />
+									<f:selectItem itemLabel="Altíssima" itemValue="0" />
+								</p:selectOneMenu>
+							</li>
+						</sec:authorize>
+						<li style="padding-right: 10px;">
+							<small><b><p:outputLabel for="observacoes" value="Observações:" style="padding-left: 6px;"/></b></small>
+							<br />								
+							<p:inputTextarea id="observacoes" autoResize="false" maxlength="500"
+								value="#{openSvpaController.svpa.observacoes}" style="width: 100%;" />
+						</li>						
+					</ol>	
+					
+					<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+
+						<p:commandButton value="Salvar"
+							action="#{openSvpaController.save}" update=":formWrapper" oncomplete="applyMaskTelefone();"
+							style="width: 200px;" icon="ui-icon-check" />
+						
+						<p:commandButton value="Cancelar"
+							actionListener="#{openSvpaController.clear}" process="@this"
+							update=":newForm :svpaDataForm"
+							style="width: 200px;" icon="ui-icon-close" />
+						
+					</p:panelGrid>
+					
+				</p:panel>
+			
+		</h:form>
+		
+		<!-- ##################################### -->
+		<!-- # Tabela de acompanhamento de SVPA's # -->
+		<!-- ##################################### -->
+		
+		<h:form id="svpaDataForm" rendered="#{openSvpaController.svpa.id eq null}">
+			<f:event listener="#{controller.filter()}" type="preRenderView" />
+		
+			<p:dataTable 
+				id="tabelaSvpa"
+				widgetVar="tabelaSvpa" 
+				var="svpa" 
+				rows="7" 
+				lazy="true"
+				paginator="true"
+				value="#{openSvpaController.svpaDataModel}"
+				emptyMessage="Nenhuma SVPA encontrada."
+				selection="#{openSvpaController.selection}" 
+				selectionMode="single"
+				disabledSelection="#{svpa.status.name() eq 'CLOSED'}"
+				style="width: 100%; text-align: center;  margin-top: 10px;">
+
+				<p:ajax 
+					event="rowSelect" 
+					listener="#{openSvpaController.select}"
+					update=":formWrapper" />
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs em Andamento" />
+				</f:facet>
+
+				<p:column headerText="N° SVPA">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText value="#{svpa.status.label}" />
+				</p:column>
+
+				<p:column headerText="Bairro" style="white-space:pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" style="white-space:pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+
+				<p:column headerText="Solicitante" style="white-space:pre-line;">
+					<h:outputText value="#{svpa.solicitante}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="Acompanhar Protocolo"
+						onclick="accProtocol.show();"
+						process="@this" />
+				</f:facet>
+			</p:dataTable>
+	</h:form>
+
+	<ui:include src="/WEB-INF/views/elements/accProtocolDlg.xhtml" />
+
+		<!-- ##################################### -->
+		<!-- #     Formulário de ocorrências     # -->
+		<!-- ##################################### -->
+		
+		<h:form id="occurrenceForm" rendered="#{openSvpaController.svpa.id ne null}">
+		
+				<ui:decorate template="/WEB-INF/views/svpaInfo.xhtml" />	
+				
+				<p:panel rendered="#{openSvpaController.newOccurrence}" header="Cadastrar Nova Ocorrencia"	style="margin-top: 10px;">
+					<ol>
+						<li>
+							<div style="float: left; width: 83%; margin-right: 9px;">
+								<small><b><p:outputLabel for="registrante" value="Registrante:" style="padding-left: 6px;"/></b></small>
+								<br />
+								<p:inputText id="registrante" required="true"
+									requiredMessage="Insira o registrante"
+									value="#{openSvpaController.ocorrencia.nome}" style="width: 97%;" />								
+							</div>
+							<div style="float: left; width: 15%;">
+								<small><b><p:outputLabel for="telefone" value="Telefone:" style="padding-left: 6px;"/></b></small>
+								<br />							
+								<p:inputMask mask="(99) 9999-9999?9" id="telefone" styleClass="telefoneStyle" onblur="applyMaskTelefone();"
+									value="#{openSvpaController.ocorrencia.telefone}" required="true"
+									requiredMessage="Insira o telefone do solicitante" style="width: 100%;" />
+							</div>
+						</li>
+						<li>
+							<small><b><p:outputLabel for="observacoes" value="Observações:" style="padding-left: 6px;"/></b></small>
+							<br />								
+							<p:inputTextarea id="observacoes" autoResize="false" maxlength="500"
+								requiredMessage="Insira a observação"
+								value="#{openSvpaController.ocorrencia.observacao}" style="width: 99%;" />
+						</li>	
+					</ol>					
+					
+					<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="2">
+						<p:commandButton value="Cadastrar Ocorrencia" update=":formWrapper"
+							action="#{openSvpaController.saveOccurrence}" oncomplete="applyMaskTelefone();"
+							style="width: 200px;" icon="ui-icon-check" />
+							
+						<p:commandButton value="Cancelar" ajax="true"
+							action="#{openSvpaController.clear}" update=":formWrapper"
+							process="@this" oncomplete="applyMaskTelefone();"
+							style="width: 200px;" icon="ui-icon-close" />
+					</p:panelGrid>
+				</p:panel>
+				
+				<p:panel rendered="#{!openSvpaController.newOccurrence}" style="margin-top: 10px;">
+					<p:outputPanel style="margin: auto; width: 75%; text-align: center;">
+						<p:commandButton value="Retornar"
+							action="#{openSvpaController.clear}" update=":formWrapper"
+							process="@this" 
+							style="width: 200px;" icon="ui-icon-close" />
+					</p:outputPanel>
+				</p:panel>
+
+		</h:form>
+	</p:outputPanel>
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/js/script.js"></script>
+	</ui:define>
+</ui:composition>

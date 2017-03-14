@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<!-- ##################################### -->
+	<!-- #    Tabela de svpas cadastradas.    # -->
+	<!-- ##################################### -->	
+	<o:importFunctions type="br.com.csl.lynx.utils.CalendarUtil" var="cUtil" />
+	
+	<ui:param name="today" value="#{cUtil:getToday()}" />
+	
+	<h:form 
+		id="#{(svpaDataFormId ne null)? svpaDataFormId : 'svpaDataForm'}"
+		rendered="#{(showSvpaTable ne null)? showSvpaTable : 'true'}">
+						
+		<p:dataTable 
+			id="svpaTable"
+			value="#{controller.svpaDataModel}"
+			var="svpa"
+			rows="15"
+			lazy="true"
+			paginator="true"
+			emptyMessage="Nenhuma SVPA para exibir."
+			selection="#{controller.selectedSvpas}"
+			selectionMode="multiple"
+			sortBy="#{svpa.id}"
+			sortMode="multiple"
+			sortOrder="DESCENDING"
+			style="width: 100%; text-align: center;"
+			rowStyleClass="
+				#{(today.time gt svpa.previsao.time ? 'expired-rip' : 
+				  (today.time eq svpa.previsao.time ? 'to-expire-rip' : null))}" >
+
+			<ui:insert name="svpaAjax">
+				<p:ajax event="rowSelect" update="#{svpaSelectUpdates}" global="false"/>
+				<p:ajax event="rowUnselect" update="#{svpaSelectUpdates}" global="false"/>
+			</ui:insert>
+			
+			<f:facet name="header">
+				<h:outputText value="#{(svpaTableHeader ne null)? svpaTableHeader : 'SVPAs'}" />
+			</f:facet>
+
+			<p:column headerText="N° SVPA" sortBy="id">
+				<h:outputText value="#{svpa.id}" />
+			</p:column>
+
+			<p:column headerText="Bairro" sortBy="bairro.nome" 
+				style="white-space:pre-line;">
+				<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+			</p:column>
+
+			<p:column headerText="Logradouro" sortBy="logradouro.nome"
+				style="white-space:pre-line;">
+				<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+			</p:column>
+			
+			<p:column headerText="Previsão" sortBy="previsao">
+				<h:outputText value="#{svpa.previsao.time}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+				</h:outputText>
+			</p:column>						
+
+			
+			<ui:insert name="actionColumn" />
+			
+			<f:facet name="footer">
+				<small>
+					<h:outputText value="SVPAs vencidas." styleClass="expired-rip" style="float: left;"/>
+					&#160;
+					<h:outputText value="SVPAs vencendo hoje." styleClass="to-expire-rip" style="float: right;"/>
+				</small>
+			</f:facet>					
+		</p:dataTable>
+	</h:form>
+	
+</ui:composition>

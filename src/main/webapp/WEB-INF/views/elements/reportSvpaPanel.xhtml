@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:form rendered="#{controller.filterStatus}">
+	
+		<p:panel style="text-align: center;">
+			<h2>
+				<h:outputText value="#{(controller.report.total gt 1)? message : 'Apenas uma RIP foi encontrada.'}"/>
+			</h2>
+			
+			<p:dataTable value="#{controller.target}" var="target" paginator="true" rows="15">
+				<f:facet name="header">
+					<h:outputText value="Filtros ativos"/>
+				</f:facet>
+				
+				<p:column headerText="Atributo">
+					<h:outputText value="#{target.target}"/>
+				</p:column>
+				
+				<p:column headerText="Valor">
+					<h:outputText value="#{target.value}" />
+				</p:column>
+				
+				<f:facet name="footer">
+					<small><h:outputText value="#{fn:length(controller.target)} filtro(s) ativo(s)"/></small>
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+				
+		<p:tooltip value="Abertas" for="problemType:open"/>
+		<p:tooltip value="Canceladas" for="problemType:canceled"/>
+		<p:tooltip value="Recebidas" for="problemType:received"/>
+		<p:tooltip value="Executadas" for="problemType:executed"/>
+		<p:tooltip value="Avaliadas" for="problemType:evaluated"/>
+		<p:tooltip value="Adequadas" for="problemType:adequated"/>
+		<p:tooltip value="Com FeedBack Negativo" for="problemType:feedback"/>
+		<p:tooltip value="Estornadas" for="problemType:reversed"/>
+		<p:tooltip value="Finalizadas" for="problemType:closed"/>
+		<p:tooltip value="Enviadas para pagamento" for="problemType:payed"/>
+		<p:tooltip value="Expiradas" for="problemType:expired"/>
+		<p:tooltip value="Total" for="problemType:total"/>
+		
+		<p:tooltip value="Abertas" for="stateType:open"/>
+		<p:tooltip value="Canceladas" for="stateType:canceled"/>
+		<p:tooltip value="Recebidas" for="stateType:received"/>
+		<p:tooltip value="Executadas" for="stateType:executed"/>
+		<p:tooltip value="Avaliadas" for="stateType:evaluated"/>
+		<p:tooltip value="Adequadas" for="stateType:adequated"/>
+		<p:tooltip value="Com FeedBack Negativo" for="stateType:feedback"/>
+		<p:tooltip value="Estornadas" for="stateType:reversed"/>
+		<p:tooltip value="Finalizadas" for="stateType:closed"/>
+		<p:tooltip value="Enviadas para pagamento" for="stateType:payed"/>
+		<p:tooltip value="Expiradas" for="stateType:expired"/>
+		<p:tooltip value="Total" for="stateType:total"/>
+		
+		<p:tooltip value="Abertas" for="problemState:open"/>
+		<p:tooltip value="Executando" for="problemState:executing"/>
+		<p:tooltip value="Avaliando" for="problemState:evaluating"/>
+		<p:tooltip value="Adequando" for="problemState:adequating"/>
+		<p:tooltip value="Estornando" for="problemState:reversing"/>
+		<p:tooltip value="Estornada" for="problemState:reversed"/>
+		<p:tooltip value="Avaliando Feedback Negativo" for="problemState:feedback"/>
+		<p:tooltip value="Finalizando" for="problemState:done"/>
+		<p:tooltip value="Finalizadas" for="problemState:close"/>
+		<p:tooltip value="Enviadas para pagamento" for="problemState:pay"/>
+		<p:tooltip value="Canceladas" for="problemState:canceled"/>
+		<p:tooltip value="Expiradas" for="problemState:expired"/>
+		<p:tooltip value="Total" for="problemState:total"/>			
+		
+		<p:dataTable id="problemType" value="#{controller.problemReports}" var="problemReport" style="margin-top: 10px;">
+		
+			<f:facet name="header">
+				<h:outputText value="Movimentos Realizados por Reclamação"/>
+			</f:facet>
+			
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="Problema" />
+					<p:column colspan="10" headerText="Movimentos" />
+					<p:column colspan="2" headerText="Sumário" />
+				</p:row>
+				
+				<p:row>
+					<p:column headerText="Abe" id="open" />
+					
+					<p:column headerText="Rec" id="received"/>
+
+					<p:column headerText="Exe" id="executed"/>
+					
+					<p:column headerText="Ava" id="evaluated"/>
+					
+					<p:column headerText="Ade" id="adequated"/>
+
+					<p:column headerText="Fbk" id="feedback"/>
+					
+					<p:column headerText="Est" id="reversed"/>
+					
+					<p:column headerText="Fin" id="closed"/>
+					
+					<p:column headerText="Pag" id="payed"/>							
+
+					<p:column headerText="Can" id="canceled"/>
+					
+					<p:column headerText="Exp" id="expired"/>
+					
+					<p:column headerText="Tot" id="total"/>						
+					
+				</p:row>
+			</p:columnGroup>
+			
+			<p:column footerText="Totais">
+				<h:outputText value="#{problemReport.problem.label}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movOpened}">
+				<h:outputText value="#{problemReport.movOpened}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movReceived}">
+				<h:outputText value="#{problemReport.movReceived}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movExecuted}">
+				<h:outputText value="#{problemReport.movExecuted}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movEvaluated}">
+				<h:outputText value="#{problemReport.movEvaluated}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movAdequated}">
+				<h:outputText value="#{problemReport.movAdequated}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movFeedback}">
+				<h:outputText value="#{problemReport.movFeedback}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movReversed}">
+				<h:outputText value="#{problemReport.movReversed}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movClosed}">
+				<h:outputText value="#{problemReport.movClosed}"/>
+			</p:column>
+
+			<p:column footerText="#{controller.report.movPayed}">
+				<h:outputText value="#{problemReport.movPayed}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movCanceled}">
+				<h:outputText value="#{problemReport.movCanceled}"/>
+			</p:column>				
+			
+			<p:column footerText="#{controller.report.expired}">
+				<h:outputText value="#{problemReport.expired}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.total}">
+				<h:outputText value="#{problemReport.total}"/>
+			</p:column>								
+      
+			<f:facet name="footer">
+				&#160;
+			</f:facet>
+		</p:dataTable>		
+		
+		<p:dataTable 
+			id="problemState"
+			value="#{controller.problemReports}" 
+			var="problemReport"
+			style="margin-top: 10px;">
+			
+			<f:facet name="header">
+				<h:outputText value="Relatório de Estados Atuais por Reclamação"/>
+			</f:facet>
+			
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="Problema" />
+					<p:column colspan="11" headerText="Estado Atual" />
+					<p:column colspan="2" headerText="Sumário" />
+				</p:row>
+				
+				<p:row>
+					<p:column headerText="Abe" id="open"/>
+					
+					<p:column headerText="Exe" id="executing"/>
+
+					<p:column headerText="Ava" id="evaluating"/>
+					
+					<p:column headerText="Ade" id="adequating"/>
+
+					<p:column headerText="Etd" id="reversing"/>
+					
+					<p:column headerText="Est" id="reversed"/>
+					
+					<p:column headerText="Fbk" id="feedback"/>
+					
+					<p:column headerText="Fnd" id="done"/>
+					
+					<p:column headerText="Fin" id="close"/>
+					
+					<p:column headerText="Pag" id="pay"/>
+					
+					<p:column headerText="Can" id="canceled"/>						
+					
+					<p:column headerText="Exp" id="expired"/>
+					
+					<p:column headerText="Tot" id="total"/>
+				</p:row>
+			</p:columnGroup>
+			
+			<p:column footerText="Totais">
+				<h:outputText value="#{problemReport.problem.label}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.stOpen}">
+				<h:outputText value="#{problemReport.stOpen}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.stExecuting}">
+				<h:outputText value="#{problemReport.stExecuting}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.stEvaluating}">
+				<h:outputText value="#{problemReport.stEvaluating}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.stAdequating}">
+				<h:outputText value="#{problemReport.stAdequating}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.stReversing}">
+				<h:outputText value="#{problemReport.stReversing}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.stReversed}">
+				<h:outputText value="#{problemReport.stReversed}"/>
+			</p:column>
+
+			<p:column footerText="#{controller.report.stFeedback}">
+				<h:outputText value="#{problemReport.stFeedback}"/>
+			</p:column>				
+
+			<p:column footerText="#{controller.report.stEnding}">
+				<h:outputText value="#{problemReport.stEnding}"/>
+			</p:column>				
+			
+			<p:column footerText="#{controller.report.stClosed}">
+				<h:outputText value="#{problemReport.stClosed}"/>
+			</p:column>
+
+			<p:column footerText="#{controller.report.stPayed}">
+				<h:outputText value="#{problemReport.stPayed}"/>
+			</p:column>	
+
+			<p:column footerText="#{controller.report.stCanceled}">
+				<h:outputText value="#{problemReport.stCanceled}"/>
+			</p:column>	
+			
+			<p:column footerText="#{controller.report.expired}">
+				<h:outputText value="#{problemReport.expired}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.total}">
+				<h:outputText value="#{problemReport.total}"/>
+			</p:column>
+			
+			<f:facet name="footer">
+				&#160;
+			</f:facet>
+			
+		</p:dataTable>	
+		
+		<p:dataTable 
+			value="#{controller.statusReports}" 
+			var="statusReport" 
+			id="stateType"
+			style="margin-top: 10px;">
+			
+			<f:facet name="header">
+				<h:outputText value="Relatório de Movimentos Realizados por Estado Atual"/>
+			</f:facet>
+			
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="Estado Atual" />
+					<p:column colspan="10" headerText="Movimentos" />
+					<p:column colspan="2" headerText="Sumário"/>
+				</p:row>
+				
+				<p:row>
+					<p:column headerText="Abe" id="open" />
+					
+					<p:column headerText="Rec" id="received"/>
+
+					<p:column headerText="Exe" id="executed"/>
+					
+					<p:column headerText="Ava" id="evaluated"/>
+					
+					<p:column headerText="Ade" id="adequated"/>
+
+					<p:column headerText="Fbk" id="feedback"/>
+					
+					<p:column headerText="Est" id="reversed"/>
+					
+					<p:column headerText="Fin" id="closed"/>
+					
+					<p:column headerText="Pag" id="payed"/>
+
+					<p:column headerText="Can" id="canceled"/>
+					
+					<p:column headerText="Exp" id="expired"/>
+					
+					<p:column headerText="Tot" id="total"/>						
+					
+				</p:row>
+			</p:columnGroup>
+			
+			<p:column footerText="Totais">
+				<h:outputText value="#{statusReport.status.label}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movOpened}">
+				<h:outputText value="#{statusReport.movOpen}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movReceived}">
+				<h:outputText value="#{statusReport.movReceived}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movExecuted}">
+				<h:outputText value="#{statusReport.movExecuted}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movEvaluated}">
+				<h:outputText value="#{statusReport.movEvaluated}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movAdequated}">
+				<h:outputText value="#{statusReport.movAdequated}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movFeedback}">
+				<h:outputText value="#{statusReport.movFeedback}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movReversed}">
+				<h:outputText value="#{statusReport.movReversed}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movClosed}">
+				<h:outputText value="#{statusReport.movClosed}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movPayed}">
+				<h:outputText value="#{statusReport.movPayed}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.movCanceled}">
+				<h:outputText value="#{statusReport.movCanceled}"/>
+			</p:column>				
+			
+			<p:column footerText="#{controller.report.expired}">
+				<h:outputText value="#{statusReport.expired}"/>
+			</p:column>
+			
+			<p:column footerText="#{controller.report.total}">
+				<h:outputText value="#{statusReport.total}"/>
+			</p:column>
+			
+			<f:facet name="footer">
+				&#160;
+			</f:facet>	
+		</p:dataTable>
+		
+		<p:dataTable 
+			value="#{controller.ripReports}" 
+			var="ripReport" 
+			rows="15" 
+			paginator="true" 
+			style="margin-top: 10px;">
+			
+			<f:facet name="header">
+				<h:outputText value="Relatório de Movimentos Realizados"/>
+			</f:facet>
+			
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="Protocolo" />
+
+					<p:column rowspan="2" headerText="Aberta" />
+
+					<p:column rowspan="2" headerText="Recebida" />
+
+					<p:column rowspan="2" headerText="Executada" />
+
+					<p:column colspan="2" headerText="Avaliada" />
+
+					<p:column colspan="2" headerText="Adequada" />
+
+					<p:column colspan="2" headerText="Estornada" />
+
+					<p:column rowspan="2" headerText="Finalizada" />
+
+					<p:column rowspan="2" headerText="Cancelada" />
+				</p:row>
+				
+				<p:row>
+					<p:column headerText="Q"/>
+
+					<p:column headerText="Data" />
+					
+					<p:column headerText="Q" />
+
+					<p:column headerText="Data" />
+					
+					<p:column headerText="Q" />
+
+					<p:column headerText="Data" />						
+				</p:row>
+				
+			</p:columnGroup>
+			
+			<p:column>
+				<h:outputText value="#{ripReport.id}"/>
+			</p:column>
+			
+			<p:column>
+				<h:outputText value="#{ripReport.opened}"/>
+			</p:column>
+				
+			<p:column>
+				<h:outputText value="#{ripReport.received}"/>
+			</p:column>
+			
+			<p:column>
+				<h:outputText value="#{ripReport.executed}"/>
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{ripReport.evaluations}"/>
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{ripReport.evaluated}"/>
+			</p:column>		
+			
+			<p:column>
+				<h:outputText value="#{ripReport.adequations}"/>
+			</p:column>
+										
+			<p:column>
+				<h:outputText value="#{ripReport.adequated}"/>
+			</p:column>								
+			
+			<p:column>
+				<h:outputText value="#{ripReport.reversions}"/>
+			</p:column>
+			
+			<p:column>
+				<h:outputText value="#{ripReport.reversed}"/>
+			</p:column>
+			
+			<p:column>
+				<h:outputText value="#{ripReport.closed}"/>
+			</p:column>
+					
+			<p:column>
+				<h:outputText value="#{ripReport.canceled}"/>
+			</p:column>																																																											
+		</p:dataTable>
+		
+		<p:dataTable 
+			id="ripTable"
+			value="#{controller.rips}"
+			var="rip"
+			rows="15"
+			paginator="true"
+			emptyMessage="Nenhuma RIP para exibir."
+			style="margin-top: 10px;">
+			
+			<f:facet name="header">
+				<h:outputText value="RIPs Encontradas" />
+			</f:facet>
+
+			<p:column headerText="Protocolo">
+				<h:outputText value="#{rip.id}" />
+			</p:column>
+			
+			<p:column headerText="Zona">
+				<h:outputText value="#{rip.endereco.fk.bairro.zona.label}" />
+			</p:column>			
+
+			<p:column headerText="Bairro" style="white-space:pre-line;">
+				<h:outputText value="#{rip.endereco.fk.bairro.nome}" />
+			</p:column>
+
+			<p:column headerText="Logradouro" style="white-space:pre-line;">
+				<h:outputText value="#{rip.endereco.fk.logradouro.nome}" />
+			</p:column>
+			
+			<p:column headerText="Previsão">
+				<h:outputText value="#{rip.previsao.time}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText="Requisição" style="white-space:pre-line;">
+				<h:outputText value="#{rip.tipoReclamacao.label}" />
+			</p:column>
+			
+			<p:column headerText="Status" style="white-space:pre-line;">
+				<h:outputText value="#{rip.status.label}" />
+			</p:column>			
+								
+		</p:dataTable>				
+		
+
+		<p:panel id="printAction" style="margin-top: 10px; text-align: center;">
+			<p:remoteCommand id="stop" name="stop" oncomplete="downloadDialog.hide();"/>
+			
+			<p:dialog modal="true" widgetVar="downloadDialog" header="Preparando o documento." resizable="false" draggable="false" closable="false">  
+  				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />  
+			</p:dialog>
+			
+			<p:panelGrid style="width: 100%" columns="1">
+				<p:commandButton 
+					style="width: 200px;" 
+					value="Imprimir Relatório" 
+					icon="ui-icon-print" 
+					ajax="false" 
+					onclick="downloadDialog.show(); PrimeFaces.monitorDownload(null, stop)">
+					<p:fileDownload value="#{controller.print()}"/>
+				</p:commandButton>
+			</p:panelGrid>
+	</p:panel>
+
+	</h:form>
+</ui:composition>
+
+				

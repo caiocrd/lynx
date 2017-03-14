@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/executorSvpa.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{executorSvpaHomeController.expired}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs vencidas." style="text-align: center;" rowStyleClass="expired-svpa">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Vencidas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSvpaHomeController.expired)} de um total de #{executorSvpaHomeController.totalExpired} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSvpaHomeController.toExpire}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs vencendo hoje." style="text-align: center;" rowStyleClass="to-expire-svpa">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Vencendo Hoje" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSvpaHomeController.toExpire)} de um total de #{executorSvpaHomeController.totalToExpire} entradas.</small></f:facet>
+			</p:dataTable>
+			
+			<br />
+			<p:dataTable value="#{executorSvpaHomeController.toReceive}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs Para Receber." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Aguardando Recebimento" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSvpaHomeController.toReceive)} de um total de #{executorSvpaHomeController.totalToReceive} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSvpaHomeController.toAdequate}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs para Adequação." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Para Adequação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSvpaHomeController.toAdequate)} de um total de #{executorSvpaHomeController.totalToAdequate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSvpaHomeController.inExecution}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs em Execução" style="text-align: center;"
+				paginator="false" sortMode="multiple">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Em Execução" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSvpaHomeController.inExecution)} de um total de #{executorSvpaHomeController.totalInExecution} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

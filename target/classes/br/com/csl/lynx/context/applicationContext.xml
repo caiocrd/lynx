@@ -41,6 +41,10 @@
     	<property name="persistentClass" value="br.com.csl.lynx.model.MovimentacaoSiep"/>
     </bean>
 
+	 <bean id="movimentacaoSvpaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.MovimentacaoSvpa"/>
+    </bean>
+
     <bean id="ocorrenciaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Ocorrencia" />
     </bean>
@@ -48,7 +52,11 @@
     <bean id="ocorrenciaSiepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.OcorrenciaSiep" />
     </bean>
-
+	
+	 <bean id="ocorrenciaSvpaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.OcorrenciaSvpa" />
+    </bean>
+	
     <bean id="posteDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Poste" />
     </bean>
@@ -64,6 +72,10 @@
     <bean id="qtdServicoSiepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServicoSiep" />
     </bean>
+    
+    <bean id="qtdServicoSvpaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServicoSvpa" />
+    </bean>
 
     <bean id="ripDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Rip" />
@@ -71,6 +83,10 @@
     
     <bean id="siepDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Siep" />
+    </bean>
+    
+    <bean id="svpaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Svpa" />
     </bean>
    
     <bean id="roleDAO"
@@ -152,12 +168,30 @@
 		</property>
 	</bean>
 
+	<bean id="movimentacaoSvpaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="movimentacaoSvpaDAO" />
+		<property name="aliases">
+			<util:map id="movementSiepAlias">
+				<entry key="svpa" value="r" />
+				<entry key="r.endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+				<entry key="usuario" value="u" />
+			</util:map>
+		</property>
+	</bean>
+
 	<bean id="ocorrenciaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="ocorrenciaDAO" />
 	</bean>
 	
 	<bean id="ocorrenciaSiepService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="ocorrenciaSiepDAO" />
+	</bean>
+	
+	<bean id="ocorrenciaSvpaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="ocorrenciaSvpaDAO" />
 	</bean>
 	
 	<bean id="posteService" class="br.com.csl.utils.data.impl.DataServiceImpl">
@@ -180,6 +214,10 @@
 		<property name="DAO" ref="qtdServicoSiepDAO" />
 	</bean>
 	
+	<bean id="qtdServicoSvpaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="qtdServicoSvpaDAO" />
+	</bean>
+	
 	<bean id="ripService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="ripDAO" />
 		<property name="aliases">
@@ -199,6 +237,18 @@
 	
 	<bean id="siepService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="siepDAO" />
+		<property name="aliases">
+			<util:map id="siepAlias">
+				<entry key="endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="svpaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="svpaDAO" />
 		<property name="aliases">
 			<util:map id="siepAlias">
 				<entry key="endereco" value="e" />
@@ -263,7 +313,12 @@
 		<property name="dataService" ref="siepService"/>
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
-
+	
+	<bean id="svpaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="svpaService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
 	<bean id="ocorrenciaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="ocorrenciaService"/>
 		<property name="idClass" value="java.lang.Long" />
@@ -274,6 +329,11 @@
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
 
+	<bean id="ocorrenciaSvpaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="ocorrenciaSvpaService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
 	<bean id="movimentacaoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="movimentacaoService"/>
 		<property name="idClass" value="java.lang.Long" />
@@ -281,6 +341,11 @@
 	
 	<bean id="movimentacaoSiepDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="movimentacaoSiepService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
+	<bean id="movimentacaoSvpaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="movimentacaoSvpaService"/>
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
 
@@ -297,7 +362,14 @@
 		<property name="dataService" ref="qtdServicoSiepService" />
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
-
+	
+	<bean id="qtdServicoSvpaDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="qtdServicoSvpaService" />
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
 	<bean id="servicoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="servicoService"/>
 		<property name="idClass" value="java.lang.Long" />

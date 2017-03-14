@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:param name="messageAll" value="Deseja imprimir as #{controller.svpaCount} SVPAs?" />
+	<ui:param name="messageFiltered" value="Deseja imprimir as #{controller.filteredSvpaCount} SVPAs?" />
+	<ui:param name="messageSelected" value="Deseja imprimir as #{fn:length(controller.selectedSvpas)} SVPAs?" />
+	
+	<h:form
+		id="#{(printFormId ne null)? printFormId : 'printForm'}"
+		rendered="#{(showPrintActions ne null)? showPrintActions : 'true'}">
+		
+		<f:event listener="#{controller.updateCount}" type="preRenderView" />
+		
+		<p:panel id="SvpaActions" style="margin-top: 10px; text-align: center;">
+			<p:remoteCommand id="stop" name="stop" update="@form #{printUpdates}" onstart="downloadDialog.hide();"/>
+			
+			<p:dialog modal="true" widgetVar="downloadDialog" header="Preparando o documento." resizable="false" draggable="false" closable="false">  
+  					<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />  
+			</p:dialog>
+			
+				<p:panelGrid style="width: 100%">
+					<p:row>
+						<p:column rendered="#{(printAllBtn ne null)? printAllBtn : 'true'}">
+							<p:commandButton style="width: 220px;" value="Imprimir Todas" 
+								icon="ui-icon-print" 
+								update="printAllConfirmDlg" 
+								oncomplete="printAllConfirmDlg.show();" 
+								disabled="#{controller.svpaCount eq 0}"/>
+						</p:column>
+						
+						<p:column>
+							<p:commandButton id="printFiltered" style="width: 220px;" value="Imprimir Filtradas" icon="ui-icon-print"
+								oncomplete="printFilteredConfirmDlg.show()" 
+								disabled="#{(controller.filteredSvpaCount eq 0)}"/>
+						</p:column>
+						<p:column rendered="#{(printSelBtn ne null)? printSelBtn : 'true'}">
+							<p:commandButton style="width: 220px;" value="Imprimir Selecionadas" icon="ui-icon-print" disabled="#{fn:length(controller.selectedSvpas) eq 0}" oncomplete="printSelectedConfirmDlg.show()"/>						
+						</p:column>
+					</p:row>
+					<ui:insert name="extraActions"/>
+				</p:panelGrid>
+		</p:panel>
+				
+		<p:confirmDialog 
+			header="Confirmação" 
+			message="#{(controller.svpaCount gt 1)? messageAll : 'Deseja imprimir a SVPA?'}"
+			id="printAllConfirmDlg" 
+			showEffect="fade" 
+			hideEffect="fade" 
+			widgetVar="printAllConfirmDlg">  
+ 								
+ 				<p:commandButton 
+				onclick="printAllConfirmDlg.hide(); downloadDialog.show(); PrimeFaces.monitorDownload(null, stop);" 
+				value="Imprimir"
+				ajax="false"
+				styleClass="ui-confirmdialog-yes" 
+				icon="ui-icon-check">
+							
+				<p:fileDownload value="#{controller.printAll()}"/>
+			</p:commandButton>
+					
+			<ui:insert name="extraAllConfirmAct" />
+			      								
+			<p:commandButton
+				onclick="printAllConfirmDlg.hide()" 
+				value="Cancelar" 
+				type="button" 
+				styleClass="ui-confirmdialog-no" 
+				icon="ui-icon-close"/>		       
+		</p:confirmDialog>
+		
+		<p:confirmDialog 
+			header="Confirmação"
+			message="#{(controller.filteredSvpaCount gt 1)? messageFiltered : 'Deseja imprimir a SVPA?'}"
+			id="printFilteredConfirmDlg"
+			showEffect="fade"
+			hideEffect="fade"
+			widgetVar="printFilteredConfirmDlg">  
+		
+			<p:commandButton 
+				onclick="printFilteredConfirmDlg.hide(); downloadDialog.show(); PrimeFaces.monitorDownload(null, stop);" 
+				value="Imprimir" 
+				ajax="false" 
+				styleClass="ui-confirmdialog-yes" 
+				icon="ui-icon-check" >
+				
+				<p:fileDownload value="#{controller.printFiltered()}" />
+			</p:commandButton>
+			
+			<ui:insert name="extraFilteredConfirmAct" />
+											
+			<p:commandButton 
+				onclick="printFilteredConfirmDlg.hide()" 
+				value="Cancelar" 
+				type="button" 
+				styleClass="ui-confirmdialog-no" 
+				icon="ui-icon-close"/>       
+		</p:confirmDialog>
+		
+											
+		<p:confirmDialog 
+			header="Confirmação" 
+			message="#{(fn:length(controller.selectedSvpas) gt 1)? messageSelected : 'Deseja imprimir a SVPA?'}" 
+			id="printSelectedConfirmDlg" 
+			showEffect="fade"
+			hideEffect="fade" 
+			widgetVar="printSelectedConfirmDlg"> 
+			 
+			<p:commandButton 
+				onclick="printSelectedConfirmDlg.hide(); downloadDialog.show(); PrimeFaces.monitorDownload(null, stop);" 
+				value="Imprimir" 
+				ajax="false" 
+				styleClass="ui-confirmdialog-yes" 
+				icon="ui-icon-check">
+				
+				<p:fileDownload value="#{controller.printSelected()}"/>
+			</p:commandButton>
+			
+			<ui:insert name="extraSelectedConfirmAct" />
+			       								
+			<p:commandButton 
+				onclick="printSelectedConfirmDlg.hide()" 
+				value="Cancelar" 
+				type="button" 
+				styleClass="ui-confirmdialog-no" 
+				icon="ui-icon-close"/>       
+		</p:confirmDialog>
+ 				
+	</h:form>
+	
+</ui:composition>

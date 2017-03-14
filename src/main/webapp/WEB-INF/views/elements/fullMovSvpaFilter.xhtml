@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:form 
+		id="#{(filterFormId ne null)? filterFormId : 'filterForm'}"
+		rendered="#{(showFilterForm ne null)? showFilterForm : 'true'}">
+
+		<p:panel id="tableFilter" style="margin-bottom: 10px;">
+		
+			<p:panelGrid style="width: 100%">
+
+				<p:row>
+					<p:column style="width: 33%;">
+						<small><strong><p:outputLabel value="Zona:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:selectOneMenu value="#{controller.filter.zona}" id="zona" style="width: 100%;">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{enumLists.zonas}" var="zona"
+								itemLabel="#{zona.label}" itemValue="#{zona}" />
+								
+						</p:selectOneMenu>
+					</p:column>
+		
+					<p:column style="width: 33%;">
+						<small><strong><p:outputLabel value="Bairro:" style="padding-left: 6px;"/></strong></small>
+						<br />
+						<p:selectOneMenu id="bairro"
+							value="#{controller.filter.bairro}" style="width: 100%;"
+							filter="true" filterMatchMode="contains">
+							
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{enderecoHandler.bairros}" var="bairro"
+								itemValue="#{bairro.nome}" itemLabel="#{bairro.nome}" />
+						</p:selectOneMenu>	
+					</p:column>
+		
+					<p:column style="width: 33%;">
+						<small><strong><p:outputLabel value="Conjunto:" style="padding-left: 6px;"/></strong></small>
+						<br/>
+						<p:selectOneMenu id="conjunto"
+							value="#{controller.filter.conjunto}" style="width: 100%;"
+							filter="true" filterMatchMode="contains">
+								
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{enderecoHandler.conjuntos}"
+								var="conjunto" itemValue="#{conjunto.nome}"
+								itemLabel="#{conjunto.nome}" />
+						</p:selectOneMenu>									
+					</p:column>
+				</p:row>						
+				<p:row>
+					<p:column>
+						<div style="padding-right: 8px; padding-bottom: 3px">
+							<small><strong><p:outputLabel value="Logradouro:" style="padding-left: 6px;"/></strong></small>
+							<br/>	
+							<p:autoComplete dropdown="false"
+								value="#{controller.filter.logradouro}"
+								completeMethod="#{enderecoHandler.loadLogradouros}"
+								forceSelection="true" id="logradouro" style="width: 100%;">
+									
+							</p:autoComplete>
+						</div>
+					</p:column>
+					
+					<p:column>
+						<small><strong><p:outputLabel value="Status:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:selectOneMenu value="#{controller.filter.status}"
+							id="status" style="width: 100%;">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{enumLists.statuses}"
+								var="status" itemLabel="#{status.label}" itemValue="#{status}" />
+						</p:selectOneMenu>
+					</p:column>	
+					
+					<p:column>
+						<small><strong><p:outputLabel value="Prioridade:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:selectOneMenu id="prioridade"
+							value="#{controller.filter.prioridade}" style="width: 100%;">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="Altíssima" itemValue="0" />
+							<f:selectItem itemLabel="Alta" itemValue="1" />
+							<f:selectItem itemLabel="Média" itemValue="2" />
+							<f:selectItem itemLabel="Baixa" itemValue="3" />
+						</p:selectOneMenu>
+					</p:column>
+									
+				</p:row>
+				<p:row>
+					
+					<p:column>
+						<small><strong><p:outputLabel value="Atendente:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:selectOneMenu value="#{controller.filter.atendente}"
+							id="atendente" filter="true" filterMatchMode="contains"
+							style="width: 100%;">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{controller.usuarios}"
+								var="usuario" itemLabel="#{usuario.nome}" itemValue="#{usuario.nome}" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column style="text-align: center;">
+						<div style="padding-bottom: 3px">
+							<small><strong><p:outputLabel value="Buscar no intervalo de:" /></strong></small>
+							<br/>	
+							<p:inputMask mask="99/99/9999" style="width: 102px; text-align: center;"
+								value="#{controller.filter.dataInicio}">
+								
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+							</p:inputMask>
+							<strong><h:outputText value=" ~ "/></strong>		
+							<p:inputMask mask="99/99/9999" style="width: 102px; text-align: center;"
+								value="#{controller.filter.dataFim}">
+								
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+									
+							</p:inputMask>
+						</div>															
+					</p:column>				
+				</p:row>
+				<p:row>
+					
+					<p:column>
+					<div style="padding-right: 8px">
+					<small><strong><p:outputLabel value="Solicitante:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+						<p:inputText id="solicitante"
+								value="#{controller.filter.solicitante}" style="width: 100%;" />
+								</div>
+					</p:column>
+					<p:column>
+					<div style="padding-right: 8px">
+					<small><strong><p:outputLabel value="Telefone:" style="padding-left: 6px;"/></strong></small>
+						<br/>	
+							<p:inputMask mask="(99) 9999-9999" id="telefone"
+								value="#{controller.filter.telefone}" style="width: 100%;" />
+								</div>
+					</p:column>
+				</p:row>
+														
+			</p:panelGrid>
+			<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="3">
+				<p:commandButton id="searchRips" value="Pesquisar"
+					action="#{controller.filter}" update="#{filterUpdates}" style="width: 120px;" icon="ui-icon-search" 
+					process=":filterForm"/>
+					
+				<p:commandButton
+					value="Buscar Protocolo"
+					onclick="accProtocol.show();"
+					process="@this" 
+					icon="ui-icon-pencil"/>	
+					
+				<p:commandButton value="Limpar" onclick="form.reset()"
+					action="#{controller.clear}" process="@this"
+					update="@form #{filterUpdates}" style="width: 120px;" icon="ui-icon-close" />
+			</p:panelGrid>	
+		</p:panel>
+	</h:form>
+	
+	<ui:include src="/WEB-INF/views/elements/accProtocolDlg.xhtml" />
+</ui:composition>
+
+				

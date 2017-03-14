@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenterSvpa.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="content">
+		<h:form>
+			<sec:authorize access="hasRole('CALLCENTER_SVPA')">
+				<p:dataTable value="#{callCenterHomeSvpaController.latestReverseSvpas}" var="svpa" rows="6" 
+					emptyMessage="Sem Svpas Para Estorno." style="text-align: center;">
+	
+					<f:facet name="header">
+						<h:outputText value="SVPAs Para Possível Estorno" />
+					</f:facet>
+	
+					<p:column headerText="Nº da SVPA" style="width: 106px;">
+						<h:outputText value="#{svpa.id}" />
+					</p:column>
+					
+					
+					<p:column headerText="Logradouro">
+						<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+					</p:column>
+					
+					<p:column headerText="Bairro">
+						<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+					</p:column>
+					
+					
+					<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+				</p:dataTable>		
+				<br />
+			</sec:authorize>
+			<p:dataTable value="#{callCenterHomeSvpaController.latestOpenSvpas}" var="svpa" rows="6" 
+				emptyMessage="Sem Svpas Cadastradas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas SVPAs Cadastradas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+			<br />
+			
+			
+			<p:dataTable value="#{callCenterHomeSvpaController.latestEndedSvpas}" var="svpa" rows="6" 
+				emptyMessage="Sem Svpas Finalizadas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas SVPAs Finalizadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/common.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+	<ui:define name="usuario">
+		<h:outputText value=" | " />
+		<h:outputLabel value="Vínculo: " />
+		<b><h:outputText value="Callcenter" /></b>
+	</ui:define>
+	
+	<ui:define name="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem icon="ui-icon-home" value="Home" url="/pages/callcenterSvpa/" />
+				
+				<sec:authorize access="hasRole('ATENDENTE_SVPA')">
+					<p:menuitem value="Cadastrar" url="/pages/callcenterSvpa/open/" icon="ui-icon-clipboard"/>
+				</sec:authorize>	
+				
+				<sec:authorize access="hasRole('CALLCENTER_SVPA')">
+					<p:submenu label="SVPA's" icon="ui-icon-clipboard">
+						<p:menuitem value="Cadastrar" url="/pages/callcenterSvpa/open/" icon="ui-icon-clipboard"/>
+						<p:menuitem value="Finalizar" url="/pages/callcenterSvpa/close/" icon="ui-icon-check"/>
+						<p:menuitem value="Estornar" url="/pages/callcenterSvpa/reverse/" icon="ui-icon-arrowreturnthick-1-n"/>
+						<p:menuitem value="Cancelar" url="/pages/callcenterSvpa/cancel/" icon="ui-icon-close"/>
+						<p:menuitem value="Acompanhamento" url="/pages/callcenterSvpa/search/" icon="ui-icon-search"/>
+					</p:submenu>
+					
+
+					 
+				</sec:authorize>
+				
+				<p:menuitem icon="ui-icon-transferthick-e-w" value="Mudar Vínculo" url="/pages/index.jsf"
+					rendered="#{fn:length(userSession.permissions) gt 1}" />
+
+				<p:menuitem icon="ui-icon-pencil" value="Alterar Senha" onclick="dlgSenha.show()" />
+					
+				<f:facet name="options">
+					<p:commandButton action="#{authController.logout}" value="Logout" icon="ui-icon-extlink" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

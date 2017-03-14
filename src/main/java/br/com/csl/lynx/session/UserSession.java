@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.csl.lynx.model.Rip;
 import br.com.csl.lynx.model.Role;
 import br.com.csl.lynx.model.Siep;
+import br.com.csl.lynx.model.Svpa;
 import br.com.csl.lynx.model.Usuario;
 import br.com.csl.utils.controller.CommonController;
 import br.com.csl.utils.data.DataService;
@@ -35,6 +36,7 @@ public class UserSession extends CommonController implements Serializable {
 	private List<Role> permissions;
 	private Rip lastRip;
 	private Siep lastSiep;
+	private Svpa lastSvpa;
 
 	@ManagedProperty("#{usuarioService}")
 	private DataService<Usuario> usuarioService;
@@ -134,5 +136,14 @@ public class UserSession extends CommonController implements Serializable {
 	public void setLastSiep(Siep lastSiep) {
 		this.lastSiep = lastSiep;
 	}
+
+	public Svpa getLastSvpa() {
+		return lastSvpa;
+	}
+
+	public void setLastSvpa(Svpa lastSvpa) {
+		this.lastSvpa = lastSvpa;
+	}
+	
 	
 }

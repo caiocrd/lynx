@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/WEB-INF/templates/executor.xhtml"
+<ui:composition template="/WEB-INF/templates/executorSvpa.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,7 +9,7 @@
 	xmlns:m="http://code.google.com/p/gmaps4jsf/"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 	
-	<ui:param name="controller" value="#{costSiepReportController}" />
+	<ui:param name="controller" value="#{costSvpaReportController}" />
 	<ui:param name="message" value="Foram encontradas #{fn:length(controller.sieps)} SIEPs" />
 	
 	<ui:param name="filterUpdates" value=":formWrapper" />
@@ -20,9 +20,9 @@
 		
 	<ui:define name="content">
 		<p:outputPanel id="formWrapper">
-			<ui:decorate template="/WEB-INF/views/elements/costSiepReportFilter.xhtml"/>
+			<ui:decorate template="/WEB-INF/views/elements/costSvpaReportFilter.xhtml"/>
 			
-			<ui:decorate template="/WEB-INF/views/elements/costSiepReportPanel.xhtml"/>
+			<ui:decorate template="/WEB-INF/views/elements/costSvpaReportPanel.xhtml"/>
 		</p:outputPanel>
 	</ui:define>
 </ui:composition>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/WEB-INF/templates/executorSiep.xhtml"
+<ui:composition template="/WEB-INF/templates/executorSvpa.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,38 +9,38 @@
 
 	<ui:define name="content">
 
-		<ui:param name="controller" value="#{receiveSiepController}" />
-		<ui:param name="siepTableHeader" value="SIEPs Para Receber." />
+		<ui:param name="controller" value="#{receiveSvpaController}" />
+		<ui:param name="svpaTableHeader" value="SVPAs Para Receber." />
 
 		<ui:param name="filterUpdates" value=":printForm :receiveForm" />
-		<ui:param name="showFilterForm" value="#{controller.siep.id eq null}" />
+		<ui:param name="showFilterForm" value="#{controller.svpa.id eq null}" />
 
-		<ui:param name="siepDataFormId" value="receiveForm" />
-		<ui:param name="siepSelectUpdates" value=":printForm" />
-		<ui:param name="showSiepTable" value="#{controller.siep.id eq null}" />
+		<ui:param name="svpaDataFormId" value="receiveForm" />
+		<ui:param name="svpaSelectUpdates" value=":printForm" />
+		<ui:param name="showSvpaTable" value="#{controller.svpa.id eq null}" />
 
 		<ui:param name="printUpdates" value=":filterForm :receiveForm" />
 
 		<p:outputPanel id="formWrapper">
-			<ui:decorate template="/WEB-INF/views/elements/simpleSiepFilter.xhtml" />
+			<ui:decorate template="/WEB-INF/views/elements/simpleSvpaFilter.xhtml" />
 
-			<ui:decorate template="/WEB-INF/views/elements/siepTable.xhtml" />
+			<ui:decorate template="/WEB-INF/views/elements/svpaTable.xhtml" />
 
 			<h:form id="connfirmReceiveForm" enctype="multipart/form-data"
-				style="text-align: left;" rendered="#{controller.siep.id ne null}">
+				style="text-align: left;" rendered="#{controller.svpa.id ne null}">
 
-				<ui:decorate template="/WEB-INF/views/siepInfo.xhtml" />
+				<ui:decorate template="/WEB-INF/views/svpaInfo.xhtml" />
 
 				<ui:decorate template="/WEB-INF/views/elements/fotoUploader.xhtml" />
 
 				<ui:decorate template="/WEB-INF/views/elements/obsPanel.xhtml" />
 
-				<ui:decorate template="/WEB-INF/views/elements/siepAction.xhtml">
+				<ui:decorate template="/WEB-INF/views/elements/svpaAction.xhtml">
 					<ui:define name="action">
 						<p:commandButton style="width: 100px;" value="Receber"
 							icon="ui-icon-check" actionListener="#{controller.receiveOne}"
 							update=":formWrapper">
-							<p:confirm header="Confirmação" message="Deseja Receber a SIEP?"
+							<p:confirm header="Confirmação" message="Deseja Receber a SVPA?"
 								icon="ui-icon-alert" />
 						</p:commandButton>
 					</ui:define>
@@ -50,41 +50,41 @@
 
 
 
-			<ui:decorate template="/WEB-INF/views/elements/printSiepActions.xhtml">
+			<ui:decorate template="/WEB-INF/views/elements/printSvpaActions.xhtml">
 				<ui:define name="extraActions">
-					<p:row rendered="#{controller.siep.id == NULL}">
+					<p:row rendered="#{controller.svpa.id == NULL}">
 						<p:column>
 
 							<p:commandButton style="width: 220px;"
 								icon="ui-icon-arrowreturnthick-1-s"
-								value="Receber #{controller.siep.id} Todas"
-								disabled="#{controller.siepCount eq 0}"
+								value="Receber #{controller.svpa.id} Todas"
+								disabled="#{controller.svpaCount eq 0}"
 								actionListener="#{controller.receiveAll}"
 								update="@form :receiveForm :filterForm">
 								<p:confirm header="Confirmação"
-									message="Deseja receber a(s) SIEP(s)?" icon="ui-icon-alert" />
+									message="Deseja receber a(s) SVPA(s)?" icon="ui-icon-alert" />
 							</p:commandButton>
 						</p:column>
 						<p:column>
 							<p:commandButton style="width: 220px;"
 								icon="ui-icon-arrowreturnthick-1-s"
 								actionListener="#{controller.receiveFiltered()}"
-								disabled="#{(controller.filteredSiepCount eq 0)}"
+								disabled="#{(controller.filteredSvpaCount eq 0)}"
 								value="Receber Filtradas"
 								update="@form :receiveForm :filterForm">
 								<p:confirm header="Confirmação"
-									message="Deseja receber a(s) SIEP(s)?" icon="ui-icon-alert" />
+									message="Deseja receber a(s) SVPA(s)?" icon="ui-icon-alert" />
 							</p:commandButton>
 						</p:column>
 						<p:column>
 							<p:commandButton style="width: 220px;"
 								icon="ui-icon-arrowreturnthick-1-s"
-								disabled="#{fn:length(controller.selectedSieps) eq 0}"
+								disabled="#{fn:length(controller.selectedSvpas) eq 0}"
 								actionListener="#{controller.receiveSelected}"
 								value="Receber Selecionadas"
 								update="@form :receiveForm :filterForm">
 								<p:confirm header="Confirmação"
-									message="Deseja receber a(s) SIEP(s)?" icon="ui-icon-alert" />
+									message="Deseja receber a(s) SVPA(s)?" icon="ui-icon-alert" />
 							</p:commandButton>
 						</p:column>
 					</p:row>

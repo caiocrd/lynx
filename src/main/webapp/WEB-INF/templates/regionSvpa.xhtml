@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+<ui:composition template="/WEB-INF/templates/common.xhtml">
+	<ui:define name="usuario">
+		<h:outputText value=" | " />
+		<h:outputLabel value="Vínculo: " />
+		<b><h:outputText value="Região" /></b>
+	</ui:define>
+	<ui:define name="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem icon="ui-icon-home" value="Home" url="/pages/regionSvpa/" />
+				
+				<p:menuitem icon="ui-icon-search" value="Avaliar" url="/pages/regionSvpa/evaluate/" />
+				
+				<p:menuitem icon="ui-icon-arrowreturnthick-1-n" value="Estornos" url="/pages/regionSvpa/reverse/" />
+				
+				<p:menuitem icon="ui-icon-comment" value="Feedback" url="/pages/regionSvpa/feedback/" />
+				
+				<p:menuitem icon="ui-icon-document" value="Relatório" url="/pages/regionSvpa/report/" />
+				
+				<p:menuitem value="Acompanhamento" url="/pages/regionSvpa/search/" icon="ui-icon-search"/>
+				
+				<sec:authorize access="hasRole('REGIAO')">
+					<p:menuitem icon="ui-icon-person" value="Usuários" url="/pages/regionSvpa/user/" />
+				</sec:authorize>
+								
+				<p:menuitem icon="ui-icon-transferthick-e-w" value="Mudar Vínculo" url="/pages/index.jsf"
+					rendered="#{fn:length(userSession.permissions) gt 1}" />
+					
+				<p:menuitem icon="ui-icon-pencil" value="Alterar Senha" onclick="dlgSenha.show()" />
+
+				<f:facet name="options">
+					<p:commandButton action="#{authController.logout}" value="Logout" icon="ui-icon-extlink" />
+				</f:facet>
+
+			</p:menubar>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html> 

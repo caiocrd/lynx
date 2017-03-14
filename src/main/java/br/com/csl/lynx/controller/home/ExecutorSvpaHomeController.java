@@ -12,7 +12,7 @@ import javax.faces.bean.ViewScoped;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.csl.lynx.model.Siep;
+import br.com.csl.lynx.model.Svpa;
 import br.com.csl.lynx.support.RipStatus;
 import br.com.csl.utils.controller.CommonController;
 import br.com.csl.utils.data.DataService;
@@ -23,23 +23,23 @@ public class ExecutorSvpaHomeController extends CommonController {
 
 	private static final long serialVersionUID = -2090925333331272948L;
 
-	private List<Siep> toReceive;
+	private List<Svpa> toReceive;
 	private Integer totalToReceive;
 	
-	private List<Siep> toAdequate;
+	private List<Svpa> toAdequate;
 	private Integer totalToAdequate;
 	
-	private List<Siep> inExecution;
+	private List<Svpa> inExecution;
 	private Integer totalInExecution;
 	
-	private List<Siep> toExpire;
+	private List<Svpa> toExpire;
 	private Integer totalToExpire;
 	
-	private List<Siep> expired;
+	private List<Svpa> expired;
 	private Integer totalExpired;	
 
-	@ManagedProperty("#{siepService}")
-	private DataService<Siep> siepService;
+	@ManagedProperty("#{svpaService}")
+	private DataService<Svpa> svpaService;
 
 	@PostConstruct
 	public void init() {
@@ -51,35 +51,35 @@ public class ExecutorSvpaHomeController extends CommonController {
 		now.set(Calendar.SECOND, 0);
 		now.set(Calendar.MILLISECOND, 0);
 		
-		toReceive = siepService.list(0, 6, Restrictions.eq("status", RipStatus.OPEN), Order.desc("id"));
-		totalToReceive = siepService.count(Restrictions.eq("status", RipStatus.OPEN));
+		toReceive = svpaService.list(0, 6, Restrictions.eq("status", RipStatus.OPEN), Order.desc("id"));
+		totalToReceive = svpaService.count(Restrictions.eq("status", RipStatus.OPEN));
 		
-		toAdequate = siepService.list(0, 6, Restrictions.eq("status", RipStatus.ADEQUATING), Order.desc("id"));
-		totalToAdequate = siepService.count(Restrictions.eq("status", RipStatus.ADEQUATING));
+		toAdequate = svpaService.list(0, 6, Restrictions.eq("status", RipStatus.ADEQUATING), Order.desc("id"));
+		totalToAdequate = svpaService.count(Restrictions.eq("status", RipStatus.ADEQUATING));
 		
-		inExecution = siepService.list(0, 6, Restrictions.eq("status", RipStatus.EXECUTING), Order.desc("id"));
-		totalInExecution = siepService.count(Restrictions.eq("status", RipStatus.EXECUTING));
+		inExecution = svpaService.list(0, 6, Restrictions.eq("status", RipStatus.EXECUTING), Order.desc("id"));
+		totalInExecution = svpaService.count(Restrictions.eq("status", RipStatus.EXECUTING));
 		
-		toExpire = siepService.list(0, 6, Restrictions.and(
+		toExpire = svpaService.list(0, 6, Restrictions.and(
 				Restrictions.or(Restrictions.eq("status", RipStatus.OPEN), Restrictions.eq("status", RipStatus.EXECUTING)), 
 				Restrictions.eq("previsao", now)), Order.desc("id"));
-		totalToExpire = siepService.count(Restrictions.and(
+		totalToExpire = svpaService.count(Restrictions.and(
 				Restrictions.or(Restrictions.eq("status", RipStatus.OPEN), Restrictions.eq("status", RipStatus.EXECUTING)), 
 				Restrictions.eq("previsao", now)));
 
-		expired = siepService.list(0, 6, Restrictions.and(
+		expired = svpaService.list(0, 6, Restrictions.and(
 				Restrictions.or(Restrictions.eq("status", RipStatus.OPEN), Restrictions.eq("status", RipStatus.EXECUTING)), 
 				Restrictions.lt("previsao", now)), Order.desc("id"));
-		totalExpired = siepService.count(Restrictions.and(
+		totalExpired = svpaService.count(Restrictions.and(
 				Restrictions.or(Restrictions.eq("status", RipStatus.OPEN), Restrictions.eq("status", RipStatus.EXECUTING)), 
 				Restrictions.lt("previsao", now)));
 	}
 
-	public List<Siep> getToReceive() {
+	public List<Svpa> getToReceive() {
 		return toReceive;
 	}
 
-	public void setToReceive(List<Siep> toReceive) {
+	public void setToReceive(List<Svpa> toReceive) {
 		this.toReceive = toReceive;
 	}
 
@@ -91,11 +91,11 @@ public class ExecutorSvpaHomeController extends CommonController {
 		this.totalToReceive = totalToReceive;
 	}
 
-	public List<Siep> getToAdequate() {
+	public List<Svpa> getToAdequate() {
 		return toAdequate;
 	}
 
-	public void setToAdequate(List<Siep> toAdequate) {
+	public void setToAdequate(List<Svpa> toAdequate) {
 		this.toAdequate = toAdequate;
 	}
 
@@ -107,11 +107,11 @@ public class ExecutorSvpaHomeController extends CommonController {
 		this.totalToAdequate = totalToAdequate;
 	}
 
-	public List<Siep> getInExecution() {
+	public List<Svpa> getInExecution() {
 		return inExecution;
 	}
 
-	public void setInExecution(List<Siep> inExecution) {
+	public void setInExecution(List<Svpa> inExecution) {
 		this.inExecution = inExecution;
 	}
 
@@ -123,11 +123,11 @@ public class ExecutorSvpaHomeController extends CommonController {
 		this.totalInExecution = totalInExecution;
 	}
 
-	public List<Siep> getToExpire() {
+	public List<Svpa> getToExpire() {
 		return toExpire;
 	}
 
-	public void setToExpire(List<Siep> toExpire) {
+	public void setToExpire(List<Svpa> toExpire) {
 		this.toExpire = toExpire;
 	}
 
@@ -139,11 +139,11 @@ public class ExecutorSvpaHomeController extends CommonController {
 		this.totalToExpire = totalToExpire;
 	}
 
-	public List<Siep> getExpired() {
+	public List<Svpa> getExpired() {
 		return expired;
 	}
 
-	public void setExpired(List<Siep> expired) {
+	public void setExpired(List<Svpa> expired) {
 		this.expired = expired;
 	}
 
@@ -155,8 +155,8 @@ public class ExecutorSvpaHomeController extends CommonController {
 		this.totalExpired = totalExpired;
 	}
 
-	public void setSiepService(DataService<Siep> siepService) {
-		this.siepService = siepService;
+	public void setSvpaService(DataService<Svpa> svpaService) {
+		this.svpaService = svpaService;
 	}
 
 

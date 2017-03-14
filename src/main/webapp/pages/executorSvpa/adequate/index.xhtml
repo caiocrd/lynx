@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/WEB-INF/templates/executorSiep.xhtml"
+<ui:composition template="/WEB-INF/templates/executorSvpa.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,19 +12,19 @@
 	<!-- #  View Rendering Parameters.  # -->
 	<!-- ################################ -->
 	
-	<ui:param name="controller" value="#{adequateSiepController}" />
-	<ui:param name="siepTableHeader" value="SIEPs Para Adequar" />
+	<ui:param name="controller" value="#{adequateSvpaController}" />
+	<ui:param name="svpaTableHeader" value="SVPAs Para Adequar" />
 	<ui:param name="serviceProvider" value="true" />
 	
 	<ui:param name="filterUpdates" value=":printForm :dataForm" />
-	<ui:param name="showFilterForm" value="#{controller.siep.id eq null}" />
+	<ui:param name="showFilterForm" value="#{controller.svpa.id eq null}" />
 	
-	<ui:param name="siepDataFormId" value="dataForm" />
-	<ui:param name="siepSelectUpdates" value=":printForm" />
-	<ui:param name="showSiepTable" value="#{controller.siep.id eq null}" />
+	<ui:param name="svpaDataFormId" value="dataForm" />
+	<ui:param name="svpaSelectUpdates" value=":printForm" />
+	<ui:param name="showSvpaTable" value="#{controller.svpa.id eq null}" />
 	
 	<ui:param name="printUpdates" value=":filterForm :dataForm" />
-	<ui:param name="showPrintActions" value="#{controller.siep.id eq null}"/>
+	<ui:param name="showPrintActions" value="#{controller.svpa.id eq null}"/>
 	
 	<ui:param name="actionClearUpdates" value=":formWrapper" />
 	
@@ -34,29 +34,29 @@
 		
 	<ui:define name="content">
 		<p:outputPanel id="formWrapper">
-			<ui:decorate template="/WEB-INF/views/elements/simpleSiepFilter.xhtml"/>
+			<ui:decorate template="/WEB-INF/views/elements/simpleSvpaFilter.xhtml"/>
 			
-			<ui:decorate template="/WEB-INF/views/elements/siepTable.xhtml">
+			<ui:decorate template="/WEB-INF/views/elements/svpaTable.xhtml">
 				<ui:define name="actionColumn">
 					<p:column headerText="Ação">
 						<p:commandButton value="Adequar" icon="ui-icon-wrench" action="#{controller.load}" update=":formWrapper">
-							<f:setPropertyActionListener target="#{controller.siep}" value="#{siep}" />
+							<f:setPropertyActionListener target="#{controller.svpa}" value="#{svpa}" />
 						</p:commandButton>
 					</p:column>
 				</ui:define>
 			</ui:decorate>
 	
-			<ui:decorate template="/WEB-INF/views/elements/printSiepActions.xhtml" />
+			<ui:decorate template="/WEB-INF/views/elements/printSvpaActions.xhtml" />
 					
-			<h:form id="executionForm" enctype="multipart/form-data"  style="text-align: left;" rendered="#{controller.siep.id ne null}">
+			<h:form id="executionForm" enctype="multipart/form-data"  style="text-align: left;" rendered="#{controller.svpa.id ne null}">
 			
-				<ui:decorate template="/WEB-INF/views/siepInfo.xhtml" />
+				<ui:decorate template="/WEB-INF/views/svpaInfo.xhtml" />
 				
 				<ui:decorate template="/WEB-INF/views/elements/fotoUploader.xhtml"/>
 				
 				<ui:decorate template="/WEB-INF/views/elements/obsPanel.xhtml"/>
 		
-				<ui:decorate template="/WEB-INF/views/elements/siepAction.xhtml" >
+				<ui:decorate template="/WEB-INF/views/elements/svpaAction.xhtml" >
 					<ui:define name="action">
 						<p:commandButton 
 							style="width: 100px;" 
@@ -65,7 +65,7 @@
 							actionListener="#{controller.adequate}" 
 							update=":formWrapper">
 							
-							<p:confirm header="Confirmação" message="Deseja adequar a SIEP?" icon="ui-icon-alert" />
+							<p:confirm header="Confirmação" message="Deseja adequar a SVPA?" icon="ui-icon-alert" />
 						</p:commandButton>
 					</ui:define>
 				</ui:decorate>

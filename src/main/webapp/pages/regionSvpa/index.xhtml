@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/regionSvpa.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{regionSvpaHomeController.reversed}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs Estornadas." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Estornadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSvpaHomeController.reversed)} de um total de #{regionSvpaHomeController.totalReversed} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{regionSvpaHomeController.toEvaluate}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs Para Avaliar." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Aguardando Avaliação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSvpaHomeController.toEvaluate)} de um total de #{regionSvpaHomeController.totalToEvaluate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{regionSvpaHomeController.withFeedback}" var="svpa" rows="6" 
+				emptyMessage="Sem SVPAs Com Feedback Negativo." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SVPAs Com Feedback Negativo" />
+				</f:facet>
+
+				<p:column headerText="Nº da SVPA" style="width: 106px;">
+					<h:outputText value="#{svpa.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{svpa.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{svpa.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSvpaHomeController.withFeedback)} de um total de #{regionSvpaHomeController.totalWithFeedback} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

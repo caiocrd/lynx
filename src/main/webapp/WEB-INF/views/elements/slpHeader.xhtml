@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/">
+	
+	<p:panel header="SLP ##{controller.slp.id}" style="text-align: center;">
+	
+		<p:panelGrid style="width: 100%; text-align: left;">
+		
+			<p:row>
+			
+				
+				<p:column>
+					<small><b><h:outputText value="Status:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.status.label}" />
+					</div>
+				</p:column>
+				
+				<p:column style="width: 90px;">
+					<small><b><h:outputText value="Zona:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.endereco.fk.bairro.zona.label}" />
+					</div>
+				</p:column>
+				
+			</p:row>
+			<p:row>
+				<p:column colspan="4">
+					<small><b><h:outputText value="Logradouro:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText
+						value="#{controller.slp.endereco.fk.logradouro.nome}" />
+					</div>
+				</p:column>
+				
+				<p:column colspan="2">
+					<small><b><h:outputText value="Conjunto:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.endereco.conjunto.nome}" />
+					</div>
+				</p:column>
+
+			</p:row>
+			<p:row>
+				<p:column colspan="3" style="width: 250px;">
+					<small><b><h:outputText value="Bairro:" /></b></small>
+					<br />				
+					<div class="info-field">
+					<h:outputText
+						value="#{controller.slp.endereco.fk.bairro.nome}" />
+					</div>
+				</p:column>
+				<p:column>
+					<small><b><h:outputText value="Solicitante:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.solicitante}"/>
+					</div>
+				</p:column>
+				
+				<p:column>
+					<small><b><h:outputText value="Telefone:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.telefone}" />
+					</div>
+				</p:column>
+				
+				<p:column>
+					<small><b><h:outputText value="Previsão" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.previsao.time}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</div>
+				</p:column>				
+			</p:row>
+			
+							
+			<p:row>
+				<p:column colspan="6">
+					<small><b><h:outputText value="Observações:" /></b></small>
+					<br />				
+					<div class="info-field">
+						<h:outputText value="#{controller.slp.observacoes}" />
+					</div>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="4" />
+				<p:column colspan="2">
+					<p:commandLink onclick="mapDialog.show();" value="Visualizar Mapa" process="@this" style="float: right;"/>
+					<p:dialog modal="true" widgetVar="mapDialog" header="Mapa" resizable="false" draggable="false" closable="true" zoom="17">
+						<m:map partiallyTriggered="true" address="#{controller.slp.endereco.fk.logradouro.nome} #{controller.slp.endereco.fk.bairro.nome} Natal RN Brazil"
+							autoReshape="true" width="400px" height="350px">
+							<m:marker />
+						</m:map>
+					</p:dialog>	
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+</ui:composition>
+
+				

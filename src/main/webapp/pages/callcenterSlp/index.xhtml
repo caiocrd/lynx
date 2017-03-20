@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenterSlp.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="content">
+		<h:form>
+			<sec:authorize access="hasRole('CALLCENTER_SLP')">
+				<p:dataTable value="#{callCenterHomeSlpController.latestReverseSlps}" var="slp" rows="6" 
+					emptyMessage="Sem Slps Para Estorno." style="text-align: center;">
+	
+					<f:facet name="header">
+						<h:outputText value="SLPs Para Possível Estorno" />
+					</f:facet>
+	
+					<p:column headerText="Nº da SLP" style="width: 106px;">
+						<h:outputText value="#{slp.id}" />
+					</p:column>
+					
+					
+					<p:column headerText="Logradouro">
+						<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+					</p:column>
+					
+					<p:column headerText="Bairro">
+						<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+					</p:column>
+					
+					
+					<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+				</p:dataTable>		
+				<br />
+			</sec:authorize>
+			<p:dataTable value="#{callCenterHomeSlpController.latestOpenSlps}" var="slp" rows="6" 
+				emptyMessage="Sem Slps Cadastradas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas SLPs Cadastradas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+			<br />
+			
+			
+			<p:dataTable value="#{callCenterHomeSlpController.latestEndedSlps}" var="slp" rows="6" 
+				emptyMessage="Sem Slps Finalizadas Recentemente." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="Últimas SLPs Finalizadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				
+				<f:facet name="footer"><small>Mostrando apenas as 6 entradas mais recentes.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

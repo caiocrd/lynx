@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Received Rip" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="25" rightMargin="15" topMargin="43" bottomMargin="43" uuid="a1c65053-2107-4f0c-b129-16c97fd1fac9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="42"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.layers" value="##Sun Dec 01 04:39:40 BRT 2013\nlayer.2.name=Logo\nlayer.5.id=5\nlayer.4.visible=true\nlayer.2.visible=true\nlayer.3.name=TipoDocumento\nlayer.0.visible=true\nlayer.4.name=Header\nlayer.0.id=0\nlayer.5.name=Layer 1\nlayer.1.id=1\nlayer.5.visible=true\nlayer.3.visible=true\nlayer.2.id=2\nlayer.1.visible=true\nlayer.0.name=Background\nlayer.3.id=3\nlayer.1.name=Titulo\nlayer.4.id=4"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
@@ -103,7 +103,7 @@ Tel.: 3232-8012]]></text>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="DejaVu Sans" size="12" isBold="true"/>
 						</textElement>
-						<text><![CDATA[SOLICITAÇÃO DE ILUMINAÇÃO ESPECIAL PROVISÓRIA]]></text>
+						<text><![CDATA[SOLICITAÇÃO DE VISTORIA DE PODA E ABATE DE ÁRVORES]]></text>
 					</staticText>
 					<textField>
 						<reportElement x="88" y="64" width="80" height="15" uuid="a062fb9f-7d7b-4b73-8390-4bcdd1924112"/>
@@ -139,7 +139,7 @@ Tel.: 3232-8012]]></text>
 					<textElement textAlignment="Center">
 						<font fontName="DejaVu Sans" size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[SIEP #]]></text>
+					<text><![CDATA[SVPA #]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement x="0" y="10" width="555" height="13" uuid="9c06c959-6c59-4eff-8c37-07991d5c79aa"/>

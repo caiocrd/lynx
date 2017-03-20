@@ -6,21 +6,21 @@ import javax.faces.bean.ViewScoped;
 
 import org.hibernate.criterion.Restrictions;
 
-import br.com.csl.lynx.controller.generic.ExecutorSvpaAbstractController;
+import br.com.csl.lynx.controller.generic.ExecutorSlpAbstractController;
 import br.com.csl.lynx.exception.MovementException;
 import br.com.csl.lynx.exception.RipException;
 import br.com.csl.lynx.filter.SimpleFilter;
-import br.com.csl.lynx.model.QtdServicoSvpa;
+import br.com.csl.lynx.model.QtdServicoSlp;
 import br.com.csl.lynx.support.RipStatus;
 import br.com.csl.utils.exception.ServiceException;
 
 @ManagedBean
 @ViewScoped
-public class AdequateSvpaController extends ExecutorSvpaAbstractController {
+public class AdequateSlpController extends ExecutorSlpAbstractController {
 
 	private static final long serialVersionUID = 1L;
 
-	public AdequateSvpaController() {
+	public AdequateSlpController() {
 		filter = new SimpleFilter(Restrictions.eq("status", RipStatus.ADEQUATING));
 	}
 	
@@ -31,15 +31,15 @@ public class AdequateSvpaController extends ExecutorSvpaAbstractController {
 	
 	public void adequate() {
 		try {
-			for (QtdServicoSvpa aux : svpa.getQtdServicos()) {
+			for (QtdServicoSlp aux : slp.getQtdServicos()) {
 				if (!qtdServicos.contains(aux)) {
 					qtdServicoService.remove(aux.getId());
 				}
 			}
 			
-			svpa.setQtdServicos(qtdServicos);
+			slp.setQtdServicos(qtdServicos);
 			
-			movementHandler.adequate(svpa, obs, fotoHandler.getMovFolder());
+			movementHandler.adequate(slp, obs, fotoHandler.getMovFolder());
 
 			clear();
 			addFacesInfoMessage("Registro de adequação concluído com sucesso.");

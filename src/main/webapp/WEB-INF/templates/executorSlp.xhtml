@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+<ui:composition template="/WEB-INF/templates/common.xhtml">
+	<ui:define name="usuario">
+		<h:outputText value=" | " />
+		<h:outputLabel value="Vínculo: " />
+		<b><h:outputText value="Prestadora" /></b>
+	</ui:define>
+	
+	<ui:define name="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem icon="ui-icon-home"  value="Home" url="/pages/executorSlp/index.jsf" />
+				
+				<p:menuitem icon="ui-icon-arrowreturnthick-1-s" value="Receber" url="/pages/executorSlp/receive/" />
+				
+				<p:menuitem icon="ui-icon-gear" value="Executar" url="/pages/executorSlp/execute/" />
+				
+				<p:menuitem icon="ui-icon-wrench" value="Adequar" url="/pages/executorSlp/adequate/" />
+				
+				
+				<p:submenu label="Relatórios" icon="ui-icon-document">
+					<p:menuitem value="Relatórios" url="/pages/executorSlp/report/" icon="ui-icon-document"/>
+					<p:menuitem value="Custos" url="/pages/executorSlp/report/cost.jsf" icon="ui-icon-suitcase"/>
+				</p:submenu>
+					
+								
+				<p:menuitem icon="ui-icon-transferthick-e-w" value="Mudar Vínculo" url="/pages/index.jsf"
+					rendered="#{fn:length(userSession.permissions) gt 1}" />
+					
+				<p:menuitem icon="ui-icon-pencil" value="Alterar Senha" onclick="dlgSenha.show()" />
+
+
+				<f:facet name="options">
+					<p:commandButton action="#{authController.logout}" value="Logout" icon="ui-icon-extlink" />
+				</f:facet>
+
+			</p:menubar>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

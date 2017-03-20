@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/executorSlp.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{executorSlpHomeController.expired}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs vencidas." style="text-align: center;" rowStyleClass="expired-slp">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Vencidas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlpHomeController.expired)} de um total de #{executorSlpHomeController.totalExpired} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSlpHomeController.toExpire}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs vencendo hoje." style="text-align: center;" rowStyleClass="to-expire-slp">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Vencendo Hoje" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlpHomeController.toExpire)} de um total de #{executorSlpHomeController.totalToExpire} entradas.</small></f:facet>
+			</p:dataTable>
+			
+			<br />
+			<p:dataTable value="#{executorSlpHomeController.toReceive}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs Para Receber." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Aguardando Recebimento" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlpHomeController.toReceive)} de um total de #{executorSlpHomeController.totalToReceive} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSlpHomeController.toAdequate}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs para Adequação." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Para Adequação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlpHomeController.toAdequate)} de um total de #{executorSlpHomeController.totalToAdequate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSlpHomeController.inExecution}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs em Execução" style="text-align: center;"
+				paginator="false" sortMode="multiple">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Em Execução" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlpHomeController.inExecution)} de um total de #{executorSlpHomeController.totalInExecution} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

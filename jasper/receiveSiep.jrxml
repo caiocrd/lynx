@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Received Rip" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="25" rightMargin="15" topMargin="43" bottomMargin="43" uuid="a1c65053-2107-4f0c-b129-16c97fd1fac9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.layers" value="##Sun Dec 01 04:39:40 BRT 2013\nlayer.2.name=Logo\nlayer.5.id=5\nlayer.4.visible=true\nlayer.2.visible=true\nlayer.3.name=TipoDocumento\nlayer.0.visible=true\nlayer.4.name=Header\nlayer.0.id=0\nlayer.5.name=Layer 1\nlayer.1.id=1\nlayer.5.visible=true\nlayer.3.visible=true\nlayer.2.id=2\nlayer.1.visible=true\nlayer.0.name=Background\nlayer.3.id=3\nlayer.1.name=Titulo\nlayer.4.id=4"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
+	<style name="Heading 3" fontSize="14" isBold="true"/>
+	<style name="Label" mode="Opaque" forecolor="#000000" backcolor="#99CCFF" fill="Solid" hAlign="Left" vAlign="Top" fontName="DejaVu Sans" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<paragraph leftIndent="5"/>
+	</style>
+	<style name="Field" fontName="DejaVu Sans" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<paragraph leftIndent="5"/>
+	</style>
+	<style name="Teste" backcolor="#99CCFF"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="prioridade" class="java.lang.Integer"/>
+	<field name="solicitante" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="endereco" class="br.com.csl.lynx.model.Endereco"/>
+	<field name="movimentacoes" class="java.util.List"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="previsao" class="java.util.Calendar"/>
+	<field name="telefone" class="java.lang.String"/>
+	<group name="rip_id" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="79" uuid="e73eb9aa-9576-4981-a1cc-a3146c5a88d5">
+					<property name="ireport.layer" value="4"/>
+				</reportElement>
+				<frame>
+					<reportElement x="0" y="0" width="348" height="79" uuid="612d005a-a449-4369-aa8a-5cfe6c612530">
+						<property name="ireport.layer" value="4"/>
+					</reportElement>
+					<image>
+						<reportElement x="5" y="4" width="70" height="70" uuid="f7fcb45e-59a5-41b6-92d3-5a54e2178c5e">
+							<property name="ireport.layer" value="2"/>
+						</reportElement>
+						<imageExpression><![CDATA["logo_natal.png"]]></imageExpression>
+					</image>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="348" height="79" uuid="4db2a8bc-489d-4a64-b0eb-38264961c3d6">
+							<property name="ireport.layer" value="1"/>
+						</reportElement>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+					<frame>
+						<reportElement x="75" y="17" width="273" height="44" uuid="5bebbefb-42dd-4d2c-a21e-b699f70d1bdc">
+							<property name="ireport.layer" value="1"/>
+						</reportElement>
+						<staticText>
+							<reportElement style="Heading 3" x="0" y="0" width="273" height="15" uuid="7bc6b89e-93c3-4094-ac85-503ba45bff46">
+								<property name="ireport.layer" value="4"/>
+							</reportElement>
+							<textElement textAlignment="Center">
+								<font fontName="DejaVu Sans" size="12"/>
+							</textElement>
+							<text><![CDATA[PREFEITURA MUNICIPAL DO NATAL]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="25" width="273" height="19" uuid="f7575acc-9c79-4428-870c-6e3977d5edb6">
+								<property name="ireport.layer" value="4"/>
+							</reportElement>
+							<textElement textAlignment="Center">
+								<font fontName="DejaVu Sans" size="8" isBold="false"/>
+							</textElement>
+							<text><![CDATA[Rua Pricesa Isabel, 313, Ribeira, Natal, 59012-400
+Tel.: 3232-8012]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="0" y="15" width="273" height="10" uuid="fd29ddc0-0dc7-4b74-9291-af62b1beb1bb">
+								<property name="ireport.layer" value="4"/>
+							</reportElement>
+							<textElement textAlignment="Center">
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[SEMSUR - SECRETARIA MUNICIPAL DE SERVIÇOS URBANOS]]></text>
+						</staticText>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="348" y="0" width="207" height="79" uuid="642858d9-22e8-4c83-97b6-108c40d8b019">
+						<property name="ireport.layer" value="3"/>
+					</reportElement>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="207" height="79" uuid="02b40b06-c659-4a33-b0eb-ff9374aa9251">
+							<property name="ireport.layer" value="3"/>
+						</reportElement>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+					<staticText>
+						<reportElement mode="Transparent" x="0" y="0" width="207" height="79" uuid="f79c7790-a0e0-422b-9238-daa0aaaaadc6">
+							<property name="ireport.layer" value="3"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans" size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[SOLICITAÇÃO DE ILUMINAÇÃO ESPECIAL PROVISÓRIA]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="88" y="64" width="80" height="15" uuid="a062fb9f-7d7b-4b73-8390-4bcdd1924112"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Report">
+						<reportElement x="168" y="64" width="39" height="15" uuid="3076ff2b-b36f-4658-bae8-d2f5130cb856"/>
+						<textElement verticalAlignment="Middle">
+							<font size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+					</textField>
+					<textField pattern="dd/MM/yyyy HH:mm">
+						<reportElement x="1" y="64" width="87" height="15" uuid="52bd0431-fd0c-42d2-a494-c2fc202954f7"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="23" uuid="c1aa73e9-8f4e-4d6e-bf38-73ee83421c4a"/>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="10" backcolor="#99CCFF" uuid="9f0d0824-0006-422c-855c-de12b6de96fd"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Sans" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RIP #]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="10" width="555" height="13" uuid="9c06c959-6c59-4eff-8c37-07991d5c79aa"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $F{id}.toString().length() == 11 ? $F{id}.toString().substring(0, 4) + "/" + $F{id}.toString().substring(4, 6) + "-" + $F{id}.toString().substring(6, 11) : $F{id} )]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="0" width="555" height="23" uuid="ebdd4939-c7ed-4df7-a972-df5b7481d75e"/>
+					<graphicElement>
+						<pen lineWidth="0.15"/>
+					</graphicElement>
+				</rectangle>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="608" splitType="Stretch">
+			<frame>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="598" forecolor="#000000" backcolor="#FFFFFF" uuid="b4caf644-2eff-4669-bae9-801dab65f150"/>
+				<frame>
+					<reportElement x="0" y="0" width="555" height="23" uuid="509743c0-efb0-434e-af76-0201bef5d528"/>
+					<frame>
+						<reportElement x="0" y="0" width="436" height="23" uuid="067c8382-2e04-4a41-ad1b-80f876fe01be"/>
+						<staticText>
+							<reportElement style="Label" mode="Opaque" x="0" y="0" width="436" height="10" uuid="c96eb188-afc6-40f3-a64c-2c8b26b2c72d"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Logradouro]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="436" height="13" uuid="9c1894df-64c0-4a97-ac70-03b7c95b5bdd"/>
+							<textElement>
+								<font fontName="DejaVu Sans"/>
+								<paragraph leftIndent="5"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{endereco}.getLogradouro().getNome().toUpperCase()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="436" height="23" uuid="dae8f892-5b3e-4cf0-a8fb-3f0b506e7c83"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+					<frame>
+						<reportElement x="436" y="0" width="119" height="23" uuid="73e707c8-3659-4a27-b304-04c4cb579281"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="119" height="10" uuid="e68836d6-ea02-4454-8a85-abc0e3ca951d"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Zona]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="119" height="13" uuid="c47f9d8a-d155-4b37-a677-3474faeb3cae"/>
+							<textFieldExpression><![CDATA[$F{endereco}.getBairro().getZona().getLabel().toUpperCase()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="119" height="23" uuid="4f215de1-3c49-4c23-978d-f519c3f56f07"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="0" y="23" width="555" height="23" uuid="1a8bcdb6-b907-447b-a14e-5a7e29410908"/>
+					<frame>
+						<reportElement x="0" y="0" width="210" height="23" uuid="a3d472cb-34a7-4e93-8d27-126fa6c588ac"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="210" height="10" uuid="c1834dc0-fa8d-4f06-8731-503b22fd5d0a"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Bairro]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="210" height="13" uuid="6c07e5c2-e959-4b10-9908-443eb1a0efe9"/>
+							<textFieldExpression><![CDATA[$F{endereco}.getBairro().getNome().toUpperCase()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="210" height="23" uuid="9fa60e9e-f84c-42f9-afd7-cc73ef2e8a9a"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+					<frame>
+						<reportElement x="210" y="0" width="260" height="23" uuid="6ea992cc-3dfb-4e0b-b820-30b05d04cbfa"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="260" height="10" uuid="e1935551-6671-4800-8078-5a8afbeba260"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Conjunto]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="260" height="13" uuid="7eff06c5-d8d3-4881-938f-6f1133d1ff6e"/>
+							<textElement>
+								<font fontName="DejaVu Sans"/>
+								<paragraph leftIndent="5"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{endereco}.getConjunto().getNome().toUpperCase()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="260" height="23" uuid="f87751a6-30fa-4bd3-a371-953b9c044350"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+					<frame>
+						<reportElement x="470" y="0" width="85" height="23" uuid="db938ba0-f527-47cf-b9fb-83a874a7b2ce"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="85" height="10" uuid="9122322e-cad2-47e3-b630-de04b247fc89"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[CEP]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="85" height="13" uuid="94727d5e-82eb-4d34-987a-2543a1c8a80b"/>
+							<textFieldExpression><![CDATA[$F{endereco}.getCep()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="85" height="23" uuid="be1381b5-99c2-4ac6-a9c6-ccb934324626"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="0" y="46" width="555" height="23" uuid="bc90ebc2-efe2-451e-9ecf-9cb5af72d384"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="571f143e-d709-4e64-a865-71e234db6e12"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Referência]]></text>
+					</staticText>
+					<textField isBlankWhenNull="true">
+						<reportElement style="Field" x="0" y="10" width="555" height="13" uuid="ddf5be3f-b74e-4ff2-9e3b-9ab4e3778af4"/>
+					</textField>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="555" height="23" uuid="f5c8dc17-d59f-49eb-b51c-cfb05070c7b5"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+				<frame>
+					<reportElement x="0" y="79" width="555" height="23" uuid="947d0b42-dbba-4cac-8ab1-81fc7d8c3b2c"/>
+					<frame>
+						<reportElement x="0" y="0" width="436" height="23" uuid="85f01de2-bd78-4b27-ac27-e008b9897f48"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="436" height="10" uuid="657a581c-3352-42a7-a6d4-0592185243e6"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Solicitante]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="436" height="13" uuid="aa4b5493-e70b-4d49-a220-5f34a3bba5de"/>
+							<textFieldExpression><![CDATA[$F{solicitante}.toUpperCase()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="436" height="23" uuid="a145c4c4-64a0-4ac1-a0ce-2e889ac6847c"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+					<frame>
+						<reportElement x="436" y="0" width="119" height="23" uuid="bd66ae2d-51b0-4f4f-80e9-6b9a557968aa"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="119" height="10" uuid="0f70e52b-02fe-49ae-96f7-4a425a0ff2c2"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Telefone]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="119" height="13" uuid="72cc3914-fa78-45a5-bdc3-75071f929835"/>
+							<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="119" height="23" uuid="a90a28b9-1259-4328-ac58-5fec07c66d7f"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="0" y="102" width="555" height="23" uuid="11737298-8725-4d5f-bb0d-53e79c090ee0"/>
+					<frame>
+						<reportElement x="0" y="0" width="210" height="23" uuid="678c47a0-1447-4c22-b25e-51ebd45b0775"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="210" height="10" uuid="94291281-2f1b-434d-9982-2c5c5fa27f38"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Data de Abertura]]></text>
+						</staticText>
+						<textField pattern="EEE&apos;,&apos; dd &apos;de&apos; MMMMM &apos;de&apos; yyyy &apos;às&apos; HH:mm" isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="210" height="13" uuid="ed1cb275-a826-48e4-a18f-57b93ba077f5"/>
+							<textFieldExpression><![CDATA[$F{movimentacoes}.get(0).getData().getTime()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="210" height="23" uuid="1fd2499b-1b85-40d7-901c-9cd7fe27acd3"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+					<frame>
+						<reportElement x="210" y="0" width="345" height="23" uuid="975a3ada-8dab-4783-b382-8c90888f9623"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="345" height="10" uuid="ba41f362-0d7e-41d4-b0c6-f07d78bb6f0a"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Atendente]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="345" height="13" uuid="f480a92d-0804-4453-9308-9c1cb9d49a44"/>
+							<textFieldExpression><![CDATA[$F{movimentacoes}.get(0).getUsuario().getNome().toUpperCase()]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="345" height="23" uuid="8cd54f38-2376-4121-b49f-c5f4233ed1f7"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+				</frame>
+				<frame>
+					<reportElement x="0" y="125" width="555" height="90" uuid="5b256437-1993-44f2-8ce4-f32def29df6d"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="b8551a8f-73ba-464d-ae19-8615645e505e"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Observações]]></text>
+					</staticText>
+					<textField isBlankWhenNull="true">
+						<reportElement style="Field" x="0" y="10" width="555" height="80" uuid="f898f03f-6a49-4c3d-b362-4ba204e6a756"/>
+						<textElement textAlignment="Justified">
+							<paragraph firstLineIndent="15"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{observacoes}.toUpperCase()]]></textFieldExpression>
+					</textField>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="555" height="90" uuid="8b0d0190-a184-4a05-8dde-be949031c6d4"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+				<frame>
+					<reportElement x="0" y="225" width="555" height="100" uuid="4e3bc58c-f305-4622-9644-a8506d063ac1"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="b73547f6-c112-4615-bb54-eb136d16adfa"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Anotaçöes]]></text>
+					</staticText>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="555" height="100" uuid="f1c48348-a55a-49ec-8bc9-ce02455ef8e7"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+				<frame>
+					<reportElement x="0" y="335" width="555" height="263" uuid="fd07be60-aa34-4b16-9a02-d0d0edb99bd8"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="2a167a1f-22f0-49fb-8b47-50c6f833623b"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Materiais e Serviços]]></text>
+					</staticText>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="555" height="263" uuid="cf299a49-9989-4dc8-aa52-d2d141d463d7"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="23" uuid="c4458d3d-272e-4274-9232-d4f49b5d44b5"/>
+				<frame>
+					<reportElement x="0" y="0" width="145" height="23" uuid="f475629d-1588-468e-9740-38b7110d357a"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="145" height="10" uuid="5e55717a-a1cf-4541-87a9-a148fbb92a30"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Data Prevista para Execução]]></text>
+					</staticText>
+					<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+						<reportElement style="Field" x="0" y="10" width="145" height="13" uuid="42971596-2f1c-45ea-8d5a-d82d3119d063"/>
+						<textFieldExpression><![CDATA[( $F{previsao} != null ?  $F{previsao}.getTime() : "NÃO INFORMADA" )]]></textFieldExpression>
+					</textField>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="145" height="23" uuid="1f70efd7-9b92-4c7c-afc2-e10590e5036c"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+				<frame>
+					<reportElement x="145" y="0" width="145" height="23" uuid="8706bfde-653d-4222-810f-44ebd9d29f7c"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="145" height="10" uuid="a63e50c2-f586-489c-8f0b-782064cf0dc6"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Data de Execução]]></text>
+					</staticText>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="145" height="23" uuid="a44546e5-ed7d-478d-914e-4f02be8718ab"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+				<frame>
+					<reportElement x="290" y="0" width="265" height="23" uuid="a29184f0-e00a-4623-b64c-66d4a887bc48"/>
+					<staticText>
+						<reportElement style="Label" x="0" y="0" width="265" height="10" uuid="86ee1d62-bf70-4682-82c1-3b8d6fb491de"/>
+						<textElement>
+							<font fontName="DejaVu Sans" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Executor]]></text>
+					</staticText>
+					<rectangle>
+						<reportElement mode="Transparent" x="0" y="0" width="265" height="23" uuid="85f19b13-eedd-423c-b7ae-8d563a6f910e"/>
+						<graphicElement>
+							<pen lineWidth="0.15"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/regionSlp.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{regionSlpHomeController.reversed}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs Estornadas." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Estornadas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSlpHomeController.reversed)} de um total de #{regionSlpHomeController.totalReversed} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{regionSlpHomeController.toEvaluate}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs Para Avaliar." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Aguardando Avaliação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSlpHomeController.toEvaluate)} de um total de #{regionSlpHomeController.totalToEvaluate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{regionSlpHomeController.withFeedback}" var="slp" rows="6" 
+				emptyMessage="Sem SLPs Com Feedback Negativo." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLPs Com Feedback Negativo" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLP" style="width: 106px;">
+					<h:outputText value="#{slp.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slp.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slp.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(regionSlpHomeController.withFeedback)} de um total de #{regionSlpHomeController.totalWithFeedback} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

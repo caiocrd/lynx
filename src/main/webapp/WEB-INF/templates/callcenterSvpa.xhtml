@@ -8,6 +8,12 @@
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
+	<ui:define name="cabecalhoPadrao">
+		
+		<h1><b><h:outputText value="Solicitação de Vistoria e Poda de Árvore (SVPA)" /></b></h1>
+	</ui:define>
+	
+	
 	<ui:define name="usuario">
 		<h:outputText value=" | " />
 		<h:outputLabel value="Vínculo: " />
@@ -32,7 +38,7 @@
 						<p:menuitem value="Acompanhamento" url="/pages/callcenterSvpa/search/" icon="ui-icon-search"/>
 					</p:submenu>
 					
-
+					<p:menuitem value="Atendentes" url="/pages/callcenterSvpa/user/" icon="ui-icon-person" /> 
 					 
 				</sec:authorize>
 				

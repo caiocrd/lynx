@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/callcenterSlc.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<ui:param name="controller" value="#{reportSlcController}" />
+	<ui:param name="message" value="Foram encontradas #{controller.report.total} RIPs" />
+	
+	<ui:param name="filterUpdates" value=":formWrapper" />
+	
+	<!-- ################### -->
+	<!-- #  View Content.  # -->
+	<!-- ################### -->
+		
+	<ui:define name="content">
+		<p:outputPanel id="formWrapper">
+			<ui:decorate template="/WEB-INF/views/elements/reportSlcFilter.xhtml"/>
+			
+			<ui:decorate template="/WEB-INF/views/elements/reportSlcPanel.xhtml"/>
+		</p:outputPanel>
+	</ui:define>
+</ui:composition>

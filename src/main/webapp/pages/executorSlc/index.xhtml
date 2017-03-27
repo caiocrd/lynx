@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/executorSlc.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+				
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{executorSlcHomeController.expired}" var="slc" rows="6" 
+				emptyMessage="Sem SLCs vencidas." style="text-align: center;" rowStyleClass="expired-slc">
+
+				<f:facet name="header">
+					<h:outputText value="SLCs Vencidas" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLC" style="width: 106px;">
+					<h:outputText value="#{slc.id}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slc.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slc.endereco.fk.bairro.nome}" />
+				</p:column>
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlcHomeController.expired)} de um total de #{executorSlcHomeController.totalExpired} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSlcHomeController.toExpire}" var="slc" rows="6" 
+				emptyMessage="Sem SLCs vencendo hoje." style="text-align: center;" rowStyleClass="to-expire-slc">
+
+				<f:facet name="header">
+					<h:outputText value="SLCs Vencendo Hoje" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLC" style="width: 106px;">
+					<h:outputText value="#{slc.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slc.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slc.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlcHomeController.toExpire)} de um total de #{executorSlcHomeController.totalToExpire} entradas.</small></f:facet>
+			</p:dataTable>
+			
+			<br />
+			<p:dataTable value="#{executorSlcHomeController.toReceive}" var="slc" rows="6" 
+				emptyMessage="Sem SLCs Para Receber." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLCs Aguardando Recebimento" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLC" style="width: 106px;">
+					<h:outputText value="#{slc.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro" style="white-space: pre-line;">
+					<h:outputText value="#{slc.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slc.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlcHomeController.toReceive)} de um total de #{executorSlcHomeController.totalToReceive} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSlcHomeController.toAdequate}" var="slc" rows="6" 
+				emptyMessage="Sem SLCs para Adequação." style="text-align: center;">
+
+				<f:facet name="header">
+					<h:outputText value="SLCs Para Adequação" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLC" style="width: 106px;">
+					<h:outputText value="#{slc.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{slc.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slc.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlcHomeController.toAdequate)} de um total de #{executorSlcHomeController.totalToAdequate} entradas.</small></f:facet>
+			</p:dataTable>
+			<br />
+			<p:dataTable value="#{executorSlcHomeController.inExecution}" var="slc" rows="6" 
+				emptyMessage="Sem SLCs em Execução" style="text-align: center;"
+				paginator="false" sortMode="multiple">
+
+				<f:facet name="header">
+					<h:outputText value="SLCs Em Execução" />
+				</f:facet>
+
+				<p:column headerText="Nº da SLC" style="width: 106px;">
+					<h:outputText value="#{slc.id}" />
+				</p:column>
+				
+				<p:column headerText="Logradouro">
+					<h:outputText value="#{slc.endereco.fk.logradouro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Bairro">
+					<h:outputText value="#{slc.endereco.fk.bairro.nome}" />
+				</p:column>
+				
+				<f:facet name="footer"><small>Mostrando #{fn:length(executorSlcHomeController.inExecution)} de um total de #{executorSlcHomeController.totalInExecution} entradas.</small></f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

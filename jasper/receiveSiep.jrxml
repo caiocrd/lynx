@@ -27,7 +27,7 @@
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 	</group>
 	<pageHeader>
-		<band height="102" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="0" width="555" height="79" uuid="e73eb9aa-9576-4981-a1cc-a3146c5a88d5">
 					<property name="ireport.layer" value="4"/>

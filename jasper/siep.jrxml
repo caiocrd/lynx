@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rip" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="25" rightMargin="15" topMargin="43" bottomMargin="43" uuid="a1c65053-2107-4f0c-b129-16c97fd1fac9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="28"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1"/>
 	<property name="ireport.layers" value="##Sun Dec 01 04:39:40 BRT 2013\nlayer.2.name=Logo\nlayer.5.id=5\nlayer.4.visible=true\nlayer.2.visible=true\nlayer.3.name=TipoDocumento\nlayer.0.visible=true\nlayer.4.name=Header\nlayer.0.id=0\nlayer.5.name=Layer 1\nlayer.1.id=1\nlayer.5.visible=true\nlayer.3.visible=true\nlayer.2.id=2\nlayer.1.visible=true\nlayer.0.name=Background\nlayer.3.id=3\nlayer.1.name=Titulo\nlayer.4.id=4"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
@@ -71,7 +71,7 @@
 								<textFieldExpression><![CDATA[$F{endereco}.getLogradouro().getNome().toUpperCase()]]></textFieldExpression>
 							</textField>
 							<rectangle>
-								<reportElement mode="Transparent" x="0" y="0" width="334" height="23" uuid="dae8f892-5b3e-4cf0-a8fb-3f0b506e7c83"/>
+								<reportElement mode="Transparent" x="0" y="0" width="436" height="23" uuid="dae8f892-5b3e-4cf0-a8fb-3f0b506e7c83"/>
 								<graphicElement>
 									<pen lineWidth="0.15"/>
 								</graphicElement>
@@ -166,7 +166,26 @@
 						</frame>
 					</frame>
 					<frame>
-						<reportElement x="0" y="79" width="555" height="23" uuid="11737298-8725-4d5f-bb0d-53e79c090ee0"/>
+						<reportElement x="0" y="46" width="410" height="23" uuid="bc90ebc2-efe2-451e-9ecf-9cb5af72d384"/>
+						<staticText>
+							<reportElement style="Label" x="0" y="0" width="410" height="10" uuid="571f143e-d709-4e64-a865-71e234db6e12"/>
+							<textElement>
+								<font fontName="DejaVu Sans" size="8" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Referência]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="410" height="13" uuid="ddf5be3f-b74e-4ff2-9e3b-9ab4e3778af4"/>
+						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="410" height="23" uuid="f5c8dc17-d59f-49eb-b51c-cfb05070c7b5"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
+					</frame>
+					<frame>
+						<reportElement x="0" y="102" width="555" height="23" uuid="11737298-8725-4d5f-bb0d-53e79c090ee0"/>
 						<frame>
 							<reportElement x="0" y="0" width="210" height="23" uuid="678c47a0-1447-4c22-b25e-51ebd45b0775"/>
 							<staticText>
@@ -180,6 +199,12 @@
 								<reportElement style="Field" x="0" y="10" width="210" height="13" uuid="ed1cb275-a826-48e4-a18f-57b93ba077f5"/>
 								<textFieldExpression><![CDATA[$F{movimentacoes}.get(0).getData().getTime()]]></textFieldExpression>
 							</textField>
+							<rectangle>
+								<reportElement mode="Transparent" x="0" y="0" width="210" height="23" uuid="1fd2499b-1b85-40d7-901c-9cd7fe27acd3"/>
+								<graphicElement>
+									<pen lineWidth="0.15"/>
+								</graphicElement>
+							</rectangle>
 						</frame>
 						<frame>
 							<reportElement x="210" y="0" width="345" height="23" uuid="975a3ada-8dab-4783-b382-8c90888f9623"/>
@@ -203,7 +228,7 @@
 						</frame>
 					</frame>
 					<frame>
-						<reportElement x="0" y="102" width="555" height="65" uuid="5b256437-1993-44f2-8ce4-f32def29df6d"/>
+						<reportElement x="0" y="125" width="555" height="65" uuid="5b256437-1993-44f2-8ce4-f32def29df6d"/>
 						<staticText>
 							<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="b8551a8f-73ba-464d-ae19-8615645e505e"/>
 							<textElement>
@@ -218,56 +243,75 @@
 							</textElement>
 							<textFieldExpression><![CDATA[$F{observacoes}.toUpperCase()]]></textFieldExpression>
 						</textField>
-					</frame>
-					<frame>
-						<reportElement x="410" y="46" width="145" height="23" uuid="d27984ab-a8cc-44e6-a25a-ef8ac7a87b01"/>
-					</frame>
-					<frame>
-						<reportElement x="0" y="79" width="555" height="23" uuid="947d0b42-dbba-4cac-8ab1-81fc7d8c3b2c"/>
 						<rectangle>
-							<reportElement mode="Transparent" x="0" y="0" width="210" height="23" uuid="1fd2499b-1b85-40d7-901c-9cd7fe27acd3"/>
+							<reportElement mode="Transparent" x="0" y="0" width="555" height="65" uuid="8b0d0190-a184-4a05-8dde-be949031c6d4"/>
 							<graphicElement>
 								<pen lineWidth="0.15"/>
 							</graphicElement>
 						</rectangle>
 					</frame>
-					<staticText>
-						<reportElement style="Label" x="0" y="46" width="210" height="10" uuid="c2119ccb-125f-4d56-9b16-609bcdb456b0"/>
-						<textElement>
-							<font fontName="DejaVu Sans" size="8" isBold="true"/>
-						</textElement>
-						<text><![CDATA[Data Prevista para Execução]]></text>
-					</staticText>
-					<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-						<reportElement style="Field" x="0" y="56" width="210" height="13" uuid="ead5e60d-18f2-462a-abe8-7f64a21c75b5"/>
-						<textFieldExpression><![CDATA[( $F{previsao} != null ?  $F{previsao}.getTime() : "NÃO INFORMADA" )]]></textFieldExpression>
-					</textField>
-					<rectangle>
-						<reportElement mode="Transparent" x="0" y="46" width="210" height="23" uuid="7debad32-4d73-4868-9989-ea1ad39582d4"/>
-						<graphicElement>
-							<pen lineWidth="0.15"/>
-						</graphicElement>
-					</rectangle>
 					<frame>
-						<reportElement x="210" y="46" width="345" height="23" uuid="85f01de2-bd78-4b27-ac27-e008b9897f48"/>
+						<reportElement x="410" y="46" width="145" height="23" uuid="d27984ab-a8cc-44e6-a25a-ef8ac7a87b01"/>
 						<staticText>
-							<reportElement style="Label" x="0" y="0" width="345" height="10" uuid="657a581c-3352-42a7-a6d4-0592185243e6"/>
+							<reportElement style="Label" x="0" y="0" width="145" height="10" uuid="c2119ccb-125f-4d56-9b16-609bcdb456b0"/>
 							<textElement>
 								<font fontName="DejaVu Sans" size="8" isBold="true"/>
 							</textElement>
-							<text><![CDATA[Solicitante]]></text>
+							<text><![CDATA[Data Prevista para Execução]]></text>
 						</staticText>
-						<textField isBlankWhenNull="true">
-							<reportElement style="Field" x="0" y="10" width="345" height="13" uuid="aa4b5493-e70b-4d49-a220-5f34a3bba5de"/>
-							<textFieldExpression><![CDATA[$F{solicitante}.toUpperCase()]]></textFieldExpression>
+						<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+							<reportElement style="Field" x="0" y="10" width="145" height="13" uuid="ead5e60d-18f2-462a-abe8-7f64a21c75b5"/>
+							<textFieldExpression><![CDATA[( $F{previsao} != null ?  $F{previsao}.getTime() : "NÃO INFORMADA" )]]></textFieldExpression>
 						</textField>
+						<rectangle>
+							<reportElement mode="Transparent" x="0" y="0" width="145" height="23" uuid="7debad32-4d73-4868-9989-ea1ad39582d4"/>
+							<graphicElement>
+								<pen lineWidth="0.15"/>
+							</graphicElement>
+						</rectangle>
 					</frame>
-					<rectangle>
-						<reportElement mode="Transparent" x="0" y="0" width="555" height="65" uuid="8b0d0190-a184-4a05-8dde-be949031c6d4"/>
-						<graphicElement>
-							<pen lineWidth="0.15"/>
-						</graphicElement>
-					</rectangle>
+					<frame>
+						<reportElement x="0" y="79" width="555" height="23" uuid="947d0b42-dbba-4cac-8ab1-81fc7d8c3b2c"/>
+						<frame>
+							<reportElement x="0" y="0" width="210" height="23" uuid="1569a570-be94-4ac5-8a31-59675b57b043"/>
+							<staticText>
+								<reportElement style="Label" x="0" y="0" width="210" height="10" uuid="c83fe5b1-ac0a-406a-a730-343a5a26bf18"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Tipo de Reclamação]]></text>
+							</staticText>
+							<textField isBlankWhenNull="true">
+								<reportElement style="Field" x="0" y="10" width="210" height="13" uuid="dbcd144e-46a9-4daf-a196-d37d359679fa"/>
+							</textField>
+							<rectangle>
+								<reportElement mode="Transparent" x="0" y="0" width="210" height="23" uuid="bfe24ec3-ccaf-4cad-a539-472553048d8d"/>
+								<graphicElement>
+									<pen lineWidth="0.15"/>
+								</graphicElement>
+							</rectangle>
+						</frame>
+						<frame>
+							<reportElement x="210" y="0" width="345" height="23" uuid="85f01de2-bd78-4b27-ac27-e008b9897f48"/>
+							<staticText>
+								<reportElement style="Label" x="0" y="0" width="345" height="10" uuid="657a581c-3352-42a7-a6d4-0592185243e6"/>
+								<textElement>
+									<font fontName="DejaVu Sans" size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Solicitante]]></text>
+							</staticText>
+							<textField isBlankWhenNull="true">
+								<reportElement style="Field" x="0" y="10" width="345" height="13" uuid="aa4b5493-e70b-4d49-a220-5f34a3bba5de"/>
+								<textFieldExpression><![CDATA[$F{solicitante}.toUpperCase()]]></textFieldExpression>
+							</textField>
+							<rectangle>
+								<reportElement mode="Transparent" x="0" y="0" width="345" height="23" uuid="a145c4c4-64a0-4ac1-a0ce-2e889ac6847c"/>
+								<graphicElement>
+									<pen lineWidth="0.15"/>
+								</graphicElement>
+							</rectangle>
+						</frame>
+					</frame>
 				</frame>
 			</band>
 		</groupHeader>

@@ -19,7 +19,7 @@
 		sortBy="id"
 		sortOrder="DESCENDING" 
 		selectionMode="single"
-		selection="#{movementSvpaHandler.movimentacaoSvpa}"
+		selection="#{movementSlpHandler.movimentacaoSlp}"
 		disabledSelection="#{(movimentacao.pasta eq null) and ((movimentacao.observacao eq '') or (movimentacao.observacao eq null))}"
 		style="width: 100%; text-align: center;  margin-top: 10px;">
 
@@ -56,13 +56,13 @@
 		id="movementDlg"
 		widgetVar="movementDialog" 
 		modal="true"
-		header="#{movementSvpaHandler.movimentacaoSvpa.movimento.label}"
+		header="#{movementSlpHandler.movimentacaoSlp.movimento.label}"
 		draggable="false"
 		closable="true"
 		resizable="false"
 		width="700">
 		
-		<p:panel rendered="#{movementSvpaHandler.movimentacaoSvpa.pasta ne null}" style="text-align: center; margin-top: 10px; margin-left: auto; margin-right: auto;">
+		<p:panel rendered="#{movementSlpHandler.movimentacaoSlp.pasta ne null}" style="text-align: center; margin-top: 10px; margin-left: auto; margin-right: auto;">
 			<p:commandButton type="button" onclick="PF('switcher').previous();"  
 	       		icon="ui-icon-circle-triangle-w" style="float: left;" rendered="#{fn:length(fotoHandler.existingFotos) gt 1}"/>  
 			<p:commandButton type="button" onclick="PF('switcher').next();"  
@@ -79,11 +79,11 @@
 		</p:panel>
 
 		<p:panel
-			rendered="#{movementSvpaHandler.movimentacaoSvpa.observacao ne ''}"
+			rendered="#{movementSlpHandler.movimentacaoSlp.observacao ne ''}"
 			style="text-align: center;  margin-top: 10px; padding: 0;">
 			<p style="text-align: justify;">
 				<h:outputText
-					value="#{movementSvpaHandler.movimentacaoSvpa.observacao}" />
+					value="#{movementSlpHandler.movimentacaoSlp.observacao}" />
 			</p>
 		</p:panel>
 		

@@ -21,7 +21,7 @@
 					<ui:insert name="action"/>
 				</p:column>
 					
-				<ui:insert name="extraSiepAction"/>
+				<ui:insert name="extraSlpAction"/>
 					
 				<p:column>
 					<p:commandButton 
@@ -31,7 +31,7 @@
 						ajax="false" 
 						onclick="downloadDialog.show(); PrimeFaces.monitorDownload(null, stop)">
 							
-						<p:fileDownload value="#{controller.printOne(controller.siep)}" />
+						<p:fileDownload value="#{controller.printOne(controller.slp)}" />
 					</p:commandButton>
 				</p:column>
 					

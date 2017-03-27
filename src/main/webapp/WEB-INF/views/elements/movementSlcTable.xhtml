@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<p:dataTable
+		id="movementTable"
+		value="#{controller.movimentacaoDataModel}" 
+		var="movimentacao"
+		rows="6"
+		paginator="true"
+		lazy="true"
+		emptyMessage="Nenhum movimento para esta rip" 
+		sortMode="single"		
+		sortBy="id"
+		sortOrder="DESCENDING" 
+		selectionMode="single"
+		selection="#{movementSlcHandler.movimentacaoSlc}"
+		disabledSelection="#{(movimentacao.pasta eq null) and ((movimentacao.observacao eq '') or (movimentacao.observacao eq null))}"
+		style="width: 100%; text-align: center;  margin-top: 10px;">
+
+		<p:ajax event="rowSelect" oncomplete="movementDialog.show();" update="@form" listener="#{fotoHandler.load}" />
+
+		<f:facet name="header">
+			<h:outputText value="Movimentação" />
+		</f:facet>
+
+		<p:column headerText="Data" style="width: 280px;">
+			<h:outputText value="#{movimentacao.data.time}">
+				<f:convertDateTime pattern="EEEE, d 'de' MMMM 'de' yyyy 'às' HH:mm" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Movimento">
+			<h:outputText value="#{movimentacao.movimento.label}" />
+		</p:column>
+
+		<p:column headerText="Usuário">
+			<h:outputText value="#{movimentacao.usuario.nome}" />
+		</p:column>
+
+		<f:facet name="footer">
+			<small>
+				<h:outputText
+					value="Selecione uma movimentação válida para ver detalhes." />
+			</small>
+		</f:facet>
+		
+	</p:dataTable>
+
+	<p:dialog
+		id="movementDlg"
+		widgetVar="movementDialog" 
+		modal="true"
+		header="#{movementSlcHandler.movimentacaoSlc.movimento.label}"
+		draggable="false"
+		closable="true"
+		resizable="false"
+		width="700">
+		
+		<p:panel rendered="#{movementSlcHandler.movimentacaoSlc.pasta ne null}" style="text-align: center; margin-top: 10px; margin-left: auto; margin-right: auto;">
+			<p:commandButton type="button" onclick="PF('switcher').previous();"  
+	       		icon="ui-icon-circle-triangle-w" style="float: left;" rendered="#{fn:length(fotoHandler.existingFotos) gt 1}"/>  
+			<p:commandButton type="button" onclick="PF('switcher').next();"  
+	           	icon="ui-icon-circle-triangle-e" style="float: right;" rendered="#{fn:length(fotoHandler.existingFotos) gt 1}"/>
+	              	
+			<p:imageSwitch widgetVar="switcher" effect="fade" style="margin-left: auto; margin-right: auto;">  
+	   			<ui:repeat value="#{fotoHandler.existingFotos}" var="image">  
+		      		<p:graphicImage value="#{imageServlet.image}" style="max-height: 313px; max-width: 500px" >
+		      			<f:param name="path" value="#{image}" />
+		      		</p:graphicImage> 
+	   			</ui:repeat>  
+			</p:imageSwitch>
+		
+		</p:panel>
+
+		<p:panel
+			rendered="#{movementSlcHandler.movimentacaoSlc.observacao ne ''}"
+			style="text-align: center;  margin-top: 10px; padding: 0;">
+			<p style="text-align: justify;">
+				<h:outputText
+					value="#{movementSlcHandler.movimentacaoSlc.observacao}" />
+			</p>
+		</p:panel>
+		
+	</p:dialog>
+</ui:composition>

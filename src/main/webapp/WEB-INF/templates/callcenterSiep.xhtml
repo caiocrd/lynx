@@ -8,6 +8,12 @@
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
+	
+	<ui:define name="cabecalhoPadrao">
+		
+		<h1><b><h:outputText value="Solicitação de Iluminação Especial Provisória (SIEP)" /></b></h1>
+	</ui:define>
+	
 	<ui:define name="usuario">
 		<h:outputText value=" | " />
 		<h:outputLabel value="Vínculo: " />
@@ -30,9 +36,10 @@
 						<p:menuitem value="Estornar" url="/pages/callcenterSiep/reverse/" icon="ui-icon-arrowreturnthick-1-n"/>
 						<p:menuitem value="Cancelar" url="/pages/callcenterSiep/cancel/" icon="ui-icon-close"/>
 						<p:menuitem value="Acompanhamento" url="/pages/callcenterSiep/search/" icon="ui-icon-search"/>
+						
 					</p:submenu>
 					
-
+					<p:menuitem value="Atendentes" url="/pages/callcenterSiep/user/" icon="ui-icon-person" /> 
 					 
 				</sec:authorize>
 				

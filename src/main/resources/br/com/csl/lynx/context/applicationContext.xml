@@ -49,6 +49,9 @@
     	<property name="persistentClass" value="br.com.csl.lynx.model.MovimentacaoSlp"/>
     </bean>
 	
+	<bean id="movimentacaoSlcDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.MovimentacaoSlc"/>
+    </bean>
 	
     <bean id="ocorrenciaDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Ocorrencia" />
@@ -64,6 +67,10 @@
 	
 	<bean id="ocorrenciaSlpDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.OcorrenciaSlp" />
+    </bean>
+    
+    <bean id="ocorrenciaSlcDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.OcorrenciaSlc" />
     </bean>
 	
     <bean id="posteDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
@@ -90,6 +97,10 @@
     	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServicoSlp" />
     </bean>
 
+	 <bean id="qtdServicoSlcDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.QtdServicoSlc" />
+    </bean>
+	
     <bean id="ripDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Rip" />
     </bean>
@@ -104,6 +115,10 @@
     
     <bean id="slpDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
     	<property name="persistentClass" value="br.com.csl.lynx.model.Slp" />
+    </bean>
+    
+    <bean id="slcDAO" class="br.com.csl.utils.data.impl.DataAccessImpl" scope="singleton" >
+    	<property name="persistentClass" value="br.com.csl.lynx.model.Slc" />
     </bean>
    
     <bean id="roleDAO"
@@ -212,6 +227,20 @@
 			</util:map>
 		</property>
 	</bean>
+	
+	<bean id="movimentacaoSlcService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="movimentacaoSlcDAO" />
+		<property name="aliases">
+			<util:map id="movementSlcAlias">
+				<entry key="slc" value="r" />
+				<entry key="r.endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+				<entry key="usuario" value="u" />
+			</util:map>
+		</property>
+	</bean>
 
 	<bean id="ocorrenciaService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="ocorrenciaDAO" />
@@ -229,6 +258,9 @@
 		<property name="DAO" ref="ocorrenciaSlpDAO" />
 	</bean>
 	
+	<bean id="ocorrenciaSlcService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="ocorrenciaSlcDAO" />
+	</bean>
 	
 	<bean id="posteService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="posteDAO" />
@@ -256,6 +288,10 @@
 	
 	<bean id="qtdServicoSlpService" class="br.com.csl.utils.data.impl.DataServiceImpl">
 		<property name="DAO" ref="qtdServicoSlpDAO" />
+	</bean>
+	
+	<bean id="qtdServicoSlcService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="qtdServicoSlcDAO" />
 	</bean>
 	
 	<bean id="ripService" class="br.com.csl.utils.data.impl.DataServiceImpl">
@@ -303,6 +339,18 @@
 		<property name="DAO" ref="slpDAO" />
 		<property name="aliases">
 			<util:map id="slpAlias">
+				<entry key="endereco" value="e" />
+				<entry key="e.fk.bairro" value="bairro" />
+				<entry key="e.fk.logradouro" value="logradouro" />
+				<entry key="e.conjunto" value="conjunto" />
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="slcService" class="br.com.csl.utils.data.impl.DataServiceImpl">
+		<property name="DAO" ref="slcDAO" />
+		<property name="aliases">
+			<util:map id="slcAlias">
 				<entry key="endereco" value="e" />
 				<entry key="e.fk.bairro" value="bairro" />
 				<entry key="e.fk.logradouro" value="logradouro" />
@@ -377,6 +425,11 @@
 	</bean>
 	
 	
+	<bean id="slcDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="slcService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
 	<bean id="ocorrenciaDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="ocorrenciaService"/>
 		<property name="idClass" value="java.lang.Long" />
@@ -397,6 +450,11 @@
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
 	
+	<bean id="ocorrenciaSlcDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="ocorrenciaSlcService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
 	<bean id="movimentacaoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="movimentacaoService"/>
 		<property name="idClass" value="java.lang.Long" />
@@ -414,6 +472,11 @@
 	
 	<bean id="movimentacaoSlpDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="movimentacaoSlpService"/>
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
+	<bean id="movimentacaoSlcDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
+		<property name="dataService" ref="movimentacaoSlcService"/>
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
 
@@ -445,6 +508,13 @@
 		<property name="idClass" value="java.lang.Long" />
 	</bean>
 	
+	<bean id="qtdServicoSlcDataModel"
+		class="br.com.csl.utils.data.impl.DataModelImpl"
+		scope="prototype">
+		<property name="dataService" ref="qtdServicoSlcService" />
+		<property name="idClass" value="java.lang.Long" />
+	</bean>
+	
 	<bean id="servicoDataModel" class="br.com.csl.utils.data.impl.DataModelImpl" scope="prototype">
 		<property name="dataService" ref="servicoService"/>
 		<property name="idClass" value="java.lang.Long" />
@@ -468,25 +538,49 @@
      	 <sec:intercept-url pattern="/pages/callcenter/*" access="hasAnyRole('CALLCENTER','ATENDENTE')"/>
      	 <sec:intercept-url pattern="/pages/callcenter/open/*" access="hasAnyRole('CALLCENTER','ATENDENTE')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/cancel/*" access="hasRole('CALLCENTER')"/>
-		 <sec:intercept-url pattern="/pages/callcenter/endereco/**" access="hasRole('CALLCENTER')"/>
+		 <sec:intercept-url pattern="/pages/callcenter/endereco/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/poste/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/relatorios/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/reverse/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/search/*" access="hasRole('CALLCENTER')"/>
 		 <sec:intercept-url pattern="/pages/callcenter/user/*" access="hasRole('CALLCENTER')"/>
-		 <sec:intercept-url pattern="/pages/callcenterSiap/*" access="hasAnyRole('CALLCENTER_SIAP','ATENDENTE_SIAP')"/>
+		 
+		 <sec:intercept-url pattern="/pages/callcenterSiep/*" access="hasAnyRole('CALLCENTER_SIEP','ATENDENTE_SIEP')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSiep/**" access="hasRole('CALLCENTER_SIEP')"/>
+		 
+		 <sec:intercept-url pattern="/pages/callcenterSvpa/*" access="hasAnyRole('CALLCENTER_SVPA','ATENDENTE_SVPA')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSvpa/**" access="hasRole('CALLCENTER_SVPA')"/>
+		 
+		 <sec:intercept-url pattern="/pages/callcenterSlp/*" access="hasAnyRole('CALLCENTER_SLP','ATENDENTE_SLP')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSlp/**" access="hasRole('CALLCENTER_SLP')"/>
+		 
+		 <sec:intercept-url pattern="/pages/callcenterSlc/*" access="hasAnyRole('CALLCENTER_SLC','ATENDENTE_SLC')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSlc/**" access="hasRole('CALLCENTER_SLC')"/>
+		 
+		 <sec:intercept-url pattern="/pages/executorSiep/user/*" access="hasRole('PRESTADORA_SIEP')"/>
+		 <sec:intercept-url pattern="/pages/executorSiep/**" access="hasAnyRole('PRESTADORA_SIEP','EXECUTOR_SIEP')"/>
+		 
+		 <sec:intercept-url pattern="/pages/executorSvpa/user/*" access="hasRole('PRESTADORA_SVPA')"/>
+		 <sec:intercept-url pattern="/pages/executorSvpa/**" access="hasAnyRole('PRESTADORA_SVPA','EXECUTOR_SVPA')"/>
+		 
+		 <sec:intercept-url pattern="/pages/executorSlp/user/*" access="hasRole('PRESTADORA_SLP')"/>
+		 <sec:intercept-url pattern="/pages/executorSlp/**" access="hasAnyRole('PRESTADORA_SLP','EXECUTOR_SLP')"/>
+		 
+		 <sec:intercept-url pattern="/pages/executorSlc/user/*" access="hasRole('PRESTADORA_SLC')"/>
+		 <sec:intercept-url pattern="/pages/executorSlc/**" access="hasAnyRole('PRESTADORA_SLC','EXECUTOR_SLC')"/>
+		 
      	 <sec:intercept-url pattern="/pages/direcao/**" access="hasRole('DIRECAO')"/>
-     	 <sec:intercept-url pattern="/pages/prestadora/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
-     	 <sec:intercept-url pattern="/pages/prestadora/execute/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
-     	 <sec:intercept-url pattern="/pages/prestadora/receive/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
-     	 <sec:intercept-url pattern="/pages/prestadora/adequate/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
-     	 <sec:intercept-url pattern="/pages/prestadora/user/*" access="hasRole('PRESTADORA')"/>
+     	 <sec:intercept-url pattern="/pages/executor/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/executor/execute/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/executor/receive/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/executor/adequate/*" access="hasAnyRole('PRESTADORA','EXECUTOR')"/>
+     	 <sec:intercept-url pattern="/pages/executor/user/*" access="hasRole('PRESTADORA')"/>
      	 <sec:intercept-url pattern="/pages/callcenter/relatorios/*" access="hasRole('CALLCENTER')"/>
      	 <sec:intercept-url pattern="/pages/regiao/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
      	 <sec:intercept-url pattern="/pages/regiao/evaluate/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
      	 <sec:intercept-url pattern="/pages/regiao/feedback/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
      	 <sec:intercept-url pattern="/pages/regiao/relatorios/*" access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','REGIAO')"/>
-     	 <sec:intercept-url pattern="/pages/regiao/user/*" access="hasRole('REGIAO')"/>
+     	 <sec:intercept-url pattern="/pages/regiao/user/**" access="hasRole('REGIAO')"/>
      	 <sec:intercept-url pattern="/fotos/**" access="isAuthenticated()"/>
     
         <sec:form-login login-page="/index.jsf" default-target-url="/pages/index.jsf" always-use-default-target="false" />

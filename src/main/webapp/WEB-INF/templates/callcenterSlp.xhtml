@@ -8,6 +8,11 @@
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
+	<ui:define name="cabecalhoPadrao">
+		
+		<h1><b><h:outputText value="Solicitação de Limpeza de Praça (SLP)" /></b></h1>
+	</ui:define>
+	
 	<ui:define name="usuario">
 		<h:outputText value=" | " />
 		<h:outputLabel value="Vínculo: " />
@@ -32,7 +37,7 @@
 						<p:menuitem value="Acompanhamento" url="/pages/callcenterSlp/search/" icon="ui-icon-search"/>
 					</p:submenu>
 					
-
+					<p:menuitem value="Atendentes" url="/pages/callcenterSlp/user/" icon="ui-icon-person" /> 
 					 
 				</sec:authorize>
 				

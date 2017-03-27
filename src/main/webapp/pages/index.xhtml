@@ -12,7 +12,7 @@
 		<h:form>
 				<f:event listener="#{navigationController.userRoleRedirect()}" type="preRenderComponent" />
 				 <p:accordionPanel>
-					<p:tab title="RIP" >
+					<p:tab title="RIP - Iluminação Pública" >
 						<h:panelGrid cellspacing="10" columns="3">
 							<sec:authorize access="hasAnyRole('CALLCENTER','ATENDENTE')">
 								<h:outputLink value="/lynx/pages/callcenter/">
@@ -47,7 +47,7 @@
 						</h:panelGrid>
 					</p:tab>
 					
-					<p:tab title="SIEP">
+					<p:tab title="SIEP - Iluminação Provisória">
 						<h:panelGrid cellspacing="10" columns="3">
 							
 							
@@ -84,7 +84,7 @@
 						</h:panelGrid>
 					</p:tab>
 					
-					<p:tab title="SVPA">
+					<p:tab title="SVPA - Paisagismo">
 						<h:panelGrid cellspacing="10" columns="3">
 							
 							
@@ -121,6 +121,82 @@
 						</h:panelGrid>
 					
 					</p:tab>
+					<p:tab title="SLP - Praça">
+						<h:panelGrid cellspacing="10" columns="3">
+							
+							
+							<sec:authorize access="hasAnyRole('CALLCENTER_SLP','ATENDENTE_SLP')">
+								<h:outputLink value="/lynx/pages/callcenterSlp/">
+									<h:graphicImage value="/resources/img/01.png" />
+								</h:outputLink>
+							</sec:authorize>
+							
+							
+							
+							<sec:authorize access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','DIRECAO','REGIAO')">
+								<h:outputLink value="/lynx/pages/regionSlp/" >
+									<h:graphicImage value="/resources/img/02.png" />
+								</h:outputLink>
+							</sec:authorize>
+							
+							
+							
+							<sec:authorize access="hasAnyRole('PRESTADORA_SLP','EXECUTOR_SLP')">
+								<h:outputLink value="/lynx/pages/executorSlp/" >
+									<h:graphicImage value="/resources/img/03.png" />
+								</h:outputLink>
+							</sec:authorize>
+							
+							<sec:authorize access="hasRole('DIRECAO')">
+								<h:outputLink value="/lynx/pages/manager/" >
+									<h:graphicImage value="/resources/img/04.png" />
+								</h:outputLink>
+							</sec:authorize>
+								<h:outputLink value="http://177.71.245.185:8080/eposte/" target="_blank">
+									<h:graphicImage value="/resources/img/05.png" />
+								</h:outputLink>
+						</h:panelGrid>
+					
+					</p:tab>
+					
+					<p:tab title="SLC - Cemitério">
+						<h:panelGrid cellspacing="10" columns="3">
+							
+							
+							<sec:authorize access="hasAnyRole('CALLCENTER_SLC','ATENDENTE_SLC')">
+								<h:outputLink value="/lynx/pages/callcenterSlc/">
+									<h:graphicImage value="/resources/img/01.png" />
+								</h:outputLink>
+							</sec:authorize>
+							
+							
+							
+							<sec:authorize access="hasAnyRole('ZONA_NORTE','ZONA_SUL','ZONA_LESTE','ZONA_OESTE','DIRECAO','REGIAO')">
+								<h:outputLink value="/lynx/pages/regionSlc/" >
+									<h:graphicImage value="/resources/img/02.png" />
+								</h:outputLink>
+							</sec:authorize>
+							
+							
+							
+							<sec:authorize access="hasAnyRole('PRESTADORA_SLC','EXECUTOR_SLC')">
+								<h:outputLink value="/lynx/pages/executorSlc/" >
+									<h:graphicImage value="/resources/img/03.png" />
+								</h:outputLink>
+							</sec:authorize>
+							
+							<sec:authorize access="hasRole('DIRECAO')">
+								<h:outputLink value="/lynx/pages/manager/" >
+									<h:graphicImage value="/resources/img/04.png" />
+								</h:outputLink>
+							</sec:authorize>
+								<h:outputLink value="http://177.71.245.185:8080/eposte/" target="_blank">
+									<h:graphicImage value="/resources/img/05.png" />
+								</h:outputLink>
+						</h:panelGrid>
+					
+					</p:tab>
+					
 				</p:accordionPanel>
 		</h:form>
 	</ui:define>

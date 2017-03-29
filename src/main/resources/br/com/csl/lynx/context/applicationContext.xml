@@ -546,21 +546,26 @@
 		 <sec:intercept-url pattern="/pages/callcenter/user/*" access="hasRole('CALLCENTER')"/>
 		 
 		 <sec:intercept-url pattern="/pages/callcenterSiep/*" access="hasAnyRole('CALLCENTER_SIEP','ATENDENTE_SIEP')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSiep/open/*" access="hasAnyRole('CALLCENTER_SIEP','ATENDENTE_SIEP')"/>
 		 <sec:intercept-url pattern="/pages/callcenterSiep/**" access="hasRole('CALLCENTER_SIEP')"/>
 		 
 		 <sec:intercept-url pattern="/pages/callcenterSvpa/*" access="hasAnyRole('CALLCENTER_SVPA','ATENDENTE_SVPA')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSvpa/open/*" access="hasAnyRole('CALLCENTER_SVPA','ATENDENTE_SVPA')"/>
 		 <sec:intercept-url pattern="/pages/callcenterSvpa/**" access="hasRole('CALLCENTER_SVPA')"/>
 		 
 		 <sec:intercept-url pattern="/pages/callcenterSlp/*" access="hasAnyRole('CALLCENTER_SLP','ATENDENTE_SLP')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSlp/open/*" access="hasAnyRole('CALLCENTER_SLP','ATENDENTE_SLP')"/>
 		 <sec:intercept-url pattern="/pages/callcenterSlp/**" access="hasRole('CALLCENTER_SLP')"/>
 		 
 		 <sec:intercept-url pattern="/pages/callcenterSlc/*" access="hasAnyRole('CALLCENTER_SLC','ATENDENTE_SLC')"/>
+		 <sec:intercept-url pattern="/pages/callcenterSlc/open/*" access="hasAnyRole('CALLCENTER_SLC','ATENDENTE_SLC')"/>
 		 <sec:intercept-url pattern="/pages/callcenterSlc/**" access="hasRole('CALLCENTER_SLC')"/>
 		 
 		 <sec:intercept-url pattern="/pages/executorSiep/user/*" access="hasRole('PRESTADORA_SIEP')"/>
 		 <sec:intercept-url pattern="/pages/executorSiep/**" access="hasAnyRole('PRESTADORA_SIEP','EXECUTOR_SIEP')"/>
 		 
 		 <sec:intercept-url pattern="/pages/executorSvpa/user/*" access="hasRole('PRESTADORA_SVPA')"/>
+		 
 		 <sec:intercept-url pattern="/pages/executorSvpa/**" access="hasAnyRole('PRESTADORA_SVPA','EXECUTOR_SVPA')"/>
 		 
 		 <sec:intercept-url pattern="/pages/executorSlp/user/*" access="hasRole('PRESTADORA_SLP')"/>

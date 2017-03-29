@@ -7,6 +7,29 @@ body{
 	border-top: solid 8px #2779aa; 
 	font-size: 11px!important;
 }
+#bSiep{
+	
+	background-image: url("../img/bg_body_siep.png") !important;
+	
+}
+
+#bSvpa{
+	
+	background-image: url("../img/bg_body_svpa.png") !important;
+	
+}
+
+#bSlp{
+	
+	background-image: url("../img/bg_body_slp.png") !important;
+	
+}
+
+#bSlc{
+	
+	background-image: url("../img/bg_body_slc.png") !important;
+	
+}
 
 table.tabela_top tbody tr{
 	vertical-align: top!important;

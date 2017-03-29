@@ -44,10 +44,52 @@ public class NavigationController extends CommonController {
 			redirecionar = "callcenter";
 		}
 		
+		if (authorities.contains(Permission.CALLCENTER_SIEP.toString()) || authorities.contains(Permission.ATENDENTE_SIEP.toString())) {
+			cont++;
+			redirecionar = "callcenterSiep";
+		}
+		
+		if (authorities.contains(Permission.CALLCENTER_SLC.toString()) || authorities.contains(Permission.ATENDENTE_SLC.toString())) {
+			cont++;
+			redirecionar = "callcenterSlc";
+		}
+		
+		
+		if (authorities.contains(Permission.CALLCENTER_SLP.toString()) || authorities.contains(Permission.ATENDENTE_SLP.toString())) {
+			cont++;
+			redirecionar = "callcenterSlp";
+		}
+		
+		if (authorities.contains(Permission.CALLCENTER_SVPA.toString()) || authorities.contains(Permission.ATENDENTE_SVPA.toString())) {
+			cont++;
+			redirecionar = "callcenterSvpa";
+		}
+		
 		if (authorities.contains(Permission.PRESTADORA.toString()) || authorities.contains(Permission.EXECUTOR.toString())){
 			cont++;
 			redirecionar = "executor";
 		}
+		
+		if (authorities.contains(Permission.PRESTADORA_SIEP.toString()) || authorities.contains(Permission.EXECUTOR_SIEP.toString())){
+			cont++;
+			redirecionar = "executorSiep";
+		}
+		
+		if (authorities.contains(Permission.PRESTADORA_SLC.toString()) || authorities.contains(Permission.EXECUTOR_SLC.toString())){
+			cont++;
+			redirecionar = "executorSlc";
+		}
+		
+		if (authorities.contains(Permission.PRESTADORA_SLP.toString()) || authorities.contains(Permission.EXECUTOR_SLP.toString())){
+			cont++;
+			redirecionar = "executorSlp";
+		}
+		
+		if (authorities.contains(Permission.PRESTADORA_SVPA.toString()) || authorities.contains(Permission.EXECUTOR_SVPA.toString())){
+			cont++;
+			redirecionar = "executorSvpa";
+		}
+		
 		
 		if (authorities.contains(Permission.REGIAO.toString()) || authorities.contains(Permission.ZONA_NORTE.toString()) || authorities.contains(Permission.ZONA_SUL.toString()) ||
 				authorities.contains(Permission.ZONA_LESTE.toString()) || authorities.contains(Permission.ZONA_OESTE.toString())){

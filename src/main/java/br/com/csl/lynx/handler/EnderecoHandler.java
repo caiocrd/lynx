@@ -319,7 +319,7 @@ public class EnderecoHandler extends CommonController {
 	public List<String> loadLogradouros(String query) {
 		List<String> results = new ArrayList<String>();
 
-		if (query != null && !query.isEmpty()) {
+		if (query != null && !query.isEmpty() && query.length() > 4) {
 			
 				for (Logradouro aux : enderecoFacade.getLogradouroService()
 						.list(0, 15, Restrictions.ilike("nome", query,

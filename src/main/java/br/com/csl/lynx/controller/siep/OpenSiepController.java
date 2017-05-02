@@ -1,5 +1,6 @@
 package br.com.csl.lynx.controller.siep;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import org.primefaces.context.RequestContext;
 
 import br.com.csl.lynx.exception.MovementException;
 import br.com.csl.lynx.exception.RipException;
+import br.com.csl.lynx.exception.SiepException;
 import br.com.csl.lynx.filter.AddressFilter;
 import br.com.csl.lynx.generic.AbstractSiepAction;
 import br.com.csl.lynx.handler.EnderecoHandler;
@@ -73,7 +75,14 @@ public class OpenSiepController extends AbstractSiepAction {
 			if (siep.getPrioridade() == null) {
 				siep.setPrioridade(3);
 			}
-
+			
+			Calendar siepMinDate = CalendarUtil.getToday();
+			siepMinDate.add(Calendar.DAY_OF_MONTH, 7);
+			if(siep.getDataEvento().before(siepMinDate)){
+				addFacesErrorMessage("Evento deve ser marcado pelo menos 7 (sete) dias antes");
+				return;
+			}
+			
 			siep = siepService.save(siep);
 			
 			movementHandler.open(siep);
@@ -83,7 +92,9 @@ public class OpenSiepController extends AbstractSiepAction {
 	        RequestContext.getCurrentInstance().showMessageInDialog(message);
 	  
 	        clear();
-	        
+		
+				
+			  
 		} catch (ServiceException e) {
 			addFacesErrorMessage("Erro ao cadastrar SIEP. Tente novamente.");
 			e.printStackTrace();

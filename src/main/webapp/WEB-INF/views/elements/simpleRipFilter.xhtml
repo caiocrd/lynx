@@ -102,7 +102,31 @@
 									itemLabel="#{problems.label}" itemValue="#{problems}" />
 						</p:selectOneMenu>
 					</p:column>
-				</p:row>						
+				</p:row>	
+				
+				<p:row>
+					<p:column>
+						<div style="padding-right: 8px; padding-bottom: 3px">
+						
+						</div>
+					</p:column>
+					
+					
+					<p:column>
+						<div style="padding-right: 8px">
+						<small><strong><p:outputLabel value="Poste:" style="padding-left: 6px;"/></strong></small>
+							<br/>	
+							<p:inputText id="poste"
+									value="#{controller.filter.posteBto}" style="width: 100%; text-align: center;" />
+						</div>
+					</p:column>
+					
+					<p:column style="text-align: center;">
+																
+					</p:column>
+					
+				</p:row>
+									
 			</p:panelGrid>	
 			<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="#{(findProtocol)? '3' : '2'}">
 				<p:commandButton id="searchRips" value="Pesquisar"

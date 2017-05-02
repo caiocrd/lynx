@@ -25,6 +25,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 import br.com.csl.lynx.domain.DomainObject;
+import br.com.csl.lynx.exception.SiepException;
 import br.com.csl.lynx.support.RipStatus;
 import br.com.csl.lynx.utils.CalendarUtil;
 
@@ -43,18 +44,31 @@ public class Siep implements DomainObject {
 	private String solicitante;
 	private String telefone;
 	//
+	private String descricaoEvento;
+	private String tipoEvento;
+	private Calendar dataEvento;
+	private Integer publicoEstimado;
 	private RipStatus status;
 	private String observacoes;
 	private Calendar previsao;
+	
+	
+	
 	private Integer prioridade;
 	private Endereco endereco;
 	private List<MovimentacaoSiep> movimentacoes;
 	private List<QtdServicoSiep> qtdServicos;
 	private List<OcorrenciaSiep> ocorrencias;
 
+	public Siep() {
+		dataEvento = CalendarUtil.getToday();
+	}
+	
 	@PrePersist
 	public void prepare() {
-		Calendar ripPrevision = CalendarUtil.getToday();		
+		Calendar ripPrevision = CalendarUtil.getToday();
+		
+		
 		if(this.prioridade > 0) {
 			for (int i = 0; i < this.prioridade; i++) {
 				ripPrevision.add(Calendar.DATE, 1);
@@ -131,6 +145,39 @@ public class Siep implements DomainObject {
 
 	public void setPrioridade(Integer prioridade) {
 		this.prioridade = prioridade;
+	}
+	
+	public String getDescricaoEvento() {
+		return descricaoEvento;
+	}
+
+	public void setDescricaoEvento(String descricaoEvento) {
+		this.descricaoEvento = descricaoEvento;
+	}
+
+	public String getTipoEvento() {
+		return tipoEvento;
+	}
+
+	public void setTipoEvento(String tipoEvento) {
+		this.tipoEvento = tipoEvento;
+	}
+
+	public Integer getPublicoEstimado() {
+		return publicoEstimado;
+	}
+
+	public void setPublicoEstimado(Integer publicoEstimado) {
+		this.publicoEstimado = publicoEstimado;
+	}
+
+	
+	public Calendar getDataEvento() {
+		return dataEvento;
+	}
+
+	public void setDataEvento(Calendar dataEvento) {
+		this.dataEvento = dataEvento;
 	}
 
 	@PrimaryKeyJoinColumn

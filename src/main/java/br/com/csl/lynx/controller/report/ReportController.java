@@ -474,6 +474,19 @@ public class ReportController extends AbstractRipInfo {
 		return pdf;
 	}
 	
+	public StreamedContent printSimple() {
+		StreamedContent pdf = null;
+		
+		try {
+			 pdf = printRipHandler.printSimpleReport(report);
+		} catch (PrintRipException e) {
+			addFacesErrorMessage("Não foi possível gerar o arquivo!");
+			e.printStackTrace();
+		}
+		
+		return pdf;
+	}
+	
 	public List<ReportTarget> getTarget() {
 		return target;
 	}

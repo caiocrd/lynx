@@ -24,6 +24,7 @@ public class SimpleFilter implements DataFilter {
 	private Problem problema;
 	private Date dataInicio;
 	private Date dataFim;
+	private String posteBto;
 	
 	private Boolean filterStatus;
 	
@@ -38,6 +39,7 @@ public class SimpleFilter implements DataFilter {
 	}
 	
 	public void clear() {
+		posteBto = "";
 		zona = null;
 		bairro = "";
 		logradouro = "";
@@ -82,6 +84,10 @@ public class SimpleFilter implements DataFilter {
 			if (problema != null) {
 				filters.add(Restrictions.eq("tipoReclamacao", problema));
 				filterStatus = true;
+			}
+
+			if (!posteBto.isEmpty()) {
+				filters.add(Restrictions.eq("p.numero", posteBto));
 			}
 			
 			if (dataFim == null && dataInicio != null) {
@@ -140,6 +146,15 @@ public class SimpleFilter implements DataFilter {
 
 	public Date getDataInicio() {
 		return dataInicio;
+	}
+	
+
+	public String getPosteBto() {
+		return posteBto;
+	}
+
+	public void setPosteBto(String posteBto) {
+		this.posteBto = posteBto;
 	}
 
 	public void setDataInicio(Date dataInicio) {

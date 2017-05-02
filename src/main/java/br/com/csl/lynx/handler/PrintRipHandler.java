@@ -74,6 +74,18 @@ public class PrintRipHandler extends CommonController {
 		return pdfFile;
 	}
 	
+	public StreamedContent printSimpleReport(Report report) throws PrintRipException {		
+		StreamedContent pdfFile = null;
+		
+		try {
+			pdfFile = reportHandler.getStatisticSimpleReport(report);
+			
+		} catch (JRException | IOException e){
+			throw new PrintRipException(e);
+		} 
+		return pdfFile;
+	}
+	
 	public StreamedContent printCostReport(CostReport report) throws PrintRipException {		
 		StreamedContent pdfFile = null;
 		

@@ -533,7 +533,7 @@
   				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />  
 			</p:dialog>
 			
-			<p:panelGrid style="width: 100%" columns="1">
+			<p:panelGrid style="width: 100%" columns="2">
 				<p:commandButton 
 					style="width: 200px;" 
 					value="Imprimir Relatório" 
@@ -542,6 +542,16 @@
 					onclick="downloadDialog.show(); PrimeFaces.monitorDownload(null, stop)">
 					<p:fileDownload value="#{controller.print()}"/>
 				</p:commandButton>
+				
+				<p:commandButton 
+					style="width: 200px;" 
+					value="Imprimir Relatório Simples" 
+					icon="ui-icon-print" 
+					ajax="false" 
+					onclick="downloadDialog.show(); PrimeFaces.monitorDownload(null, stop)">
+					<p:fileDownload value="#{controller.printSimple()}"/>
+				</p:commandButton>
+				
 			</p:panelGrid>
 	</p:panel>
 

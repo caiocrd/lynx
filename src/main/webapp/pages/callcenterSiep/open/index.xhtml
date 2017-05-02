@@ -30,21 +30,51 @@
 					style="margin-top: 10px;">
 					
 					<f:facet name="header">
-						<h:outputText value="Cadastrar Nova RIP" />
+						<h:outputText value="Cadastrar Nova SIEP" />
 						<p:outputPanel style="float: right">
-							<p:commandLink value="Carregar dados da última RIP." rendered="#{userSession.lastSiep ne null}"
+							<p:commandLink value="Carregar dados da última SIEP." rendered="#{userSession.lastSiep ne null}"
 								actionListener="#{openSiepController.loadLastSiep}" process="@this"
 								update=":formWrapper" ajax="true" />
 						</p:outputPanel>	
 					</f:facet>
 					
 					<ui:decorate template="/WEB-INF/views/elements/enderecoFieldset.xhtml" >
-						TESTE
-						
 					</ui:decorate>
 					
 					<ol>
 						<li>
+							<div style="float: left; width: 49%; margin-right: 10px;">
+								<small><b><p:outputLabel for="descricao" value="Descrição do Evento:" style="padding-left: 6px;"/></b></small>
+								<br />
+								<p:inputText id="descricao"
+									value="#{openSiepController.siep.descricaoEvento}" required="true"
+									requiredMessage="Insira a descrição"
+									style="width: 97%"/>								
+							</div>
+							<div style="float: left; width: 30%; margin-right: 10px;">
+								<small><b><p:outputLabel for="tipoEvento" value="Tipo do Evento:" style="padding-left: 6px;"/></b></small>
+								<br />
+								<p:inputText id="tipoEvento"
+									value="#{openSiepController.siep.tipoEvento}" required="true"
+									requiredMessage="Insira o tipo do evento"
+									style="width: 97%"/>								
+							</div>
+							<div style="float: left; width: 15%; margin-right: 10px;">
+								<small><b><p:outputLabel for="qtdEvento" value="Publico Estimado:" style="padding-left: 6px;"/></b></small>
+								<br />
+								<p:inputText id="qtdEvento"
+									value="#{openSiepController.siep.publicoEstimado}" required="true"
+									requiredMessage="Insira o publico estimado"
+									style="width: 97%"/>								
+							</div>
+							
+						</li>
+						<li>
+							<div style="float: left; width: 25%;">
+								<small><b><p:outputLabel for="dataEvento" value="Data do Evento:" style="padding-left: 6px;"/></b></small>
+								<br />							
+								<p:calendar id="dataEvento" value="#{openSiepController.siep.dataEvento.time}" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Insira a data do evento"/>
+							</div>
 							<div style="float: left; width: 49%; margin-right: 10px;">
 								<small><b><p:outputLabel for="solicitante" value="Solicitante:" style="padding-left: 6px;"/></b></small>
 								<br />
@@ -102,7 +132,7 @@
 		</h:form>
 		
 		<!-- ##################################### -->
-		<!-- # Tabela de acompanhamento de RIP's # -->
+		<!-- # Tabela de acompanhamento de SIEP's # -->
 		<!-- ##################################### -->
 		
 		<h:form id="siepDataForm" rendered="#{openSiepController.siep.id eq null}">
@@ -116,7 +146,7 @@
 				lazy="true"
 				paginator="true"
 				value="#{openSiepController.siepDataModel}"
-				emptyMessage="Nenhuma RIP encontrada."
+				emptyMessage="Nenhuma SIEP encontrada."
 				selection="#{openSiepController.selection}" 
 				selectionMode="single"
 				disabledSelection="#{siep.status.name() eq 'CLOSED'}"
@@ -128,10 +158,10 @@
 					update=":formWrapper" />
 
 				<f:facet name="header">
-					<h:outputText value="RIPs em Andamento" />
+					<h:outputText value="SIEPs em Andamento" />
 				</f:facet>
 
-				<p:column headerText="N° RIP">
+				<p:column headerText="N° SIEP">
 					<h:outputText value="#{siep.id}" />
 				</p:column>
 

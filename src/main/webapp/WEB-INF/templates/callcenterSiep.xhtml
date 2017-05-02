@@ -30,7 +30,7 @@
 				</sec:authorize>	
 				
 				<sec:authorize access="hasRole('CALLCENTER_SIEP')">
-					<p:submenu label="RIP's" icon="ui-icon-clipboard">
+					<p:submenu label="SIEP's" icon="ui-icon-clipboard">
 						<p:menuitem value="Cadastrar" url="/pages/callcenterSiep/open/" icon="ui-icon-clipboard"/>
 						<p:menuitem value="Finalizar" url="/pages/callcenterSiep/close/" icon="ui-icon-check"/>
 						<p:menuitem value="Estornar" url="/pages/callcenterSiep/reverse/" icon="ui-icon-arrowreturnthick-1-n"/>
@@ -40,6 +40,8 @@
 					</p:submenu>
 					
 					<p:menuitem value="Atendentes" url="/pages/callcenterSiep/user/" icon="ui-icon-person" /> 
+					
+					<p:menuitem value="Atendentes Geral" url="/pages/callcenterSiep/user/geral.jsf" icon="ui-icon-person" />
 					 
 				</sec:authorize>
 				

@@ -77,6 +77,24 @@ public class ReportHandler implements Serializable {
 	    return new DefaultStreamedContent(stream, "application/pdf", "report-"+  sdf.format(now.getTime())  +".pdf"); 
 	}
 	
+	public synchronized StreamedContent getStatisticSimpleReport(Report report) throws JRException, IOException {
+		List<Report> reports = new ArrayList<>();
+		
+		reports.add(report);
+		
+		Calendar now = Calendar.getInstance(TimeZone.getTimeZone("GMT-03:00"));
+		
+		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(reports);
+		
+		String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/jasper/relatorioSimples.jasper");
+		
+		JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, new HashMap<String, Object>(), beanCollectionDataSource);
+	    ByteArrayInputStream stream = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jasperPrint));
+
+	    SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+	    return new DefaultStreamedContent(stream, "application/pdf", "report-"+  sdf.format(now.getTime())  +".pdf"); 
+	}
+	
 	public synchronized StreamedContent getCostReport(CostReport report) throws JRException, IOException {
 		List<CostReport> costReport = new ArrayList<>();
 		

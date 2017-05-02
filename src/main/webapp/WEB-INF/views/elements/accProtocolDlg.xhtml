@@ -28,7 +28,7 @@
 						</p:inputMask>
 					</p:column>
 					<p:column>
-						<p:commandButton id="loadRip" value="Carregar RIP" process=":protocolForm"
+						<p:commandButton id="loadRip" value="Carregar" process=":protocolForm"
 							action="#{controller.find}" update="#{(findRipUpdate ne null)? findRipUpdate : ':formWrapper'}" oncomplete="accProtocol.hide();" />
 					</p:column>
 				</p:row>

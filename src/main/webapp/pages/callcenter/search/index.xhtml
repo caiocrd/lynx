@@ -33,6 +33,7 @@
 			<ui:decorate template="/WEB-INF/views/elements/fullMovFilter.xhtml"/>
 			
 		<h:form id="dataForm" rendered="#{(controller.rip.id eq null) and (controller.filter.filterStatus)}">
+			
 			<p:dataTable 
 				id="movementSearchTable" 
 				var="mov" 

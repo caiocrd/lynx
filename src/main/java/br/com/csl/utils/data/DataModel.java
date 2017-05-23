@@ -36,7 +36,6 @@ public interface DataModel<T extends PersistentEntity> extends SelectableDataMod
 	List<T> paginatedList(Integer startingAt, Integer maxPerPage, Criterion criterion, List<Order> orders);
 
 	T find(Serializable id);
-
 	List<T> load(int first, int pageSize, List<SortMeta> multiSortMeta,	Map<String, String> filters);
 
 }

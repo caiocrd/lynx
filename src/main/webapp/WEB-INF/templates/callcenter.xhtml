@@ -45,8 +45,11 @@
 					</p:submenu>
 
 					<p:menuitem value="Postes" url="/pages/callcenter/lightpole/" icon="ui-icon-lightbulb" />
-					
-					<p:menuitem value="Relatório" url="/pages/callcenter/report/" icon="ui-icon-document" />
+					<p:submenu label="Relatórios" icon="ui-icon-document">
+						<p:menuitem value="Relatório" url="/pages/callcenter/report/" icon="ui-icon-document" />
+						<p:menuitem value="Geral" url="/pages/callcenter/report/geral.jsf" icon="ui-icon-document" />
+
+					</p:submenu>
 
 					<p:menuitem value="Atendentes" url="/pages/callcenter/user/" icon="ui-icon-person" /> 
 					<p:menuitem value="Atendentes Geral" url="/pages/callcenter/user/geral.jsf" icon="ui-icon-person" />

@@ -51,8 +51,8 @@
 			</p:panelGrid>
 			</p:panel>
 			
-			<p:panel>
-			<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="3">
+			<p:panel rendered="#{controller.dados != null}">
+			<p:panelGrid  style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="3">
 			
 				<ui:repeat var="dados" value="#{controller.dados}">
 					<h1>#{dados.titulo}</h1>

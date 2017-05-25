@@ -38,7 +38,7 @@ public class ReportAllController extends CommonController {
 	@PostConstruct
 	public void init() {
 		dados = null;
-		carregar();
+		
 		
 	}
 	
@@ -96,7 +96,10 @@ public class ReportAllController extends CommonController {
 	
 	private List<RelatorioGeral> carregarRelatorio(){
 		try {
-			
+			if(dataFim == null || dataInicio ==  null){
+				addFacesErrorMessage("Escolha das datas de inicio e fim");
+				return null;
+			}
 			Query q = ripDAO.getSession().createSQLQuery("SELECT b.zona, sum(CASE WHEN r.status = 'OPEN' THEN 1 ELSE 0 END) AS abertas, "
 					+ "sum(CASE WHEN r.status = 'EXECUTING' THEN 1 ELSE 0 END) AS aExecutar, "
 					+ "sum(CASE WHEN r.status = 'EVALUATING' THEN 1 ELSE 0 END) AS avaliar, "
@@ -109,8 +112,8 @@ public class ReportAllController extends CommonController {
 					+ "sum(CASE WHEN r.status = 'CANCELED' THEN 1 ELSE 0 END) AS cancelada "
 					+ "from rip r "
 					+ "JOIN movimentacao m ON m.rip_id = r.id  JOIN endereco e ON r.endereco_id = e.id "
-					+ "JOIN bairro b on e.bairro_id = b.id  WHERE m.movimento = 'OPEN'  group by b.zona")
-					.setResultTransformer(Transformers.aliasToBean(RelatorioGeral.class));
+					+ "JOIN bairro b on e.bairro_id = b.id  WHERE m.movimento = 'OPEN' AND DATE(m.data) BETWEEN :INICIO AND :FIM group by b.zona")
+					.setParameter("INICIO", dataInicio).setParameter("FIM", dataFim).setResultTransformer(Transformers.aliasToBean(RelatorioGeral.class));
 			List<RelatorioGeral> resultado = q.list();
 			return resultado;
 		} catch (Exception e) {

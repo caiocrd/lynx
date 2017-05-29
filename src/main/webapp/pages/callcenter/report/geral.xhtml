@@ -51,7 +51,7 @@
 			</p:panelGrid>
 			</p:panel>
 			
-			<p:panel rendered="#{controller.dados != null}">
+			<p:panel rendered="#{controller.dados != null}" id="painelGraficos">
 			<p:panelGrid  style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="3">
 			
 				<ui:repeat var="dados" value="#{controller.dados}">
@@ -64,6 +64,7 @@
 				
 			</p:panelGrid>
 			</p:panel>
+			
 			<p:panelGrid style="margin: auto; margin-top: 20px; width: 75%; text-align: center;" columns="3">
 				
 				<p:commandButton id="searchRips" value="Pesquisar"
@@ -73,6 +74,10 @@
 				<p:commandButton value="Limpar" onclick="form.reset()"
 					action="#{controller.clear}" process="@this"
 					update="@form " style="width: 120px;" icon="ui-icon-close" />
+				
+				<p:commandButton value="Imprimir" onclick="window.print();" rendered="#{controller.dados != null}">
+					
+				</p:commandButton>
 			</p:panelGrid>	
 			
 			</h:form>

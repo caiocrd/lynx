@@ -78,6 +78,9 @@ public class ReportAllController extends CommonController {
 			grafico.set("Finalizadas: " + relatorioZona.getFinalizada(), relatorioZona.getFinalizada());
 			relatorioGeral.setFinalizada(relatorioGeral.getFinalizada().add(relatorioZona.getFinalizada()));
 			
+			grafico.set("Finalizadas no prazo: " + relatorioZona.getFinalizadaDentroPrazo(), relatorioZona.getFinalizadaDentroPrazo());
+			relatorioGeral.setFinalizadaDentroPrazo(relatorioGeral.getFinalizadaDentroPrazo().add(relatorioZona.getFinalizadaDentroPrazo()));
+			
 			grafico.set("Canceladas: " + relatorioZona.getCancelada(), relatorioZona.getCancelada());
 			relatorioGeral.setCancelada(relatorioGeral.getCancelada().add(relatorioZona.getCancelada()));
 			
@@ -101,20 +104,23 @@ public class ReportAllController extends CommonController {
 				return null;
 			}
 			Query q = ripDAO.getSession().createSQLQuery("SELECT b.zona, sum(CASE WHEN r.status = 'OPEN' THEN 1 ELSE 0 END) AS abertas, "
-					+ "sum(CASE WHEN r.status = 'EXECUTING' THEN 1 ELSE 0 END) AS aExecutar, "
-					+ "sum(CASE WHEN r.status = 'EVALUATING' THEN 1 ELSE 0 END) AS avaliar, "
-					+ "sum(CASE WHEN r.status = 'ADEQUATING' THEN 1 ELSE 0 END) AS adequada, "
-					+ "sum(CASE WHEN r.status = 'REVERSING' THEN 1 ELSE 0 END) AS aguardandoEstorno, "
-					+ "sum(CASE WHEN r.status = 'REVERSED' THEN 1 ELSE 0 END) AS estornada, "
-					+ "sum(CASE WHEN r.status = 'EVALUATING_FEEDBACK' THEN 1 ELSE 0 END) AS feedbackNegativo, "
-					+ "sum(CASE WHEN r.status = 'DONE' THEN 1 ELSE 0 END) AS aguardandoFinalizacao, "
-					+ "sum(CASE WHEN r.status = 'CLOSED' THEN 1 ELSE 0 END) AS finalizada, "
-					+ "sum(CASE WHEN r.status = 'CANCELED' THEN 1 ELSE 0 END) AS cancelada "
+					+ "sum(CASE WHEN r.status = 'EXECUTING' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS aExecutar, "
+					+ "sum(CASE WHEN r.status = 'EVALUATING' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS avaliar, "
+					+ "sum(CASE WHEN r.status = 'ADEQUATING' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS adequada, "
+					+ "sum(CASE WHEN r.status = 'REVERSING' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS aguardandoEstorno, "
+					+ "sum(CASE WHEN r.status = 'REVERSED' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS estornada, "
+					+ "sum(CASE WHEN r.status = 'EVALUATING_FEEDBACK' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS feedbackNegativo, "
+					+ "sum(CASE WHEN r.status = 'DONE' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS aguardandoFinalizacao, "
+					+ "sum(CASE WHEN r.status = 'CLOSED' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS finalizada, "
+					+ "sum(CASE WHEN (r.status = 'CLOSED' AND mm.data < r.previsao AND mm.movimento = 'CLOSE') THEN 1 ELSE 0 END) AS finalizadaDentroPrazo, "
+					+ "sum(CASE WHEN r.status = 'CANCELED' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS cancelada "
 					+ "from rip r "
-					+ "JOIN movimentacao m ON m.rip_id = r.id  JOIN endereco e ON r.endereco_id = e.id "
-					+ "JOIN bairro b on e.bairro_id = b.id  WHERE m.movimento = 'OPEN' AND DATE(m.data) BETWEEN :INICIO AND :FIM group by b.zona")
+					+ "JOIN movimentacao m ON (m.rip_id = r.id and m.movimento = 'OPEN') LEFT JOIN movimentacao mm ON (mm.rip_id = r.id and mm.movimento = 'CLOSE') "
+					+ "JOIN endereco e ON r.endereco_id = e.id "
+					+ "JOIN bairro b on e.bairro_id = b.id  WHERE DATE(m.data) BETWEEN :INICIO AND :FIM group by b.zona")
 					.setParameter("INICIO", dataInicio).setParameter("FIM", dataFim).setResultTransformer(Transformers.aliasToBean(RelatorioGeral.class));
 			List<RelatorioGeral> resultado = q.list();
+			
 			return resultado;
 		} catch (Exception e) {
 			e.printStackTrace();

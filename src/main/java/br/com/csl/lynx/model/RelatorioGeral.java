@@ -15,6 +15,7 @@ public class RelatorioGeral {
 	private BigDecimal feedbackNegativo;
 	private BigDecimal aguardandoFinalizacao;
 	private BigDecimal finalizada;
+	private BigDecimal finalizadaDentroPrazo;
 	private BigDecimal cancelada;
 	
 	public RelatorioGeral() {
@@ -27,6 +28,7 @@ public class RelatorioGeral {
 		feedbackNegativo = new BigDecimal(0);
 		aguardandoFinalizacao = new BigDecimal(0);
 		finalizada = new BigDecimal(0);
+		finalizadaDentroPrazo = new BigDecimal(0);
 		cancelada = new BigDecimal(0);
 	}
 	
@@ -91,6 +93,15 @@ public class RelatorioGeral {
 	public void setFinalizada(BigDecimal finalizada) {
 		this.finalizada = finalizada;
 	}
+	
+	public BigDecimal getFinalizadaDentroPrazo() {
+		return finalizadaDentroPrazo;
+	}
+
+	public void setFinalizadaDentroPrazo(BigDecimal finalizadaDentroPrazo) {
+		this.finalizadaDentroPrazo = finalizadaDentroPrazo;
+	}
+
 	public BigDecimal getCancelada() {
 		return cancelada;
 	}

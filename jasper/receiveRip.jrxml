@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Received Rip" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="25" rightMargin="15" topMargin="43" bottomMargin="43" uuid="a1c65053-2107-4f0c-b129-16c97fd1fac9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="19"/>
 	<property name="ireport.layers" value="##Sun Dec 01 04:39:40 BRT 2013\nlayer.2.name=Logo\nlayer.5.id=5\nlayer.4.visible=true\nlayer.2.visible=true\nlayer.3.name=TipoDocumento\nlayer.0.visible=true\nlayer.4.name=Header\nlayer.0.id=0\nlayer.5.name=Layer 1\nlayer.1.id=1\nlayer.5.visible=true\nlayer.3.visible=true\nlayer.2.id=2\nlayer.1.visible=true\nlayer.0.name=Background\nlayer.3.id=3\nlayer.1.name=Titulo\nlayer.4.id=4"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
@@ -162,7 +162,7 @@ Tel.: 3232-8012]]></text>
 	<detail>
 		<band height="608" splitType="Stretch">
 			<frame>
-				<reportElement mode="Transparent" x="0" y="0" width="555" height="598" forecolor="#000000" backcolor="#FFFFFF" uuid="b4caf644-2eff-4669-bae9-801dab65f150"/>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="608" forecolor="#000000" backcolor="#FFFFFF" uuid="b4caf644-2eff-4669-bae9-801dab65f150"/>
 				<frame>
 					<reportElement x="0" y="0" width="555" height="23" uuid="509743c0-efb0-434e-af76-0201bef5d528"/>
 					<frame>
@@ -298,7 +298,7 @@ Tel.: 3232-8012]]></text>
 					</frame>
 				</frame>
 				<frame>
-					<reportElement x="0" y="46" width="555" height="23" uuid="bc90ebc2-efe2-451e-9ecf-9cb5af72d384"/>
+					<reportElement x="0" y="46" width="555" height="65" uuid="bc90ebc2-efe2-451e-9ecf-9cb5af72d384"/>
 					<staticText>
 						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="571f143e-d709-4e64-a865-71e234db6e12"/>
 						<textElement>
@@ -307,18 +307,18 @@ Tel.: 3232-8012]]></text>
 						<text><![CDATA[Referência]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
-						<reportElement style="Field" x="0" y="10" width="555" height="13" uuid="ddf5be3f-b74e-4ff2-9e3b-9ab4e3778af4"/>
+						<reportElement style="Field" x="0" y="10" width="555" height="55" uuid="ddf5be3f-b74e-4ff2-9e3b-9ab4e3778af4"/>
 						<textFieldExpression><![CDATA[$F{poste}.getReferencia().toUpperCase()]]></textFieldExpression>
 					</textField>
 					<rectangle>
-						<reportElement mode="Transparent" x="0" y="0" width="555" height="23" uuid="f5c8dc17-d59f-49eb-b51c-cfb05070c7b5"/>
+						<reportElement mode="Transparent" x="0" y="0" width="555" height="65" uuid="f5c8dc17-d59f-49eb-b51c-cfb05070c7b5"/>
 						<graphicElement>
 							<pen lineWidth="0.15"/>
 						</graphicElement>
 					</rectangle>
 				</frame>
 				<frame>
-					<reportElement x="0" y="79" width="555" height="23" uuid="947d0b42-dbba-4cac-8ab1-81fc7d8c3b2c"/>
+					<reportElement x="0" y="123" width="555" height="23" uuid="947d0b42-dbba-4cac-8ab1-81fc7d8c3b2c"/>
 					<frame>
 						<reportElement x="0" y="0" width="210" height="23" uuid="1569a570-be94-4ac5-8a31-59675b57b043"/>
 						<staticText>
@@ -381,7 +381,7 @@ Tel.: 3232-8012]]></text>
 					</frame>
 				</frame>
 				<frame>
-					<reportElement x="0" y="102" width="555" height="23" uuid="11737298-8725-4d5f-bb0d-53e79c090ee0"/>
+					<reportElement x="0" y="146" width="555" height="23" uuid="11737298-8725-4d5f-bb0d-53e79c090ee0"/>
 					<frame>
 						<reportElement x="0" y="0" width="210" height="23" uuid="678c47a0-1447-4c22-b25e-51ebd45b0775"/>
 						<staticText>
@@ -424,7 +424,7 @@ Tel.: 3232-8012]]></text>
 					</frame>
 				</frame>
 				<frame>
-					<reportElement x="0" y="125" width="555" height="90" uuid="5b256437-1993-44f2-8ce4-f32def29df6d"/>
+					<reportElement x="0" y="169" width="555" height="90" uuid="5b256437-1993-44f2-8ce4-f32def29df6d"/>
 					<staticText>
 						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="b8551a8f-73ba-464d-ae19-8615645e505e"/>
 						<textElement>
@@ -447,7 +447,7 @@ Tel.: 3232-8012]]></text>
 					</rectangle>
 				</frame>
 				<frame>
-					<reportElement x="0" y="225" width="555" height="100" uuid="4e3bc58c-f305-4622-9644-a8506d063ac1"/>
+					<reportElement x="0" y="269" width="555" height="100" uuid="4e3bc58c-f305-4622-9644-a8506d063ac1"/>
 					<staticText>
 						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="b73547f6-c112-4615-bb54-eb136d16adfa"/>
 						<textElement>
@@ -463,7 +463,7 @@ Tel.: 3232-8012]]></text>
 					</rectangle>
 				</frame>
 				<frame>
-					<reportElement x="0" y="335" width="555" height="263" uuid="fd07be60-aa34-4b16-9a02-d0d0edb99bd8"/>
+					<reportElement x="0" y="379" width="555" height="219" uuid="fd07be60-aa34-4b16-9a02-d0d0edb99bd8"/>
 					<staticText>
 						<reportElement style="Label" x="0" y="0" width="555" height="10" uuid="2a167a1f-22f0-49fb-8b47-50c6f833623b"/>
 						<textElement>
@@ -472,7 +472,7 @@ Tel.: 3232-8012]]></text>
 						<text><![CDATA[Materiais e Serviços]]></text>
 					</staticText>
 					<rectangle>
-						<reportElement mode="Transparent" x="0" y="0" width="555" height="263" uuid="cf299a49-9989-4dc8-aa52-d2d141d463d7"/>
+						<reportElement mode="Transparent" x="0" y="0" width="555" height="219" uuid="cf299a49-9989-4dc8-aa52-d2d141d463d7"/>
 						<graphicElement>
 							<pen lineWidth="0.15"/>
 						</graphicElement>

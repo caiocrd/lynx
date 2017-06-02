@@ -348,9 +348,12 @@ public class EnderecoHandler extends CommonController {
 				List<Bairro> bairros = new ArrayList<Bairro>();
 				
 				for (LogradouroBairro aux : enderecoFacade.getLogBairroService().list("logradouro", logradouro, null)) {
-					bairros.add(aux.getBairro());
+					specificBairros.add(aux.getBairro());
 				}
-
+				if(specificBairros != null && !specificBairros.isEmpty()){
+					bairros = null;
+					return;
+				}
 				if ((bairro == null)
 						|| (bairro != null && bairros.contains(
 								bairro))) {
@@ -489,6 +492,9 @@ public class EnderecoHandler extends CommonController {
 	}
 
 	public List<Bairro> getBairros() {
+		if(specificBairros != null && !specificBairros.isEmpty()){
+			return null;
+		}
 		if (bairros == null) {
 			bairros = enderecoFacade.getBairroService().list();
 		}

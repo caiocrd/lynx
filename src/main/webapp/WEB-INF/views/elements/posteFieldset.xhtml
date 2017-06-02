@@ -128,7 +128,7 @@
 					
 					<f:selectItem itemLabel="" itemValue="" />
 					
-					<f:selectItems 
+					<f:selectItems noSelectionValue="#{enderecoHandler.specificBairros.isEmpty}" 
 						value="#{enderecoHandler.bairros}" 
 						var="bairro"
 						itemValue="#{bairro.nome}" 

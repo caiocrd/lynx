@@ -46,10 +46,10 @@ public abstract class RegionAbstractController extends AbstractRipAction {
 				break;
 			}
 		}
-		
-		restraints = disjunction;
-		
-		//restraints = Restrictions.and(disjunction, Restrictions.eq("movimento", Movement.OPEN));
+//		disjunction.add(criterion)
+//		restraints = disjunction;
+//		
+		restraints = Restrictions.and(disjunction, Restrictions.eq("movimento", Movement.OPEN));
 	
 	}
 

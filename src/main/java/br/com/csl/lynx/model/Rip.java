@@ -53,6 +53,7 @@ public class Rip implements DomainObject {
 	private List<Movimentacao> movimentacoes;
 	private List<QtdServico> qtdServicos;
 	private List<Ocorrencia> ocorrencias;
+	private String nomePraca;
 
 	@PrePersist
 	public void prepare() {
@@ -199,6 +200,14 @@ public class Rip implements DomainObject {
 	
 	public void setOcorrencias(List<Ocorrencia> ocorrencias) {
 		this.ocorrencias = ocorrencias;
+	}
+	
+	public String getNomePraca() {
+		return nomePraca;
+	}
+
+	public void setNomePraca(String nomePraca) {
+		this.nomePraca = nomePraca;
 	}
 
 	@Override

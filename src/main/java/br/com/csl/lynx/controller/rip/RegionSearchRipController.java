@@ -50,9 +50,7 @@ public class RegionSearchRipController extends RegionAbstractController {
 	public void init() {
 		setRestraints();
 		
-		if(restraints != null)
-			filter = new AdvancedFilter(restraints);
-		else
+		
 			filter = new AdvancedFilter(Restrictions.eq("movimento", Movement.OPEN));
 		clear();
 	}

@@ -1,5 +1,8 @@
 package br.com.csl.lynx.controller.report;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,37 +54,37 @@ public class ReportAllController extends CommonController {
 		for (RelatorioGeral relatorioZona : relatorio) {
 			PieChartModel grafico = new PieChartModel();
 			
-			grafico.set("Abertas: " + relatorioZona.getAbertas(), relatorioZona.getAbertas());
+			grafico.set("Abertas: " + relatorioZona.getAbertas() + " - " + relatorioZona.getAbertas().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getAbertas());
 			relatorioGeral.setAbertas(relatorioGeral.getAbertas().add(relatorioZona.getAbertas()));
 			
-			grafico.set("À Executar: " + relatorioZona.getaExecutar(), relatorioZona.getaExecutar());
+			grafico.set("À Executar: " + relatorioZona.getaExecutar() + " - " + relatorioZona.getaExecutar().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP), relatorioZona.getaExecutar());
 			relatorioGeral.setaExecutar(relatorioGeral.getaExecutar().add(relatorioZona.getaExecutar()));
 			
-			grafico.set("Avaliar: " + relatorioZona.getAvaliar(), relatorioZona.getAvaliar());
+			grafico.set("Avaliar: " + relatorioZona.getAvaliar() + " - " + relatorioZona.getAvaliar().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getAvaliar());
 			relatorioGeral.setAvaliar(relatorioGeral.getAvaliar().add(relatorioZona.getAvaliar()));
 			
-			grafico.set("Adequada: " + relatorioZona.getAdequada(), relatorioZona.getAdequada());
+			grafico.set("Adequada: " + relatorioZona.getAdequada() + " - " + relatorioZona.getAdequada().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getAdequada());
 			relatorioGeral.setAdequada(relatorioGeral.getAdequada().add(relatorioZona.getAdequada()));
 			
-			grafico.set("Aguardando Estorno: " + relatorioZona.getAguardandoEstorno(), relatorioZona.getAguardandoEstorno());
+			grafico.set("Aguardando Estorno: " + relatorioZona.getAguardandoEstorno() + " - " + relatorioZona.getAguardandoEstorno().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getAguardandoEstorno());
 			relatorioGeral.setAguardandoEstorno(relatorioGeral.getAguardandoEstorno().add(relatorioZona.getAguardandoEstorno()));
 			
-			grafico.set("Estornada: " + relatorioZona.getEstornada(), relatorioZona.getEstornada());
+			grafico.set("Estornada: " + relatorioZona.getEstornada() + " - " + relatorioZona.getEstornada().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getEstornada());
 			relatorioGeral.setEstornada(relatorioGeral.getEstornada().add(relatorioZona.getEstornada()));
 			
-			grafico.set("Com FBK Negativo: " + relatorioZona.getFeedbackNegativo(), relatorioZona.getFeedbackNegativo());
+			grafico.set("Com FBK Negativo: " + relatorioZona.getFeedbackNegativo() + " - " + relatorioZona.getFeedbackNegativo().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getFeedbackNegativo());
 			relatorioGeral.setFeedbackNegativo(relatorioGeral.getFeedbackNegativo().add(relatorioZona.getFeedbackNegativo()));
 			
-			grafico.set("Aguardando Finalização: " + relatorioZona.getAguardandoFinalizacao(), relatorioZona.getAguardandoFinalizacao());
+			grafico.set("Aguardando Finalização: " + relatorioZona.getAguardandoFinalizacao() + " - " + relatorioZona.getAguardandoFinalizacao().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getAguardandoFinalizacao());
 			relatorioGeral.setAguardandoFinalizacao(relatorioGeral.getAguardandoFinalizacao().add(relatorioZona.getAguardandoFinalizacao()));
 			
-			grafico.set("Finalizadas: " + relatorioZona.getFinalizada(), relatorioZona.getFinalizada());
+			grafico.set("Finalizadas: " + relatorioZona.getFinalizada() + " - " + relatorioZona.getFinalizada().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getFinalizada());
 			relatorioGeral.setFinalizada(relatorioGeral.getFinalizada().add(relatorioZona.getFinalizada()));
 			
-			grafico.set("Finalizadas no prazo: " + relatorioZona.getFinalizadaDentroPrazo(), relatorioZona.getFinalizadaDentroPrazo());
+			grafico.set("Finalizadas no prazo: " + relatorioZona.getFinalizadaDentroPrazo()  + " - " + relatorioZona.getFinalizadaDentroPrazo().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getFinalizadaDentroPrazo());
 			relatorioGeral.setFinalizadaDentroPrazo(relatorioGeral.getFinalizadaDentroPrazo().add(relatorioZona.getFinalizadaDentroPrazo()));
 			
-			grafico.set("Canceladas: " + relatorioZona.getCancelada(), relatorioZona.getCancelada());
+			grafico.set("Canceladas: " + relatorioZona.getCancelada() + " - " + relatorioZona.getCancelada().multiply(new BigDecimal(100)).divide(relatorioZona.getTotal(), 2, RoundingMode.HALF_UP) + "%", relatorioZona.getCancelada());
 			relatorioGeral.setCancelada(relatorioGeral.getCancelada().add(relatorioZona.getCancelada()));
 			
 			Dados dado = new Dados();
@@ -113,7 +116,8 @@ public class ReportAllController extends CommonController {
 					+ "sum(CASE WHEN r.status = 'DONE' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS aguardandoFinalizacao, "
 					+ "sum(CASE WHEN r.status = 'CLOSED' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS finalizada, "
 					+ "sum(CASE WHEN (r.status = 'CLOSED' AND mm.data < r.previsao AND mm.movimento = 'CLOSE') THEN 1 ELSE 0 END) AS finalizadaDentroPrazo, "
-					+ "sum(CASE WHEN r.status = 'CANCELED' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS cancelada "
+					+ "sum(CASE WHEN r.status = 'CANCELED' and m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS cancelada, "
+					+ "sum(CASE WHEN m.movimento = 'OPEN' THEN 1 ELSE 0 END) AS total "
 					+ "from rip r "
 					+ "JOIN movimentacao m ON (m.rip_id = r.id and m.movimento = 'OPEN') LEFT JOIN movimentacao mm ON (mm.rip_id = r.id and mm.movimento = 'CLOSE') "
 					+ "JOIN endereco e ON r.endereco_id = e.id "

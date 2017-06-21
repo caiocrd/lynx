@@ -82,8 +82,19 @@
 									
 									<f:selectItems value="#{enumLists.problems}" var="problems"
 										itemLabel="#{problems.label}" itemValue="#{problems}" />
+									<p:ajax update="@form" process="@this"/>
 								</p:selectOneMenu>							
 							</div>
+						</li>
+						<li>
+						
+						<h:panelGroup id="campoPraca" rendered="#{openRipController.rip.tipoReclamacao == 'SQUARE_MAINTENANCE'}">
+							<div style="float: left; width: 90%"  >
+								<small><b><p:outputLabel for="nomePraca" value="Nome da Praça:" style="padding-left: 6px;"/></b></small>
+								<br />							
+								<p:inputText style="width: 97%" id="nomePraca" value="#{openRipController.rip.nomePraca}"/>						
+							</div>
+						</h:panelGroup>
 						</li>
 						<sec:authorize access="hasRole('CALLCENTER')">
 							<li>

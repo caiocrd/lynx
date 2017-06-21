@@ -17,6 +17,7 @@ public class RelatorioGeral {
 	private BigDecimal finalizada;
 	private BigDecimal finalizadaDentroPrazo;
 	private BigDecimal cancelada;
+	private BigDecimal total;
 	
 	public RelatorioGeral() {
 		abertas = new BigDecimal(0);
@@ -30,6 +31,7 @@ public class RelatorioGeral {
 		finalizada = new BigDecimal(0);
 		finalizadaDentroPrazo = new BigDecimal(0);
 		cancelada = new BigDecimal(0);
+		total = new BigDecimal(0); 
 	}
 	
 	public String getZona() {
@@ -108,7 +110,19 @@ public class RelatorioGeral {
 	public void setCancelada(BigDecimal cancelada) {
 		this.cancelada = cancelada;
 	}
-	
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+	public BigDecimal getTotal2(){
+		BigDecimal total2 = new BigDecimal(0);
+		return total2.add(aExecutar).add(abertas).add(adequada).add(aguardandoEstorno).add(aguardandoFinalizacao).add(avaliar).add(cancelada).add(estornada).add(feedbackNegativo).add(finalizada).add(finalizadaDentroPrazo);
+		
+	}
 	
 	
 }

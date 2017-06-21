@@ -11,6 +11,8 @@ import org.hibernate.criterion.Restrictions;
 import br.com.csl.lynx.exception.MovementException;
 import br.com.csl.lynx.exception.RipException;
 import br.com.csl.lynx.generic.AbstractRipAction;
+import br.com.csl.lynx.model.Movimentacao;
+import br.com.csl.lynx.model.Rip;
 import br.com.csl.lynx.model.Role;
 import br.com.csl.lynx.session.UserSession;
 import br.com.csl.lynx.support.Movement;
@@ -42,14 +44,15 @@ public abstract class RegionAbstractController extends AbstractRipAction {
 				disjunction.add(Restrictions.eq("bairro.zona",
 						Zona.valueOf(aux.getName())));
 			} else if (aux.getName().equals("REGIAO")) {
-				disjunction = null;
+				disjunction = Restrictions.disjunction();
 				break;
 			}
 		}
 //		disjunction.add(criterion)
-//		restraints = disjunction;
+		restraints = disjunction;
 //		
-		restraints = Restrictions.and(disjunction, Restrictions.eq("movimento", Movement.OPEN));
+		//if (filter.getFilterClass().equals(Movimentacao.class)) 
+			//restraints = Restrictions.and(disjunction, Restrictions.eq("movimento", Movement.OPEN));
 	
 	}
 
